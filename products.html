@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Jhumur Hut</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pinkshade: { 50: '#FFF0F5', 100: '#FFE4E1', 200: '#FBCFE8', 600: '#DB2777', 700: '#BE185D', 800: '#9D174D', 900: '#831843', 950: '#500724' }
+                    },
+                    fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#FFF0F5] text-slate-800 min-h-screen flex flex-col justify-between">
+    
+    <header class="bg-white border-b border-pinkshade-200 h-20 flex items-center px-6">
+        <a href="index.html" class="text-pinkshade-900 font-bold text-sm hover:text-pinkshade-600 transition flex items-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> Back to Store Catalog
+        </a>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-6 my-10 bg-white rounded-3xl shadow-xl border border-pinkshade-200 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="aspect-square bg-pinkshade-50 rounded-2xl overflow-hidden border border-pinkshade-100">
+            <img id="pImg" src="" class="w-full h-full object-cover">
+        </div>
+        <div class="flex flex-col justify-between space-y-4">
+            <div>
+                <span id="pCat" class="text-xs font-bold uppercase tracking-widest text-pinkshade-800 bg-pinkshade-100 px-3 py-1 rounded-full border border-pinkshade-200">Category</span>
+                <h1 id="pName" class="font-serif text-3xl font-bold text-pinkshade-950 mt-3">Product Name</h1>
+                <p id="pPrice" class="text-2xl font-bold text-pinkshade-700 mt-2">৳ 0</p>
+                <p id="pStock" class="text-xs font-bold text-emerald-600 mt-1">In Stock</p>
+                
+                <div class="mt-6 border-t border-pinkshade-100 pt-4 space-y-2 text-xs text-slate-600">
+                    <p class="font-bold text-slate-800">Description & Specifications:</p>
+                    <p id="pDesc" class="text-slate-600 leading-relaxed">Product description loading...</p>
+                    <div class="pt-2 space-y-1">
+                        <p>• 100% Authentic Guaranteed Brand Product</p>
+                        <p>• Fast delivery across all districts in Bangladesh</p>
+                        <p>• Money-back guarantee for authenticity</p>
+                    </div>
+                </div>
+            </div>
+            <button id="addBtn" onclick="addToCartFromPage()" class="w-full bg-gradient-to-r from-pinkshade-700 to-pinkshade-900 text-white font-bold py-3.5 rounded-xl hover:from-pinkshade-800 hover:to-black transition shadow-md">
+                Add to Shopping Bag
+            </button>
+        </div>
+    </main>
+
+    <footer class="bg-pinkshade-950 text-white py-6 text-center text-xs border-t border-pinkshade-900">
+        © 2026 Jhumur Hut. All rights reserved.
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get('id'));
+
+        const BEAUTY_PRODUCTS = [
+            { id: 1, name: "Beauty of Joseon Relief Sun Rice + Probiotics SPF50+", category: "Skincare", price: 1450, stock: 25, image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80", desc: "Lightweight organic sunscreen with rice extract and grain-derived probiotics for deep hydration and broad-spectrum protection." },
+            { id: 2, name: "COSRX Advanced Snail 96 Mucin Power Essence", category: "Skincare", price: 1650, stock: 18, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80", desc: "96.3% Snail Secretion Filtrate essence protects skin from moisture loss while improving elasticity and repair." },
+            { id: 3, name: "Laneige Lip Sleeping Mask - Berry Pink", category: "Skincare", price: 1200, stock: 30, image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80", desc: "Overnight lip mask that melts away dead skin cells to reveal smooth, plump, moisturized lips by morning." },
+            { id: 4, name: "CeraVe Hydrating Facial Cleanser 237ml", category: "Skincare", price: 1850, stock: 12, image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80", desc: "Gentle non-foaming hydrating face wash enriched with 3 essential ceramides and hyaluronic acid." },
+            { id: 5, name: "The Ordinary Niacinamide 10% + Zinc 1%", category: "Skincare", price: 1100, stock: 20, image: "https://images.unsplash.com/photo-1608248597309-8d76d49495ef?auto=format&fit=crop&w=600&q=80", desc: "High-strength vitamin and mineral blemish serum to reduce appearance of skin spots and pore congestion." },
+            { id: 6, name: "Rom&nd Juicy Lasting Lip Tint - Figfig", category: "Makeup", price: 950, stock: 15, image: "https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?auto=format&fit=crop&w=600&q=80", desc: "Viral K-beauty glossy lip tint with syrup-like candy shine that lasts all day without stickiness." },
+            { id: 7, name: "Maybelline Lash Sensational Sky High Mascara", category: "Makeup", price: 1350, stock: 14, image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80", desc: "Volumizing and lengthening mascara enriched with bamboo extract for full impact lash extension effect." },
+            { id: 8, name: "MAC Matte Lipstick - Velvet Teddy", category: "Makeup", price: 2400, stock: 10, image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=600&q=80", desc: "Iconic deep beige nude lipstick with high color payoff and a smooth matte finish." },
+            { id: 9, name: "K18 Leave-In Molecular Repair Hair Mask", category: "Haircare", price: 3200, stock: 8, image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80", desc: "4-minute leave-in treatment clinically proven to reverse hair damage from bleach, color, and heat." },
+            { id: 10, name: "Sol de Janeiro Brazilian Bum Bum Body Cream", category: "Bodycare", price: 2800, stock: 11, image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80", desc: "Fast-absorbing body cream with a visible tightening formula enriched with Guaraná extract and Pistachio-Caramel scent." }
+        ];
+
+        const products = JSON.parse(localStorage.getItem('jhumur_products') || JSON.stringify(BEAUTY_PRODUCTS));
+        const product = products.find(p => p.id === productId);
+
+        if(product) {
+            document.getElementById('pImg').src = product.image;
+            document.getElementById('pCat').innerText = product.category;
+            document.getElementById('pName').innerText = product.name;
+            document.getElementById('pPrice').innerText = `৳ ${product.price.toLocaleString()}`;
+            document.getElementById('pDesc').innerText = product.desc || 'Authentic beauty product guaranteed.';
+            document.getElementById('pStock').innerText = product.stock > 0 ? `Stock Available: ${product.stock} units` : 'Out of Stock';
+            
+            if(product.stock <= 0) {
+                const btn = document.getElementById('addBtn');
+                btn.innerText = "Out of Stock";
+                btn.disabled = true;
+                btn.className = "w-full bg-slate-300 text-slate-500 font-bold py-3.5 rounded-xl cursor-not-allowed";
+            }
+        }
+
+        function addToCartFromPage() {
+            if(!product || product.stock <= 0) return;
+            alert(`${product.name} added to bag! Returning to homepage checkout...`);
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
