@@ -45,41 +45,12 @@
         .font-serif { font-family: 'Playfair Display', serif; }
         .font-cursive { font-family: 'Great Vibes', cursive; }
         
-        @keyframes floatFairy {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(3deg); }
-        }
-        .animate-fairy { animation: floatFairy 4s ease-in-out infinite; }
-        
-        /* YouTube Background Cover Fix */
-        .video-background {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100vw;
-            height: 100vh;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
-        @media (min-aspect-ratio: 16/9) {
-            .video-background { height: 56.25vw; }
-        }
-        @media (max-aspect-ratio: 16/9) {
-            .video-background { width: 177.78vh; }
-        }
-
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #FFF0F5; }
         ::-webkit-scrollbar-thumb { background: #DB2777; border-radius: 10px; }
     </style>
 </head>
 <body class="text-slate-800 antialiased selection:bg-pinkshade-300 selection:text-pinkshade-900">
-
-    <!-- FLOATING FAIRY CARTOON -->
-    <div class="fixed bottom-6 left-4 z-40 hidden md:flex flex-col items-center animate-fairy pointer-events-none">
-        <div class="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-lg border border-pinkshade-200 text-[11px] font-semibold text-pinkshade-800 mb-1">✨ Welcome Princess! ✨</div>
-        <img src="https://media.giphy.com/media/26AHONQ79Ja41MVT2/giphy.gif" alt="Fairy" class="w-20 h-20 drop-shadow-xl">
-    </div>
 
     <!-- TOP PROMO BANNER -->
     <div id="topBanner" class="bg-gradient-to-r from-pinkshade-950 via-pinkshade-900 to-pinkshade-950 text-pinkshade-100 text-xs py-2.5 px-4 text-center font-medium tracking-wide flex justify-between items-center shadow-md">
@@ -91,7 +62,7 @@
         <button onclick="document.getElementById('topBanner').remove()" class="text-pinkshade-200 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
-    <!-- MAIN HEADER WITH SVG LOGO -->
+    <!-- MAIN HEADER WITH LOGO -->
     <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-pinkshade-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
             <a href="#" class="flex items-center gap-3 group">
@@ -134,12 +105,12 @@
         </div>
     </header>
 
-    <!-- HERO SECTION WITH YOUTUBE BACKGROUND VIDEO (NONSTOP LOOP) -->
+    <!-- HERO SECTION WITH NEW BACKGROUND GIF & NO UNWANTED BOXES -->
     <section id="home" class="relative py-20 md:py-28 px-4 sm:px-6 lg:px-8 border-b border-pinkshade-200 overflow-hidden bg-pinkshade-950 text-white min-h-[580px] flex items-center">
         
-        <!-- EMBEDDED YOUTUBE VIDEO PLAYING IN BACKGROUND (AUTOPLAY, LOOP, MUTED) -->
-        <div class="absolute inset-0 overflow-hidden z-0 opacity-40">
-            <iframe class="video-background" src="https://www.youtube.com/embed/WjEewImqiRU?autoplay=1&mute=1&loop=1&playlist=WjEewImqiRU&controls=0&showinfo=0&autohide=1&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <!-- NEW BACKGROUND GIF -->
+        <div class="absolute inset-0 z-0 opacity-40">
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyNGN2bTV3eTh3ank0bDlkdjU5bjcydmFrMm9sNjh6Yng0YWk3dHJydSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L9EUxgj4PCwU6pZXsS/giphy.gif" alt="Background Magic GIF" class="w-full h-full object-cover">
         </div>
 
         <!-- PINK OVERLAY -->
@@ -161,18 +132,6 @@
                     <a href="#products" class="bg-gradient-to-r from-pinkshade-500 to-pinkshade-700 hover:from-pinkshade-600 hover:to-pinkshade-800 text-white font-semibold px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl transition transform active:scale-95 flex items-center gap-2">
                         Shop Pink Collection <i class="fa-solid fa-sparkles text-xs"></i>
                     </a>
-                </div>
-            </div>
-
-            <!-- FAIRY GIFT BOX SHOWCASE GIF -->
-            <div class="relative flex justify-center">
-                <div class="relative w-full max-w-md bg-white/90 backdrop-blur-md p-4 rounded-3xl shadow-2xl border-4 border-pinkshade-300 text-center">
-                    <div class="relative aspect-square rounded-2xl overflow-hidden bg-pinkshade-100 flex items-center justify-center">
-                        <img src="https://media.giphy.com/media/26AHG5xKA45OC61fG/giphy.gif" alt="Pink Fairy Magic Box" class="w-full h-full object-cover">
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-pinkshade-800 shadow flex items-center gap-1">
-                            <span>🦋</span> Fairy Unboxing
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -425,7 +384,6 @@
             currentDeliveryFee = document.getElementById('custCity').value === 'Dhaka' ? 60 : 120;
             const subtotal = cart.reduce((sum, item) => sum + parseFloat(item.price), 0);
             document.getElementById('summarySubtotal').innerText = `৳ ${subtotal.toLocaleString()}`;
-           
             document.getElementById('summaryDelivery').innerText = `৳ ${currentDeliveryFee}`;
             document.getElementById('summaryGrandTotal').innerText = `৳ ${(subtotal + currentDeliveryFee).toLocaleString()}`;
         }
