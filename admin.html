@@ -1,64 +1,205 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jhumur Hut - Admin Portal</title>
+    <title>Jhumur Hut - Admin Control Center</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#FFF5F7',
+                            100: '#FFE6EC',
+                            200: '#FDCED9',
+                            300: '#FBA6B9',
+                            400: '#F77291',
+                            500: '#EE3A67',
+                            600: '#DA1D4C',
+                            700: '#B7123A',
+                            800: '#981334',
+                            900: '#801430'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #FAF7F2; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #FFFDF9; }
         .font-serif { font-family: 'Playfair Display', serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #FFF5F7; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #F77291; border-radius: 10px; }
     </style>
 </head>
-<body class="min-h-screen text-slate-800 flex flex-col justify-center items-center p-4">
+<body class="min-h-screen text-slate-800 flex flex-col justify-center items-center p-4 custom-scrollbar">
 
-    <!-- Login Screen -->
-    <div id="loginSection" class="w-full max-w-md bg-white p-8 rounded-3xl shadow-xl border border-amber-100">
+    <!-- 1. LOGIN SCREEN -->
+    <div id="loginSection" class="w-full max-w-md bg-white p-8 rounded-3xl shadow-2xl border border-pink-100">
         <div class="text-center mb-8">
-            <h1 class="font-serif text-3xl font-bold text-rose-900">Jhumur Hut</h1>
-            <p class="text-slate-500 text-sm mt-1">Admin Portal Management</p>
+            <div class="w-16 h-16 bg-gradient-to-tr from-brand-200 to-pink-100 rounded-full flex items-center justify-center mx-auto text-brand-700 text-2xl mb-3 shadow-inner">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+            <h1 class="font-serif text-3xl font-bold text-brand-900">Jhumur Hut</h1>
+            <p class="text-slate-500 text-xs mt-1">Admin Portal Login</p>
         </div>
+
         <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
             <div>
-                <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Email Address</label>
-                <input type="email" id="adminEmail" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-400" placeholder="admin@jhumurhut.com">
+                <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Email Address</label>
+                <input type="email" id="adminEmail" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm" placeholder="admin@jhumurhut.com">
             </div>
             <div>
-                <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Password</label>
-                <input type="password" id="adminPass" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-400" placeholder="••••••••">
+                <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Password</label>
+                <input type="password" id="adminPass" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm" placeholder="••••••••">
             </div>
-            <p id="errorMsg" class="text-rose-600 text-xs hidden font-medium text-center">Invalid login credentials.</p>
-            <button type="submit" class="w-full bg-rose-900 text-white font-semibold py-3 rounded-xl hover:bg-rose-800 transition">Log In to Dashboard</button>
+            <p id="errorMsg" class="text-rose-600 text-xs hidden font-bold text-center">Incorrect Email or Password!</p>
+            <button type="submit" class="w-full bg-brand-900 text-white font-bold py-3.5 rounded-xl hover:bg-brand-800 transition shadow-lg text-sm">Log In to Control Panel</button>
         </form>
-        <p class="text-xs text-center text-slate-400 mt-6">Default: <b>admin@jhumurhut.com</b> | Pass: <b>jhumur2026</b></p>
+        <p class="text-[11px] text-center text-slate-400 mt-6">Default Email: <b>admin@jhumurhut.com</b> | Pass: <b>jhumur2026</b></p>
     </div>
 
-    <!-- Admin Content Screen (Hidden by Default) -->
-    <div id="dashboardSection" class="w-full max-w-4xl bg-white p-8 rounded-3xl shadow-xl border border-amber-100 hidden">
-        <div class="flex justify-between items-center border-b pb-4 mb-6">
+    <!-- 2. FULL CONTROL DASHBOARD (HIDDEN UNTIL LOGGED IN) -->
+    <div id="dashboardSection" class="w-full max-w-5xl bg-white p-6 sm:p-8 rounded-3xl shadow-2xl border border-pink-100 hidden my-8">
+        
+        <!-- HEADER -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 mb-6 gap-4">
             <div>
-                <h2 class="font-serif text-2xl font-bold text-rose-900">Jhumur Hut Control Panel</h2>
-                <p class="text-xs text-slate-500">Manage products, pricing, and site branding</p>
+                <h2 class="font-serif text-2xl font-bold text-brand-900 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-brand-600"></i> Jhumur Hut Control Panel
+                </h2>
+                <p class="text-xs text-slate-500">Full Website Management Engine</p>
             </div>
-            <button onclick="logout()" class="bg-slate-200 hover:bg-slate-300 px-4 py-2 rounded-xl text-xs font-semibold">Log Out</button>
+            <div class="flex items-center gap-3">
+                <a href="index.html" target="_blank" class="bg-brand-100 text-brand-800 hover:bg-brand-200 px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-globe"></i> View Live Site
+                </a>
+                <button onclick="logout()" class="bg-slate-200 hover:bg-slate-300 px-4 py-2 rounded-xl text-xs font-bold">Log Out</button>
+            </div>
         </div>
 
-        <div class="space-y-6">
-            <h3 class="font-semibold text-lg text-slate-800">Add / Update Product</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" id="pName" placeholder="Product Title" class="p-3 border rounded-xl text-sm">
-                <input type="number" id="pPrice" placeholder="Price ($)" class="p-3 border rounded-xl text-sm">
-                <input type="text" id="pCategory" placeholder="Category (Skincare, Makeup, Fashion)" class="p-3 border rounded-xl text-sm">
-                <input type="text" id="pImg" placeholder="Image URL or filename" class="p-3 border rounded-xl text-sm">
-            </div>
-            <button onclick="saveProduct()" class="bg-rose-900 text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-rose-800">Save Product</button>
+        <!-- TABS -->
+        <div class="flex gap-4 border-b border-slate-200 mb-6 text-sm">
+            <button onclick="switchTab('products')" id="tabBtnProducts" class="pb-2 font-bold border-b-2 border-brand-900 text-brand-900">📦 Products & BDT Prices</button>
+            <button onclick="switchTab('content')" id="tabBtnContent" class="pb-2 font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800">✨ Website Banners & Content</button>
         </div>
+
+        <!-- TAB 1: PRODUCTS & PRICES MANAGEMENT -->
+        <div id="tabProducts" class="space-y-6">
+            <div class="bg-brand-50/60 p-5 rounded-2xl border border-pink-100 space-y-4">
+                <h3 class="font-bold text-sm text-slate-800">Add New Product to Catalog</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    <input type="text" id="pName" placeholder="Product Title (e.g. Silk Hydrating Serum)" class="p-3 border rounded-xl bg-white focus:outline-none focus:ring-1 focus:ring-brand-500">
+                    <input type="number" id="pPrice" placeholder="Price in BDT (৳ e.g. 1250)" class="p-3 border rounded-xl bg-white focus:outline-none focus:ring-1 focus:ring-brand-500">
+                    <select id="pCategory" class="p-3 border rounded-xl bg-white focus:outline-none focus:ring-1 focus:ring-brand-500">
+                        <option value="Skincare">Skincare</option>
+                        <option value="Makeup">Makeup</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Jewelry">Jewelry</option>
+                    </select>
+                    <input type="text" id="pImg" placeholder="Image URL (Unsplash or direct image link)" class="p-3 border rounded-xl bg-white focus:outline-none focus:ring-1 focus:ring-brand-500">
+                </div>
+                <button onclick="saveProduct()" class="bg-brand-900 text-white px-6 py-2.5 rounded-xl font-bold text-xs hover:bg-brand-800 transition">Save Product</button>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-sm text-slate-800 mb-3">Live Product Inventory</h3>
+                <div id="productList" class="space-y-2">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: WEBSITE CONTENT & BANNER CONTROL -->
+        <div id="tabContent" class="space-y-4 text-xs hidden">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Brand Name Title</label>
+                    <input type="text" id="inputBrandTitle" class="w-full p-3 border rounded-xl" placeholder="Jhumur Hut">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Brand Tagline</label>
+                    <input type="text" id="inputBrandSubtitle" class="w-full p-3 border rounded-xl" placeholder="Luxury Beauty & Fairy Fashion">
+                </div>
+            </div>
+
+            <div>
+                <label class="block font-bold text-slate-700 mb-1">Top Promo Announcement Banner</label>
+                <input type="text" id="inputPromoBanner" class="w-full p-3 border rounded-xl" placeholder="Free Delivery Nationwide on Orders Over ৳২,৫০০! Use Code: FAIRY2026 for 15% OFF">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Hero Main Title</label>
+                    <input type="text" id="inputHeroHeading" class="w-full p-3 border rounded-xl" placeholder="Unbox Your">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Hero Sub-Headline (Cursive)</label>
+                    <input type="text" id="inputHeroSubheading" class="w-full p-3 border rounded-xl" placeholder="Inner Fairy Glow">
+                </div>
+            </div>
+
+            <div>
+                <label class="block font-bold text-slate-700 mb-1">Hero Paragraph Description</label>
+                <textarea id="inputHeroDesc" class="w-full p-3 border rounded-xl h-20" placeholder="Jhumur Hut presents authentic luxury cosmetics..."></textarea>
+            </div>
+
+            <div>
+                <label class="block font-bold text-slate-700 mb-1">Unboxing Butterfly GIF / Showcase Image URL</label>
+                <input type="text" id="inputHeroGif" class="w-full p-3 border rounded-xl" placeholder="https://media.giphy.com/media/26AHG5xKA45OC61fG/giphy.gif">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Flash Sale Offer Title</label>
+                    <input type="text" id="inputFlashTitle" class="w-full p-3 border rounded-xl" placeholder="Fairy Flash Offer!">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Flash Sale Subtitle</label>
+                    <input type="text" id="inputFlashSub" class="w-full p-3 border rounded-xl" placeholder="Flat 25% OFF on all Skincare & Silk Sarees!">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Store Address / Location</label>
+                    <input type="text" id="inputFooterAddress" class="w-full p-3 border rounded-xl" placeholder="Dhaka, Bangladesh">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Delivery / Phone Information</label>
+                    <input type="text" id="inputFooterPhone" class="w-full p-3 border rounded-xl" placeholder="Cash on Delivery Available Nationwide">
+                </div>
+            </div>
+
+            <button onclick="saveFullSiteSettings()" class="bg-brand-900 text-white px-8 py-3 rounded-xl font-bold text-sm hover:bg-brand-800 transition">Update Full Website Content</button>
+        </div>
+
     </div>
 
+    <!-- JAVASCRIPT CONTROLLER -->
     <script>
         const DEFAULT_EMAIL = "admin@jhumurhut.com";
         const DEFAULT_PASS = "jhumur2026";
+
+        const DEFAULT_PRODUCTS = [
+            { id: 1, name: "Rose Silk Hydrating Serum", category: "Skincare", price: 1250, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80" },
+            { id: 2, name: "Royal Velvet Matte Lipstick", category: "Makeup", price: 850, image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80" },
+            { id: 3, name: "Exclusive Silk Party Designer Dress", category: "Fashion", price: 4500, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80" },
+            { id: 4, name: "24K Gold Plated Kundan Jhumka", category: "Jewelry", price: 1850, image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80" }
+        ];
 
         function handleLogin(e) {
             e.preventDefault();
@@ -76,6 +217,8 @@
         function showDashboard() {
             document.getElementById('loginSection').classList.add('hidden');
             document.getElementById('dashboardSection').classList.remove('hidden');
+            renderProductList();
+            loadSettings();
         }
 
         function logout() {
@@ -83,21 +226,99 @@
             location.reload();
         }
 
+        function switchTab(tab) {
+            if(tab === 'products') {
+                document.getElementById('tabProducts').classList.remove('hidden');
+                document.getElementById('tabContent').classList.add('hidden');
+                document.getElementById('tabBtnProducts').classList.add('border-brand-900', 'text-brand-900');
+                document.getElementById('tabBtnContent').classList.remove('border-brand-900', 'text-brand-900');
+            } else {
+                document.getElementById('tabProducts').classList.add('hidden');
+                document.getElementById('tabContent').classList.remove('hidden');
+                document.getElementById('tabBtnContent').classList.add('border-brand-900', 'text-brand-900');
+                document.getElementById('tabBtnProducts').classList.remove('border-brand-900', 'text-brand-900');
+            }
+        }
+
+        function getProducts() {
+            const saved = localStorage.getItem('jhumur_products');
+            return saved ? JSON.parse(saved) : DEFAULT_PRODUCTS;
+        }
+
         function saveProduct() {
             const name = document.getElementById('pName').value;
             const price = document.getElementById('pPrice').value;
-            const cat = document.getElementById('pCategory').value;
-            const img = document.getElementById('pImg').value;
+            const category = document.getElementById('pCategory').value;
+            const image = document.getElementById('pImg').value;
 
-            if(!name || !price) return alert('Please enter product name and price.');
+            if (!name || !price) return alert('Product Title and Price are required!');
 
-            let products = JSON.parse(localStorage.getItem('jhumur_products') || '[]');
-            products.push({ id: Date.now(), name, price: parseFloat(price), category: cat, image: img });
+            let products = getProducts();
+            products.push({ id: Date.now(), name, price: parseFloat(price), category, image: image || 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e' });
             localStorage.setItem('jhumur_products', JSON.stringify(products));
 
-            alert('Product saved successfully!');
             document.getElementById('pName').value = '';
             document.getElementById('pPrice').value = '';
+            document.getElementById('pImg').value = '';
+
+            renderProductList();
+            alert('Product added in BDT successfully!');
+        }
+
+        function deleteProduct(id) {
+            let products = getProducts().filter(p => p.id !== id);
+            localStorage.setItem('jhumur_products', JSON.stringify(products));
+            renderProductList();
+        }
+
+        function renderProductList() {
+            const products = getProducts();
+            const container = document.getElementById('productList');
+            container.innerHTML = products.map(p => `
+                <div class="flex items-center justify-between p-3 bg-slate-50 border rounded-xl text-xs">
+                    <div class="flex items-center gap-3">
+                        <img src="${p.image}" class="w-10 h-10 object-cover rounded-lg">
+                        <div>
+                            <p class="font-bold text-slate-800">${p.name}</p>
+                            <p class="text-brand-700 font-semibold">৳ ${p.price.toLocaleString()} | <span class="text-slate-500">${p.category}</span></p>
+                        </div>
+                    </div>
+                    <button onclick="deleteProduct(${p.id})" class="text-rose-600 font-bold px-3 py-1 bg-rose-50 hover:bg-rose-100 rounded-lg">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('jhumur_site_settings') || '{}');
+            document.getElementById('inputBrandTitle').value = settings.brandTitle || 'Jhumur Hut';
+            document.getElementById('inputBrandSubtitle').value = settings.brandSubtitle || 'Luxury Beauty & Fairy Fashion';
+            document.getElementById('inputPromoBanner').value = settings.promoBanner || 'Free Delivery Nationwide on Orders Over ৳২,৫০০! Use Code: FAIRY2026 for 15% OFF';
+            document.getElementById('inputHeroHeading').value = settings.heroHeading || 'Unbox Your';
+            document.getElementById('inputHeroSubheading').value = settings.heroSubheading || 'Inner Fairy Glow';
+            document.getElementById('inputHeroDesc').value = settings.heroDesc || 'Jhumur Hut presents authentic luxury cosmetics...';
+            document.getElementById('inputHeroGif').value = settings.heroGif || 'https://media.giphy.com/media/26AHG5xKA45OC61fG/giphy.gif';
+            document.getElementById('inputFlashTitle').value = settings.flashTitle || 'Fairy Flash Offer!';
+            document.getElementById('inputFlashSub').value = settings.flashSub || 'Flat 25% OFF on all Skincare & Silk Sarees!';
+            document.getElementById('inputFooterAddress').value = settings.footerAddress || 'Dhaka, Bangladesh';
+            document.getElementById('inputFooterPhone').value = settings.footerPhone || 'Cash on Delivery Available Nationwide';
+        }
+
+        function saveFullSiteSettings() {
+            const settings = {
+                brandTitle: document.getElementById('inputBrandTitle').value,
+                brandSubtitle: document.getElementById('inputBrandSubtitle').value,
+                promoBanner: document.getElementById('inputPromoBanner').value,
+                heroHeading: document.getElementById('inputHeroHeading').value,
+                heroSubheading: document.getElementById('inputHeroSubheading').value,
+                heroDesc: document.getElementById('inputHeroDesc').value,
+                heroGif: document.getElementById('inputHeroGif').value,
+                flashTitle: document.getElementById('inputFlashTitle').value,
+                flashSub: document.getElementById('inputFlashSub').value,
+                footerAddress: document.getElementById('inputFooterAddress').value,
+                footerPhone: document.getElementById('inputFooterPhone').value
+            };
+            localStorage.setItem('jhumur_site_settings', JSON.stringify(settings));
+            alert('Full website content updated successfully!');
         }
 
         if (sessionStorage.getItem('jhumur_admin_logged') === 'true') {
