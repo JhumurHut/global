@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jhumur Hut - Order Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: { 900: '#801430' } } } } }
+    </script>
+</head>
+<body class="bg-[#FFFDF9] text-slate-800 min-h-screen p-6">
+    <div class="max-w-5xl mx-auto bg-white rounded-3xl shadow-xl border p-8">
+        <div class="flex justify-between items-center border-b pb-4 mb-6">
+            <div>
+                <h1 class="font-serif text-2xl font-bold text-brand-900">Order Management Dashboard</h1>
+                <p class="text-xs text-slate-500">View and manage customer orders</p>
+            </div>
+            <a href="admin.html" class="bg-brand-900 text-white px-4 py-2 rounded-xl text-xs font-bold">Back to Admin</a>
+        </div>
+
+        <div id="ordersList" class="space-y-4">
+            <!-- Rendered via JS -->
+        </div>
+    </div>
+
+    <script>
+        function renderOrders() {
+            const orders = JSON.parse(localStorage.getItem('jhumur_orders') || '[]');
+            const container = document.getElementById('ordersList');
+
+            if(orders.length === 0) {
+                container.innerHTML = `<p class="text-center text-slate-400 py-10 text-sm">No customer orders received yet.</p>`;
+                return;
+            }
+
+            container.innerHTML = orders.map(o => `
+                <div class="border rounded-2xl p-5 bg-brand-50/40 space-y-3 text-xs">
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <div>
+                            <span class="font-bold text-brand-900 text-sm">${o.id}</span>
+                            <span class="text-slate-500 ml-2">${o.date}</span>
+                        </div>
+                        <span class="bg-pink-100 text-brand-900 font-bold px-3 py-1 rounded-full">Payment: ${o.payMethod}</span>
+                    </div>
+                    <div>
+                        <p class="font-bold text-slate-800">Customer: ${o.name} (${o.phone})</p>
+                        <p class="text-slate-600">Address: ${o.address}, City: ${o.city}</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border">
+                        <p class="font-semibold mb-1 text-slate-700">Ordered Items:</p>
+                        ${o.items.map(i => `<div class="flex justify-between text-slate-600"><span>• ${i.name}</span><span>৳ ${i.price}</span></div>`).join('')}
+                    </div>
+                    <div class="flex justify-between items-center pt-2 font-bold text-sm text-slate-900">
+                        <span>Grand Total: ৳ ${o.total.toLocaleString()}</span>
+                        <button onclick="deleteOrder('${o.id}')" class="bg-rose-600 text-white px-3 py-1.5 rounded-lg text-xs">Delete Order</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function deleteOrder(id) {
+            if(confirm('Are you sure you want to delete this order?')) {
+                let orders = JSON.parse(localStorage.getItem('jhumur_orders') || '[]');
+                orders = orders.filter(o => o.id !== id);
+                localStorage.setItem('jhumur_orders', JSON.stringify(orders));
+                renderOrders();
+            }
+        }
+
+        renderOrders();
+    </script>
+</body>
+</html>
