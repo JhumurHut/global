@@ -53,24 +53,27 @@
         <button onclick="document.getElementById('topBanner').remove()" class="text-pinkshade-200 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
-    <!-- MAIN HEADER WITH FAIRY LOGO & CLEAN LAYOUT -->
+    <!-- MAIN HEADER WITH CLEAR BEAUTY LOGO -->
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-pinkshade-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
             
-            <!-- FAIRY & SKINCARE BRAND LOGO -->
+            <!-- REFINED BEAUTY & SKINCARE LOGO -->
             <a href="index.html" class="flex items-center gap-3 group">
                 <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-pinkshade-400 via-pinkshade-500 to-pinkshade-700 p-0.5 shadow-md group-hover:scale-105 transition-transform">
                     <div class="w-full h-full bg-white rounded-full flex items-center justify-center relative overflow-hidden">
-                        <!-- FAIRY SILHOUETTE & GLOW SVG -->
                         <svg class="w-9 h-9 text-pinkshade-600" viewBox="0 0 100 100" fill="currentColor">
-                            <path d="M50,20 C65,10 80,25 70,45 C80,55 70,75 50,60 C30,75 20,55 30,45 C20,25 35,10 50,20 Z" fill="url(#fairyGrad)" opacity="0.8"/>
-                            <circle cx="50" cy="45" r="10" fill="#BE185D"/>
-                            <path d="M45,55 Q50,70 55,55 Z" fill="#DB2777"/>
-                            <polygon points="50,5 52,12 59,15 52,18 50,25 48,18 41,15 48,12" fill="#F472B6"/>
+                            <circle cx="50" cy="50" r="38" fill="none" stroke="url(#logoRing)" stroke-width="4"/>
+                            <path d="M50,22 C62,22 70,32 70,45 C70,58 60,68 50,78 C40,68 30,58 30,45 C30,32 38,22 50,22 Z" fill="url(#logoGrad)" opacity="0.85"/>
+                            <circle cx="50" cy="45" r="12" fill="#FFFFFF"/>
+                            <path d="M44,45 Q50,37 56,45 Q50,53 44,45 Z" fill="#BE185D"/>
                             <defs>
-                                <linearGradient id="fairyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stop-color="#F472B6" />
                                     <stop offset="100%" stop-color="#831843" />
+                                </linearGradient>
+                                <linearGradient id="logoRing" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#EC4899" />
+                                    <stop offset="100%" stop-color="#500724" />
                                 </linearGradient>
                             </defs>
                         </svg>
