@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Jhumur Hut</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: { 800: '#981334', 900: '#801430' } } } } }
+    </script>
+</head>
+<body class="bg-[#FFFDF9] text-slate-800 min-h-screen flex flex-col justify-between">
+    
+    <header class="bg-white border-b h-20 flex items-center px-6">
+        <a href="index.html" class="text-brand-900 font-bold text-sm"><i class="fa-solid fa-arrow-left mr-2"></i> Back to Store</a>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-6 my-10 bg-white rounded-3xl shadow-xl border grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="aspect-square bg-brand-50 rounded-2xl overflow-hidden">
+            <img id="pImg" src="" class="w-full h-full object-cover">
+        </div>
+        <div class="flex flex-col justify-between space-y-4">
+            <div>
+                <span id="pCat" class="text-xs font-bold uppercase tracking-widest text-brand-700 bg-pink-100 px-3 py-1 rounded-full">Category</span>
+                <h1 id="pName" class="font-serif text-3xl font-bold text-slate-900 mt-3">Product Name</h1>
+                <p id="pPrice" class="text-2xl font-bold text-brand-900 mt-2">৳ 0</p>
+                <p id="pStock" class="text-xs font-bold text-emerald-600 mt-1">In Stock</p>
+                
+                <div class="mt-6 border-t pt-4 space-y-2 text-xs text-slate-600">
+                    <p class="font-bold text-slate-800">Product Specifications:</p>
+                    <p>• 100% Authentic Royal Quality</p>
+                    <p>• Fast delivery across all districts in Bangladesh</p>
+                    <p>• Easy return & replacement guarantee</p>
+                </div>
+            </div>
+            <button id="addBtn" onclick="addCurrentToCart()" class="w-full bg-brand-900 text-white font-bold py-3.5 rounded-xl hover:bg-brand-800 transition">Add to Shopping Bag</button>
+        </div>
+    </main>
+
+    <footer class="bg-brand-900 text-white py-6 text-center text-xs">© 2026 Jhumur Hut</footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get('id'));
+        
+        const DEFAULT_PRODUCTS = [
+            { id: 1, name: "Rose Silk Hydrating Serum", category: "Skincare", price: 1250, stock: 15, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80" },
+            { id: 2, name: "Royal Velvet Matte Lipstick", category: "Makeup", price: 850, stock: 8, image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80" },
+            { id: 3, name: "Exclusive Silk Party Dress", category: "Fashion", price: 4500, stock: 4, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80" },
+            { id: 4, name: "24K Gold Plated Jhumka", category: "Jewelry", price: 1850, stock: 20, image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80" }
+        ];
+
+        const products = JSON.parse(localStorage.getItem('jhumur_products') || JSON.stringify(DEFAULT_PRODUCTS));
+        const product = products.find(p => p.id === productId);
+
+        if(product) {
+            document.getElementById('pImg').src = product.image;
+            document.getElementById('pCat').innerText = product.category;
+            document.getElementById('pName').innerText = product.name;
+            document.getElementById('pPrice').innerText = `৳ ${product.price.toLocaleString()}`;
+            document.getElementById('pStock').innerText = product.stock > 0 ? `Stock Available: ${product.stock}` : 'Out of Stock';
+            if(product.stock <= 0) {
+                const btn = document.getElementById('addBtn');
+                btn.innerText = "Out of Stock";
+                btn.disabled = true;
+                btn.classList.add('bg-slate-400', 'cursor-not-allowed');
+            }
+        }
+
+        function addCurrentToCart() {
+            if(!product) return;
+            let cart = JSON.parse(localStorage.getItem('jhumur_cart') || '[]');
+            cart.push(product);
+            localStorage.setItem('jhumur_cart', JSON.stringify(cart));
+            alert('Product added to bag successfully!');
+        }
+    </script>
+</body>
+</html>
