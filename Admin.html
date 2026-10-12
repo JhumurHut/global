@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jhumur Hut - Admin Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #FAF7F2; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col justify-center items-center p-4">
+
+    <!-- Login Screen -->
+    <div id="loginSection" class="w-full max-w-md bg-white p-8 rounded-3xl shadow-xl border border-amber-100">
+        <div class="text-center mb-8">
+            <h1 class="font-serif text-3xl font-bold text-rose-900">Jhumur Hut</h1>
+            <p class="text-slate-500 text-sm mt-1">Admin Portal Management</p>
+        </div>
+        <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Email Address</label>
+                <input type="email" id="adminEmail" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-400" placeholder="admin@jhumurhut.com">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Password</label>
+                <input type="password" id="adminPass" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-400" placeholder="••••••••">
+            </div>
+            <p id="errorMsg" class="text-rose-600 text-xs hidden font-medium text-center">Invalid login credentials.</p>
+            <button type="submit" class="w-full bg-rose-900 text-white font-semibold py-3 rounded-xl hover:bg-rose-800 transition">Log In to Dashboard</button>
+        </form>
+        <p class="text-xs text-center text-slate-400 mt-6">Default: <b>admin@jhumurhut.com</b> | Pass: <b>jhumur2026</b></p>
+    </div>
+
+    <!-- Admin Content Screen (Hidden by Default) -->
+    <div id="dashboardSection" class="w-full max-w-4xl bg-white p-8 rounded-3xl shadow-xl border border-amber-100 hidden">
+        <div class="flex justify-between items-center border-b pb-4 mb-6">
+            <div>
+                <h2 class="font-serif text-2xl font-bold text-rose-900">Jhumur Hut Control Panel</h2>
+                <p class="text-xs text-slate-500">Manage products, pricing, and site branding</p>
+            </div>
+            <button onclick="logout()" class="bg-slate-200 hover:bg-slate-300 px-4 py-2 rounded-xl text-xs font-semibold">Log Out</button>
+        </div>
+
+        <div class="space-y-6">
+            <h3 class="font-semibold text-lg text-slate-800">Add / Update Product</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="text" id="pName" placeholder="Product Title" class="p-3 border rounded-xl text-sm">
+                <input type="number" id="pPrice" placeholder="Price ($)" class="p-3 border rounded-xl text-sm">
+                <input type="text" id="pCategory" placeholder="Category (Skincare, Makeup, Fashion)" class="p-3 border rounded-xl text-sm">
+                <input type="text" id="pImg" placeholder="Image URL or filename" class="p-3 border rounded-xl text-sm">
+            </div>
+            <button onclick="saveProduct()" class="bg-rose-900 text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-rose-800">Save Product</button>
+        </div>
+    </div>
+
+    <script>
+        const DEFAULT_EMAIL = "admin@jhumurhut.com";
+        const DEFAULT_PASS = "jhumur2026";
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('adminEmail').value;
+            const pass = document.getElementById('adminPass').value;
+
+            if (email === DEFAULT_EMAIL && pass === DEFAULT_PASS) {
+                sessionStorage.setItem('jhumur_admin_logged', 'true');
+                showDashboard();
+            } else {
+                document.getElementById('errorMsg').classList.remove('hidden');
+            }
+        }
+
+        function showDashboard() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.remove('hidden');
+        }
+
+        function logout() {
+            sessionStorage.removeItem('jhumur_admin_logged');
+            location.reload();
+        }
+
+        function saveProduct() {
+            const name = document.getElementById('pName').value;
+            const price = document.getElementById('pPrice').value;
+            const cat = document.getElementById('pCategory').value;
+            const img = document.getElementById('pImg').value;
+
+            if(!name || !price) return alert('Please enter product name and price.');
+
+            let products = JSON.parse(localStorage.getItem('jhumur_products') || '[]');
+            products.push({ id: Date.now(), name, price: parseFloat(price), category: cat, image: img });
+            localStorage.setItem('jhumur_products', JSON.stringify(products));
+
+            alert('Product saved successfully!');
+            document.getElementById('pName').value = '';
+            document.getElementById('pPrice').value = '';
+        }
+
+        if (sessionStorage.getItem('jhumur_admin_logged') === 'true') {
+            showDashboard();
+        }
+    </script>
+</body>
+</html>
