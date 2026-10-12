@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jhumur Hut | Luxury Women's Fashion, Skincare & Fairy Beauty</title>
+    <title>Jhumur Hut | Luxury Pink Beauty & Fairy Fashion</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -17,21 +17,18 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            50: '#FFF5F7',
-                            100: '#FFE6EC',
-                            200: '#FDCED9',
-                            300: '#FBA6B9',
-                            400: '#F77291',
-                            500: '#EE3A67',
-                            600: '#DA1D4C',
-                            700: '#B7123A',
-                            800: '#981334',
-                            900: '#801430',
-                            rose: '#F9A8D4',
-                            gold: '#D4AF37',
-                            fairy: '#E879F9',
-                            softbg: '#FFFDF9'
+                        pinkshade: {
+                            50: '#FFF0F5',   /* Lavender Blush */
+                            100: '#FFE4E1',  /* Misty Rose */
+                            200: '#FBCFE8',  /* Soft Pink */
+                            300: '#F472B6',  /* Rose Pink */
+                            400: '#E879F9',  /* Fairy Magenta */
+                            500: '#EC4899',  /* Bright Pink */
+                            600: '#DB2777',  /* Deep Rose */
+                            700: '#BE185D',  /* Berry Pink */
+                            800: '#9D174D',  /* Dark Berry */
+                            900: '#831843',  /* Royal Plum Pink */
+                            950: '#500724'   /* Midnight Pink */
                         }
                     },
                     fontFamily: {
@@ -44,119 +41,131 @@
         }
     </script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #FFFDF9; overflow-x: hidden; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #FFF0F5; overflow-x: hidden; }
         .font-serif { font-family: 'Playfair Display', serif; }
         .font-cursive { font-family: 'Great Vibes', cursive; }
         
+        /* Floating Animation */
         @keyframes floatFairy {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-12px) rotate(3deg); }
         }
         .animate-fairy { animation: floatFairy 4s ease-in-out infinite; }
+
+        .pink-gradient-hero {
+            background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E1 40%, #FBCFE8 70%, #F472B6 100%);
+        }
+        .pink-card-glow {
+            box-shadow: 0 10px 30px -5px rgba(236, 72, 153, 0.15);
+        }
         
-        .hero-bg { background: linear-gradient(135deg, #FFF5F7 0%, #FFE6EC 50%, #FDCED9 100%); }
-        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #FFF5F7; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #F77291; border-radius: 10px; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FFF0F5; }
+        ::-webkit-scrollbar-thumb { background: #DB2777; border-radius: 10px; }
     </style>
 </head>
-<body class="text-slate-800 antialiased selection:bg-brand-200 selection:text-brand-900 custom-scrollbar">
+<body class="text-slate-800 antialiased selection:bg-pinkshade-300 selection:text-pinkshade-900">
 
-    <!-- MAGICAL FLOATING FAIRY (LEFT SIDE) -->
+    <!-- MAGICAL FLOATING FAIRY -->
     <div class="fixed bottom-6 left-4 z-40 hidden md:flex flex-col items-center animate-fairy pointer-events-none">
-        <div class="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-lg border border-pink-200 text-[11px] font-semibold text-brand-700 mb-1 flex items-center gap-1">
-            ✨ Welcome Princess! ✨
-        </div>
-        <img src="https://media.giphy.com/media/26AHONQ79Ja41MVT2/giphy.gif" alt="Fairy Cartoon" class="w-20 h-20 drop-shadow-xl">
+        <div class="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-lg border border-pinkshade-200 text-[11px] font-semibold text-pinkshade-800 mb-1">✨ Welcome Princess! ✨</div>
+        <img src="https://media.giphy.com/media/26AHONQ79Ja41MVT2/giphy.gif" alt="Fairy" class="w-20 h-20 drop-shadow-xl">
     </div>
 
-    <!-- ANNOUNCEMENT BANNER -->
-    <div id="topBanner" class="bg-gradient-to-r from-brand-900 via-brand-800 to-brand-900 text-amber-100 text-xs py-2.5 px-4 text-center font-medium tracking-wide flex justify-between items-center shadow-md">
+    <!-- TOP PROMO BANNER -->
+    <div id="topBanner" class="bg-gradient-to-r from-pinkshade-950 via-pinkshade-900 to-pinkshade-950 text-pinkshade-100 text-xs py-2.5 px-4 text-center font-medium tracking-wide flex justify-between items-center shadow-md">
         <div class="flex-1 text-center flex items-center justify-center gap-2">
             <span>🦋</span>
-            <span id="displayPromoBanner">Free Delivery Nationwide on Orders Over ৳২,৫০০! Use Code: FAIRY2026 for 15% OFF</span>
+            <span>Free Express Delivery Nationwide on Orders Over ৳২,৫০০! Code: <span class="text-pinkshade-300 font-bold">PINKFAIRY</span></span>
             <span>✨</span>
         </div>
-        <button onclick="document.getElementById('topBanner').remove()" class="text-amber-200 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+        <button onclick="document.getElementById('topBanner').remove()" class="text-pinkshade-200 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
-    <!-- HEADER / NAVIGATION (NO ADMIN BUTTON) -->
-    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-brand-100 shadow-sm transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <!-- MAIN HEADER WITH WONDERFUL SVG LOGO -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-pinkshade-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
             
-            <!-- BRAND LOGO -->
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-200 to-pink-100 border-2 border-brand-300 flex items-center justify-center text-brand-700 shadow-inner group-hover:scale-105 transition-transform overflow-hidden">
-                    <i class="fa-solid fa-crown text-xl text-brand-600"></i>
+            <!-- WONDERFUL PINK VECTOR LOGO -->
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-pinkshade-400 via-pinkshade-500 to-pinkshade-700 p-0.5 shadow-md group-hover:scale-105 transition-transform">
+                    <div class="w-full h-full bg-white rounded-full flex items-center justify-center relative overflow-hidden">
+                        <!-- Custom SVG Crown & Butterfly Logo -->
+                        <svg class="w-9 h-9 text-pinkshade-600" viewBox="0 0 100 100" fill="currentColor">
+                            <!-- Tiara Crown -->
+                            <path d="M20,65 L30,35 L45,52 L50,25 L55,52 L70,35 L80,65 Z" fill="url(#pinkGrad)"/>
+                            <circle cx="20" cy="62" r="3" fill="#BE185D"/>
+                            <circle cx="30" cy="32" r="3" fill="#BE185D"/>
+                            <circle cx="50" cy="21" r="4" fill="#DB2777"/>
+                            <circle cx="70" cy="32" r="3" fill="#BE185D"/>
+                            <circle cx="80" cy="62" r="3" fill="#BE185D"/>
+                            <!-- Butterfly Accent -->
+                            <path d="M50,48 C42,38 30,42 38,55 C45,60 50,52 50,52 C50,52 55,60 62,55 C70,42 58,38 50,48 Z" fill="#F472B6"/>
+                            <!-- Gradient Definition -->
+                            <defs>
+                                <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#EC4899" />
+                                    <stop offset="100%" stop-color="#831843" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
                 </div>
                 <div>
-                    <span id="displayBrandTitle" class="font-serif text-2xl font-bold tracking-tight text-brand-900 block leading-none">Jhumur Hut</span>
-                    <span id="displayBrandSubtitle" class="text-[10px] tracking-widest uppercase font-semibold text-brand-500 block mt-1">Luxury Beauty & Fairy Fashion</span>
+                    <span class="font-serif text-2xl font-bold tracking-tight text-pinkshade-950 block leading-none">Jhumur Hut</span>
+                    <span class="text-[10px] tracking-widest uppercase font-semibold text-pinkshade-600 block mt-1">Royal Pink Elegance & Beauty</span>
                 </div>
             </a>
 
             <!-- NAV LINKS -->
-            <nav class="hidden lg:flex items-center gap-8 font-medium text-sm text-slate-700">
-                <a href="#home" class="hover:text-brand-600 transition">Home</a>
-                <a href="#products" class="hover:text-brand-600 transition">Shop All</a>
-                <a href="#products" onclick="filterCategory('Skincare')" class="hover:text-brand-600 transition">Skincare</a>
-                <a href="#products" onclick="filterCategory('Makeup')" class="hover:text-brand-600 transition">Makeup</a>
-                <a href="#products" onclick="filterCategory('Fashion')" class="hover:text-brand-600 transition">Fashion</a>
-                <a href="#products" onclick="filterCategory('Jewelry')" class="hover:text-brand-600 transition">Jewelry</a>
+            <nav class="hidden lg:flex items-center gap-8 font-medium text-sm text-pinkshade-900">
+                <a href="#home" class="hover:text-pinkshade-600 transition">Home</a>
+                <a href="#products" class="hover:text-pinkshade-600 transition">Shop All</a>
+                <a href="#products" onclick="filterCategory('Skincare')" class="hover:text-pinkshade-600 transition">Skincare</a>
+                <a href="#products" onclick="filterCategory('Makeup')" class="hover:text-pinkshade-600 transition">Makeup</a>
+                <a href="#products" onclick="filterCategory('Fashion')" class="hover:text-pinkshade-600 transition">Fashion</a>
+                <a href="#products" onclick="filterCategory('Jewelry')" class="hover:text-pinkshade-600 transition">Jewelry</a>
             </nav>
 
-            <!-- SEARCH, WISHLIST & CART -->
+            <!-- SHOPPING CART ACTION -->
             <div class="flex items-center gap-3">
-                <div class="relative hidden sm:block">
-                    <input type="text" id="searchInput" onkeyup="handleSearch()" placeholder="Search products in ৳..." class="w-48 md:w-60 pl-9 pr-4 py-2 rounded-full text-xs bg-brand-50 border border-brand-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:bg-white transition">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-brand-400"></i>
-                </div>
-
-                <button onclick="toggleWishlist()" class="relative p-2.5 text-slate-600 hover:text-brand-700 hover:bg-brand-50 rounded-full transition" title="Wishlist">
-                    <i class="fa-regular fa-heart text-lg"></i>
-                    <span id="wishlistCount" class="absolute top-1 right-1 bg-brand-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
-                </button>
-
-                <button onclick="toggleCart()" class="relative p-2.5 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-full transition shadow-md flex items-center justify-center">
+                <button onclick="toggleCart()" class="relative p-3 bg-gradient-to-r from-pinkshade-600 to-pinkshade-800 hover:from-pinkshade-700 hover:to-pinkshade-900 text-white rounded-full transition shadow-md flex items-center justify-center">
                     <i class="fa-solid fa-bag-shopping text-base"></i>
-                    <span id="cartCount" class="absolute -top-1 -right-1 bg-amber-400 text-brand-900 text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">0</span>
+                    <span id="cartCount" class="absolute -top-1 -right-1 bg-pinkshade-200 text-pinkshade-950 text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">0</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- HERO SECTION WITH BUTTERFLY UNBOXING GIF -->
-    <section id="home" class="hero-bg py-12 md:py-20 px-4 sm:px-6 lg:px-8 border-b border-brand-100 relative overflow-hidden">
+    <!-- PINK GRADIENT HERO SECTION -->
+    <section id="home" class="pink-gradient-hero py-16 md:py-24 px-4 sm:px-6 lg:px-8 border-b border-pinkshade-200 relative overflow-hidden">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             
             <div class="space-y-6 text-center lg:text-left z-10">
-                <span class="inline-flex items-center gap-2 bg-white/90 border border-brand-200 px-4 py-1.5 rounded-full text-xs font-semibold text-brand-700 uppercase tracking-widest shadow-sm">
-                    ✨ Queen's Magical Collection 2026
+                <span class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-md border border-pinkshade-300 px-4 py-1.5 rounded-full text-xs font-bold text-pinkshade-800 uppercase tracking-widest shadow-sm">
+                    ✨ Pink Royalty Collection 2026
                 </span>
-                <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight">
-                    <span id="displayHeroHeading">Unbox Your</span> <br><span id="displayHeroSubheading" class="font-cursive text-brand-600 font-normal text-6xl lg:text-7xl">Inner Fairy Glow</span>
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-pinkshade-950 leading-tight">
+                    Unbox Your <br><span class="font-cursive text-pinkshade-600 font-normal text-6xl lg:text-7xl">Magical Pink Glow</span>
                 </h1>
-                <p id="displayHeroDesc" class="text-slate-600 text-base sm:text-lg max-w-lg mx-auto lg:mx-0">
-                    Jhumur Hut presents authentic luxury cosmetics, royal ethnic fashion, and enchanting jewelry designed to make every Bangladeshi queen shine.
+                <p class="text-pinkshade-900 text-base sm:text-lg max-w-lg mx-auto lg:mx-0">
+                    Step into the enchanting realm of Jhumur Hut. Indulge in authentic blush skincare, rose cosmetics, and regal pink ethnic wear.
                 </p>
 
                 <div class="flex flex-wrap gap-4 justify-center lg:justify-start pt-2">
-                    <a href="#products" class="bg-gradient-to-r from-brand-700 to-brand-900 hover:from-brand-800 hover:to-black text-white font-semibold px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl transition transform active:scale-95 flex items-center gap-2">
-                        Explore Collection <i class="fa-solid fa-sparkles text-xs"></i>
+                    <a href="#products" class="bg-gradient-to-r from-pinkshade-700 to-pinkshade-900 hover:from-pinkshade-800 hover:to-black text-white font-semibold px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl transition transform active:scale-95 flex items-center gap-2">
+                        Shop Pink Collection <i class="fa-solid fa-sparkles text-xs"></i>
                     </a>
-                    <button onclick="filterCategory('Skincare')" class="bg-white border border-brand-300 hover:border-brand-500 text-brand-900 font-semibold px-6 py-3.5 rounded-full shadow-sm hover:shadow transition">
-                        Shop Skincare
-                    </button>
                 </div>
             </div>
 
-            <!-- BUTTERFLY GIFT BOX GIF SHOWCASE -->
+            <!-- HERO GIF SHOWCASE -->
             <div class="relative flex justify-center">
-                <div class="relative w-full max-w-md bg-white p-4 rounded-3xl shadow-2xl border-4 border-pink-100 text-center">
-                    <div class="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-b from-pink-50 to-purple-50 flex items-center justify-center">
-                        <img id="displayHeroGif" src="https://media.giphy.com/media/26AHG5xKA45OC61fG/giphy.gif" alt="Butterfly Gift Box" class="w-full h-full object-cover">
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-brand-700 shadow flex items-center gap-1">
-                            <span>🦋</span> Magical Unboxing
+                <div class="relative w-full max-w-md bg-white p-4 rounded-3xl shadow-2xl border-4 border-pinkshade-200 text-center">
+                    <div class="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-b from-pinkshade-100 to-pinkshade-200 flex items-center justify-center">
+                        <img src="https://media.giphy.com/media/26AHG5xKA45OC61fG/giphy.gif" alt="Pink Fairy Gift Box" class="w-full h-full object-cover">
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-pinkshade-800 shadow flex items-center gap-1">
+                            <span>🦋</span> Pink Fairy Magic
                         </div>
                     </div>
                 </div>
@@ -166,186 +175,124 @@
     </section>
 
     <!-- FLASH SALE SECTION -->
-    <section class="bg-gradient-to-r from-brand-900 via-purple-950 to-brand-900 text-white py-6 px-4">
+    <section class="bg-gradient-to-r from-pinkshade-900 via-pinkshade-800 to-pinkshade-950 text-white py-6 px-4">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-brand-700 flex items-center justify-center text-amber-300">
+                <div class="w-10 h-10 rounded-full bg-pinkshade-700 flex items-center justify-center text-pinkshade-200">
                     <i class="fa-solid fa-bolt text-xl animate-bounce"></i>
                 </div>
                 <div>
-                    <h3 id="displayFlashTitle" class="font-serif font-bold text-lg text-amber-100">Fairy Flash Offer!</h3>
-                    <p id="displayFlashSub" class="text-xs text-brand-200">Flat 25% OFF on all Skincare & Silk Sarees!</p>
+                    <h3 class="font-serif font-bold text-lg text-pinkshade-100">Fairy Flash Offer!</h3>
+                    <p class="text-xs text-pinkshade-200">Flat 25% OFF on all Pink Skincare & Silk Sarees!</p>
                 </div>
             </div>
             
             <div class="flex items-center gap-2 font-mono text-sm">
-                <div class="bg-brand-950 px-3 py-1.5 rounded-lg border border-brand-700"><span id="timerHours" class="font-bold text-amber-300">06</span><span class="text-[9px] block text-slate-300">HOURS</span></div>
+                <div class="bg-pinkshade-950 px-3 py-1.5 rounded-lg border border-pinkshade-700"><span class="font-bold text-pinkshade-300">06</span><span class="text-[9px] block text-pinkshade-200">HOURS</span></div>
                 <span>:</span>
-                <div class="bg-brand-950 px-3 py-1.5 rounded-lg border border-brand-700"><span id="timerMins" class="font-bold text-amber-300">35</span><span class="text-[9px] block text-slate-300">MINS</span></div>
+                <div class="bg-pinkshade-950 px-3 py-1.5 rounded-lg border border-pinkshade-700"><span class="font-bold text-pinkshade-300">35</span><span class="text-[9px] block text-pinkshade-200">MINS</span></div>
                 <span>:</span>
-                <div class="bg-brand-950 px-3 py-1.5 rounded-lg border border-brand-700"><span id="timerSecs" class="font-bold text-amber-300">50</span><span class="text-[9px] block text-slate-300">SECS</span></div>
+                <div class="bg-pinkshade-950 px-3 py-1.5 rounded-lg border border-pinkshade-700"><span class="font-bold text-pinkshade-300">50</span><span class="text-[9px] block text-pinkshade-200">SECS</span></div>
             </div>
         </div>
     </section>
 
-    <!-- PRODUCTS CATALOG WITH HYPERLINKED NAMES -->
+    <!-- PRODUCTS CATALOG -->
     <section id="products" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-            <div>
-                <span class="text-xs font-semibold uppercase tracking-widest text-brand-600">Pure Bangladeshi Glamour</span>
-                <h2 class="font-serif text-3xl md:text-4xl font-bold text-slate-900">Featured Products</h2>
-            </div>
-            
-            <div class="flex flex-wrap gap-2">
-                <button onclick="filterCategory('All')" class="cat-btn active px-4 py-2 rounded-full text-xs font-semibold bg-brand-900 text-white border border-brand-900 transition">All</button>
-                <button onclick="filterCategory('Skincare')" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-brand-400 transition">Skincare</button>
-                <button onclick="filterCategory('Makeup')" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-brand-400 transition">Makeup</button>
-                <button onclick="filterCategory('Fashion')" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-brand-400 transition">Fashion</button>
-                <button onclick="filterCategory('Jewelry')" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-brand-400 transition">Jewelry</button>
-            </div>
+        <div class="text-center mb-10">
+            <span class="text-xs font-bold uppercase tracking-widest text-pinkshade-600">Royal Selection</span>
+            <h2 class="font-serif text-3xl md:text-4xl font-bold text-pinkshade-950 mt-1">Featured Essentials</h2>
+            <p class="text-slate-500 text-sm mt-1">Click on any product name to view full details</p>
         </div>
 
         <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
     </section>
-
-    <!-- PRODUCT SPECIFICATION DETAIL MODAL -->
-    <div id="productSpecModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm hidden">
-        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-brand-100 relative">
-            <button onclick="closeSpecModal()" class="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800"><i class="fa-solid fa-xmark"></i></button>
-            <div class="grid grid-cols-1 md:grid-cols-2">
-                <div class="aspect-square bg-brand-50">
-                    <img id="specImg" src="" class="w-full h-full object-cover">
-                </div>
-                <div class="p-6 flex flex-col justify-between space-y-4">
-                    <div>
-                        <span id="specCat" class="text-[10px] font-bold uppercase tracking-widest text-brand-600 bg-brand-100 px-2.5 py-1 rounded-full">Category</span>
-                        <h3 id="specTitle" class="font-serif font-bold text-2xl text-slate-900 mt-3">Product Title</h3>
-                        <p id="specPrice" class="text-2xl font-bold text-brand-900 mt-2">৳ 0</p>
-                        
-                        <div class="mt-4 border-t pt-3 space-y-2 text-xs text-slate-600">
-                            <p class="font-bold text-slate-800">Product Specifications:</p>
-                            <p>• 100% Authentic Guaranteed Brand Product</p>
-                            <p>• Suitable for daily royal care & special occasions</p>
-                            <p>• Fast delivery across all districts in Bangladesh</p>
-                        </div>
-                    </div>
-                    <button id="specAddToCartBtn" class="w-full bg-brand-900 text-white font-bold py-3 rounded-xl hover:bg-brand-800 transition">Add to Bag</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- CART DRAWER -->
     <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
         <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onclick="toggleCart()"></div>
         <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
             <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
-                <div class="p-6 border-b border-slate-100 flex items-center justify-between">
-                    <h2 class="font-serif text-xl font-bold text-slate-900">Your Shopping Bag</h2>
+                <div class="p-6 border-b border-pinkshade-100 flex items-center justify-between bg-pinkshade-50">
+                    <h2 class="font-serif text-xl font-bold text-pinkshade-950">Your Shopping Bag</h2>
                     <button onclick="toggleCart()" class="p-2 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
                 <div id="cartItems" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
-                <div class="p-6 border-t border-slate-100 bg-brand-50/50 space-y-4">
-                    <div class="flex justify-between font-bold text-slate-900 text-lg">
-                        <span>Subtotal</span>
-                        <span id="cartTotal" class="text-brand-900">৳ 0</span>
+                <div class="p-6 border-t border-pinkshade-100 bg-pinkshade-50 space-y-4">
+                    <div class="flex justify-between font-bold text-pinkshade-950 text-lg">
+                        <span>Total Price</span>
+                        <span id="cartTotal" class="text-pinkshade-700">৳ 0</span>
                     </div>
-                    <button onclick="openCheckoutModal()" class="w-full bg-brand-900 text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-brand-800 transition">Proceed to Checkout <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                    <button onclick="openCheckoutModal()" class="w-full bg-gradient-to-r from-pinkshade-700 to-pinkshade-900 text-white font-bold py-3.5 rounded-xl shadow-lg hover:from-pinkshade-800 hover:to-black transition">Proceed to Checkout</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- CHECKOUT MODAL (ADDRESS & PAYMENT SELECTION) -->
+    <!-- CHECKOUT MODAL -->
     <div id="checkoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md hidden">
-        <div class="bg-white rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-brand-200 custom-scrollbar space-y-6">
-            
+        <div class="bg-white rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-pinkshade-200 space-y-6">
             <div class="flex items-center justify-between border-b pb-4">
-                <div>
-                    <h2 class="font-serif text-2xl font-bold text-brand-900">Checkout Order</h2>
-                    <p class="text-xs text-slate-500">Provide shipping details & select payment method</p>
-                </div>
-                <button onclick="closeCheckoutModal()" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-800"><i class="fa-solid fa-xmark"></i></button>
+                <h2 class="font-serif text-2xl font-bold text-pinkshade-950">Complete Order</h2>
+                <button onclick="closeCheckoutModal()" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
             </div>
-
             <form onsubmit="confirmOrder(event)" class="space-y-4 text-xs">
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Full Name *</label>
-                    <input type="text" id="custName" required placeholder="e.g. Nusrat Jahan" class="w-full p-3 border rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-brand-500">
+                    <input type="text" id="custName" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="Nusrat Jahan">
                 </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block font-bold text-slate-700 mb-1">Mobile Phone Number *</label>
-                        <input type="tel" id="custPhone" required placeholder="017XXXXXXXX" class="w-full p-3 border rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-brand-500">
+                        <label class="block font-bold text-slate-700 mb-1">Phone Number *</label>
+                        <input type="tel" id="custPhone" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="017XXXXXXXX">
                     </div>
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">City / Region *</label>
-                        <select id="custCity" onchange="calculateDelivery()" class="w-full p-3 border rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-brand-500">
-                            <option value="Dhaka">Inside Dhaka (৳ 60 Delivery)</option>
-                            <option value="Outside">Outside Dhaka (৳ 120 Delivery)</option>
+                        <select id="custCity" onchange="calculateDelivery()" class="w-full p-3 border rounded-xl bg-pinkshade-50/50">
+                            <option value="Dhaka">Inside Dhaka (৳ 60)</option>
+                            <option value="Outside">Outside Dhaka (৳ 120)</option>
                         </select>
                     </div>
                 </div>
-
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Full Shipping Address *</label>
-                    <textarea id="custAddress" required placeholder="House No, Road No, Area, Thana..." class="w-full p-3 border rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-brand-500 h-20"></textarea>
+                    <label class="block font-bold text-slate-700 mb-1">Delivery Address *</label>
+                    <textarea id="custAddress" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50 h-20" placeholder="House, Road, Area..."></textarea>
                 </div>
-
-                <!-- PAYMENT METHOD SELECTION -->
-                <div class="pt-2 border-t">
-                    <label class="block font-bold text-slate-800 mb-2">Select Payment Method *</label>
+                <div>
+                    <label class="block font-bold text-slate-800 mb-2">Payment Method *</label>
                     <div class="grid grid-cols-2 gap-3">
-                        <label class="border p-3 rounded-xl flex items-center gap-2 cursor-pointer hover:bg-brand-50">
-                            <input type="radio" name="payMethod" value="COD" checked class="text-brand-600">
-                            <span class="font-semibold text-slate-800">Cash on Delivery</span>
-                        </label>
-                        <label class="border p-3 rounded-xl flex items-center gap-2 cursor-pointer hover:bg-brand-50">
-                            <input type="radio" name="payMethod" value="bKash" class="text-brand-600">
-                            <span class="font-semibold text-pink-600">bKash Online</span>
-                        </label>
-                        <label class="border p-3 rounded-xl flex items-center gap-2 cursor-pointer hover:bg-brand-50">
-                            <input type="radio" name="payMethod" value="Nagad" class="text-brand-600">
-                            <span class="font-semibold text-orange-600">Nagad Pay</span>
-                        </label>
-                        <label class="border p-3 rounded-xl flex items-center gap-2 cursor-pointer hover:bg-brand-50">
-                            <input type="radio" name="payMethod" value="Rocket" class="text-brand-600">
-                            <span class="font-semibold text-purple-600">Rocket</span>
-                        </label>
+                        <label class="border p-3 rounded-xl flex items-center gap-2 cursor-pointer hover:bg-pinkshade-50"><input type="radio" name="payMethod" value="COD" checked> Cash on Delivery</label>
+                        <label class="border p-3 rounded-xl flex items-center gap-2 cursor-pointer hover:bg-pinkshade-50"><input type="radio" name="payMethod" value="bKash"> bKash Online</label>
+                        <label class="border p-3 rounded-xl flex items-center gap-2 cursor-pointer hover:bg-pinkshade-50"><input type="radio" name="payMethod" value="Nagad"> Nagad Pay</label>
+                        <label class="border p-3 rounded-xl flex items-center gap-2 cursor-pointer hover:bg-pinkshade-50"><input type="radio" name="payMethod" value="Rocket"> Rocket</label>
                     </div>
                 </div>
-
-                <!-- ORDER SUMMARY -->
-                <div class="bg-brand-50 p-4 rounded-xl space-y-1.5 text-xs text-slate-700 border border-pink-100">
-                    <div class="flex justify-between"><span>Products Subtotal:</span><span id="summarySubtotal" class="font-bold">৳ 0</span></div>
-                    <div class="flex justify-between"><span>Delivery Charge:</span><span id="summaryDelivery" class="font-bold">৳ 60</span></div>
-                    <div class="flex justify-between text-sm font-extrabold text-brand-900 pt-2 border-t border-brand-200"><span>Grand Total:</span><span id="summaryGrandTotal">৳ 0</span></div>
+                <div class="bg-pinkshade-50 p-4 rounded-xl space-y-1 text-slate-700 border border-pinkshade-200">
+                    <div class="flex justify-between"><span>Subtotal:</span><span id="summarySubtotal" class="font-bold">৳ 0</span></div>
+                    <div class="flex justify-between"><span>Delivery:</span><span id="summaryDelivery" class="font-bold">৳ 60</span></div>
+                    <div class="flex justify-between text-sm font-bold text-pinkshade-950 pt-2 border-t"><span>Total:</span><span id="summaryGrandTotal">৳ 0</span></div>
                 </div>
-
-                <button type="submit" class="w-full bg-brand-900 text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-brand-800 transition text-sm">Confirm Order Now</button>
+                <button type="submit" class="w-full bg-gradient-to-r from-pinkshade-700 to-pinkshade-900 text-white font-bold py-3.5 rounded-xl shadow-md">Confirm Order</button>
             </form>
         </div>
     </div>
 
     <!-- FOOTER -->
-    <footer class="bg-brand-900 text-white py-12 text-center text-xs border-t border-brand-800">
-        <p id="displayFooterBrand" class="font-serif text-xl font-bold mb-1">Jhumur Hut</p>
-        <p id="displayFooterInfo" class="text-brand-200 mb-4">Dhaka, Bangladesh | Cash on Delivery Available Nationwide</p>
+    <footer class="bg-pinkshade-950 text-white py-12 text-center text-xs border-t border-pinkshade-900">
+        <p class="font-serif text-2xl font-bold mb-1 text-pinkshade-200">Jhumur Hut</p>
+        <p class="text-pinkshade-300 mb-4">Dhaka, Bangladesh | Cash on Delivery Available Nationwide</p>
         © 2026 Jhumur Hut. All rights reserved.
     </footer>
 
-    <!-- JAVASCRIPT SYSTEM ENGINE -->
     <script>
         const DEFAULT_PRODUCTS = [
-            { id: 1, name: "Rose Silk Hydrating Serum", category: "Skincare", price: 1250, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80" },
-            { id: 2, name: "Royal Velvet Matte Lipstick", category: "Makeup", price: 850, image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80" },
-            { id: 3, name: "Exclusive Silk Party Designer Dress", category: "Fashion", price: 4500, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80" },
-            { id: 4, name: "24K Gold Plated Kundan Jhumka", category: "Jewelry", price: 1850, image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80" }
+            { id: 1, name: "Rose Silk Hydrating Serum", category: "Skincare", price: 1250, stock: 15, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80" },
+            { id: 2, name: "Royal Velvet Matte Lipstick", category: "Makeup", price: 850, stock: 8, image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80" },
+            { id: 3, name: "Exclusive Silk Party Dress", category: "Fashion", price: 4500, stock: 4, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80" },
+            { id: 4, name: "24K Gold Plated Jhumka", category: "Jewelry", price: 1850, stock: 20, image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80" }
         ];
 
         let cart = [];
-        let wishlist = [];
         let currentDeliveryFee = 60;
 
         function getProducts() {
@@ -353,63 +300,47 @@
             return saved ? JSON.parse(saved) : DEFAULT_PRODUCTS;
         }
 
-        /* RENDER PRODUCTS WITH HYPERLINKED NAMES */
-        function renderProducts(category = 'All', search = '') {
+        function renderProducts() {
             const products = getProducts();
-            const grid = document.getElementById('productGrid');
-            let filtered = category === 'All' ? products : products.filter(p => p.category === category);
-            if(search) filtered = filtered.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
-
-            grid.innerHTML = filtered.map(p => `
-                <div class="bg-white rounded-2xl overflow-hidden border border-brand-100 shadow-sm hover:shadow-md transition group flex flex-col justify-between">
-                    <div class="aspect-square relative overflow-hidden bg-brand-50 cursor-pointer" onclick="openSpecModal(${p.id})">
-                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                        <span class="absolute top-3 left-3 bg-white/90 text-brand-900 text-[10px] font-bold uppercase px-2.5 py-1 rounded-full border border-brand-100">${p.category}</span>
+            document.getElementById('productGrid').innerHTML = products.map(p => `
+                <div class="bg-white rounded-2xl overflow-hidden border border-pinkshade-200 pink-card-glow transition flex flex-col justify-between">
+                    <div class="aspect-square relative overflow-hidden bg-pinkshade-50 cursor-pointer" onclick="goToProduct(${p.id})">
+                        <img src="${p.image}" class="w-full h-full object-cover">
+                        <span class="absolute top-3 left-3 bg-white/90 text-pinkshade-900 text-[10px] font-bold uppercase px-2.5 py-1 rounded-full border border-pinkshade-200">${p.category}</span>
+                        <span class="absolute top-3 right-3 ${p.stock > 0 ? 'bg-pinkshade-600' : 'bg-slate-500'} text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Stock: ${p.stock}</span>
                     </div>
                     <div class="p-5 space-y-3">
-                        <a href="javascript:void(0)" onclick="openSpecModal(${p.id})" class="font-serif font-semibold text-slate-800 text-lg hover:text-brand-600 underline decoration-brand-200 underline-offset-4 block leading-snug">${p.name}</a>
+                        <a href="product.html?id=${p.id}" class="font-serif font-semibold text-pinkshade-950 text-lg hover:text-pinkshade-600 underline decoration-pinkshade-300 block">${p.name}</a>
                         <div class="flex items-center justify-between">
-                            <span class="text-brand-900 font-bold text-lg">৳ ${p.price.toLocaleString()}</span>
-                            <button onclick="addToCart(${p.id})" class="bg-brand-50 hover:bg-brand-900 text-brand-900 hover:text-white p-2.5 rounded-full transition">
-                                <i class="fa-solid fa-cart-plus text-sm"></i>
-                            </button>
+                            <span class="text-pinkshade-800 font-bold text-lg">৳ ${p.price.toLocaleString()}</span>
+                            ${p.stock > 0 ? `<button onclick="addToCart(${p.id})" class="bg-pinkshade-100 hover:bg-pinkshade-700 text-pinkshade-800 hover:text-white p-2.5 rounded-full transition"><i class="fa-solid fa-cart-plus text-sm"></i></button>` : `<span class="text-xs font-bold text-slate-400">Out of Stock</span>`}
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        function filterCategory(cat) { renderProducts(cat); }
-        function handleSearch() { renderProducts('All', document.getElementById('searchInput').value); }
-
-        /* SPECIFICATION MODAL */
-        function openSpecModal(id) {
-            const prod = getProducts().find(p => p.id === id);
-            if(!prod) return;
-            document.getElementById('specImg').src = prod.image;
-            document.getElementById('specCat').innerText = prod.category;
-            document.getElementById('specTitle').innerText = prod.name;
-            document.getElementById('specPrice').innerText = `৳ ${prod.price.toLocaleString()}`;
-            document.getElementById('specAddToCartBtn').onclick = () => { addToCart(prod.id); closeSpecModal(); };
-            document.getElementById('productSpecModal').classList.remove('hidden');
-        }
-        function closeSpecModal() { document.getElementById('productSpecModal').classList.add('hidden'); }
+        function goToProduct(id) { window.location.href = `product.html?id=${id}`; }
 
         function addToCart(id) {
-            const prod = getProducts().find(p => p.id === id);
-            if(prod) { cart.push(prod); updateCartUI(); toggleCart(true); }
+            const products = getProducts();
+            const prod = products.find(p => p.id === id);
+            if(prod && prod.stock > 0) {
+                cart.push(prod);
+                updateCartUI();
+                toggleCart(true);
+            }
         }
 
         function updateCartUI() {
             document.getElementById('cartCount').innerText = cart.length;
-            const container = document.getElementById('cartItems');
             const total = cart.reduce((sum, item) => sum + parseFloat(item.price), 0);
-            container.innerHTML = cart.map((item, idx) => `
-                <div class="flex items-center gap-4 p-3 bg-brand-50/50 rounded-xl">
+            document.getElementById('cartItems').innerHTML = cart.map((item, idx) => `
+                <div class="flex items-center gap-4 p-3 bg-pinkshade-50/60 rounded-xl border border-pinkshade-100">
                     <img src="${item.image}" class="w-14 h-14 object-cover rounded-lg">
                     <div class="flex-1">
                         <h4 class="font-serif text-sm font-semibold text-slate-800">${item.name}</h4>
-                        <p class="text-xs text-brand-700 font-bold">৳ ${item.price.toLocaleString()}</p>
+                        <p class="text-xs text-pinkshade-700 font-bold">৳ ${item.price.toLocaleString()}</p>
                     </div>
                 </div>
             `).join('');
@@ -422,7 +353,6 @@
             else drawer.classList.toggle('hidden');
         }
 
-        /* CHECKOUT & ADDRESS ENGINE */
         function openCheckoutModal() {
             if(cart.length === 0) return alert('Your cart is empty!');
             toggleCart(false);
@@ -433,8 +363,7 @@
         function closeCheckoutModal() { document.getElementById('checkoutModal').classList.add('hidden'); }
 
         function calculateDelivery() {
-            const city = document.getElementById('custCity').value;
-            currentDeliveryFee = city === 'Dhaka' ? 60 : 120;
+            currentDeliveryFee = document.getElementById('custCity').value === 'Dhaka' ? 60 : 120;
             const subtotal = cart.reduce((sum, item) => sum + parseFloat(item.price), 0);
             document.getElementById('summarySubtotal').innerText = `৳ ${subtotal.toLocaleString()}`;
             document.getElementById('summaryDelivery').innerText = `৳ ${currentDeliveryFee}`;
@@ -443,36 +372,37 @@
 
         function confirmOrder(e) {
             e.preventDefault();
-            const name = document.getElementById('custName').value;
-            const phone = document.getElementById('custPhone').value;
-            const address = document.getElementById('custAddress').value;
-            const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
+            const orderData = {
+                id: 'ORD-' + Date.now().toString().slice(-6),
+                name: document.getElementById('custName').value,
+                phone: document.getElementById('custPhone').value,
+                address: document.getElementById('custAddress').value,
+                city: document.getElementById('custCity').value,
+                payMethod: document.querySelector('input[name="payMethod"]:checked').value,
+                items: cart,
+                total: cart.reduce((sum, item) => sum + parseFloat(item.price), 0) + currentDeliveryFee,
+                date: new Date().toLocaleDateString()
+            };
 
-            alert(`🎉 Order Confirmed Successfully!\n\nCustomer: ${name}\nPhone: ${phone}\nAddress: ${address}\nPayment Method: ${payMethod}\n\nThank you for shopping with Jhumur Hut!`);
-            
+            let orders = JSON.parse(localStorage.getItem('jhumur_orders') || '[]');
+            orders.unshift(orderData);
+            localStorage.setItem('jhumur_orders', JSON.stringify(orders));
+
+            let products = getProducts();
+            cart.forEach(cartItem => {
+                let p = products.find(prod => prod.id === cartItem.id);
+                if(p && p.stock > 0) p.stock -= 1;
+            });
+            localStorage.setItem('jhumur_products', JSON.stringify(products));
+
+            alert(`🎉 Order Confirmed Successfully!\nOrder ID: ${orderData.id}\nThank you for choosing Jhumur Hut!`);
             cart = [];
             updateCartUI();
             closeCheckoutModal();
+            renderProducts();
         }
 
-        function applySiteSettings() {
-            const settings = JSON.parse(localStorage.getItem('jhumur_site_settings') || '{}');
-            if(settings.brandTitle) document.getElementById('displayBrandTitle').innerText = settings.brandTitle;
-            if(settings.brandSubtitle) document.getElementById('displayBrandSubtitle').innerText = settings.brandSubtitle;
-            if(settings.promoBanner) document.getElementById('displayPromoBanner').innerText = settings.promoBanner;
-            if(settings.heroHeading) document.getElementById('displayHeroHeading').innerText = settings.heroHeading;
-            if(settings.heroSubheading) document.getElementById('displayHeroSubheading').innerText = settings.heroSubheading;
-            if(settings.heroDesc) document.getElementById('displayHeroDesc').innerText = settings.heroDesc;
-            if(settings.heroGif) document.getElementById('displayHeroGif').src = settings.heroGif;
-            if(settings.flashTitle) document.getElementById('displayFlashTitle').innerText = settings.flashTitle;
-            if(settings.flashSub) document.getElementById('displayFlashSub').innerText = settings.flashSub;
-            if(settings.brandTitle) document.getElementById('displayFooterBrand').innerText = settings.brandTitle;
-            if(settings.footerAddress) document.getElementById('displayFooterInfo').innerText = `${settings.footerAddress} | ${settings.footerPhone}`;
-        }
-
-        // Initialize Page
         renderProducts();
-        applySiteSettings();
     </script>
 </body>
 </html>
