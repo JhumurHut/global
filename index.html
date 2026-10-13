@@ -53,16 +53,15 @@
         <button onclick="document.getElementById('topBanner').remove()" class="text-pinkshade-200 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
-    <!-- MAIN HEADER WITH OFFICIAL FACEBOOK LOGO -->
+    <!-- MAIN HEADER -->
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-pinkshade-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
             
-            <!-- OFFICIAL BRAND LOGO -->
+            <!-- BRAND LOGO -->
             <a href="index.html" class="flex items-center gap-3 group">
                 <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-pinkshade-400 via-pinkshade-500 to-pinkshade-700 p-0.5 shadow-md group-hover:scale-105 transition-transform overflow-hidden">
                     <div class="w-full h-full bg-white rounded-full flex items-center justify-center overflow-hidden">
-                        <!-- FACEBOOK LOGO IMAGE -->
-                        <img src="https://graph.facebook.com/122100797114934544/picture?type=large" 
+                        <img src="logo.jpg" 
                              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=150&q=80';" 
                              alt="Jhumur Hut Logo" 
                              class="w-full h-full object-cover">
@@ -84,10 +83,10 @@
         </div>
     </header>
 
-    <!-- HERO SECTION WITH BACKGROUND GIF -->
+    <!-- HERO SECTION -->
     <section id="home" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 border-b border-pinkshade-200 overflow-hidden bg-pinkshade-950 text-white min-h-[480px] flex items-center">
         <div class="absolute inset-0 z-0 opacity-40">
-            <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyNGN2bTV3eTh3ank0bDlkdjU5bjcydmFrMm9sNjh6Yng0YWk3dHJydSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L9EUxgj4PCwU6pZXsS/giphy.gif" alt="Background Magic GIF" class="w-full h-full object-cover">
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyNGN2bTV3eTh3ank0bDlkdjU5bjcydmFrMm9sNjh6Yng0YWk3dHJydUZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L9EUxgj4PCwU6pZXsS/giphy.gif" alt="Background Magic GIF" class="w-full h-full object-cover">
         </div>
         <div class="absolute inset-0 bg-gradient-to-r from-pinkshade-950/90 via-pinkshade-900/75 to-transparent z-10"></div>
 
@@ -115,9 +114,9 @@
             <p class="text-slate-500 text-sm mt-1">Select a category or search for products with auto spelling fix below</p>
         </div>
 
-        <!-- SEARCH BOX INSIDE CATEGORY SECTION -->
+        <!-- SEARCH BOX WITH UPDATED PLACEHOLDER -->
         <div class="max-w-xl mx-auto mb-8 relative">
-            <input type="text" id="smartSearchInput" oninput="handleSmartSearch()" placeholder="Search Your Fairy Stick" class="w-full pl-11 pr-4 py-3 rounded-full text-xs md:text-sm bg-white border-2 border-pinkshade-300 focus:outline-none focus:ring-2 focus:ring-pinkshade-500 focus:border-pinkshade-500 transition shadow-sm">
+            <input type="text" id="smartSearchInput" oninput="handleSmartSearch()" placeholder="Search Your Fairy Stick..." class="w-full pl-11 pr-4 py-3 rounded-full text-xs md:text-sm bg-white border-2 border-pinkshade-300 focus:outline-none focus:ring-2 focus:ring-pinkshade-500 focus:border-pinkshade-500 transition shadow-sm">
             <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-sm text-pinkshade-500"></i>
         </div>
 
@@ -165,7 +164,7 @@
             <form onsubmit="confirmOrder(event)" class="space-y-4 text-xs">
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Full Name *</label>
-                    <input type="text" id="custName" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="Your Name">
+                    <input type="text" id="custName" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="Input your Beautiful Name">
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
@@ -210,7 +209,7 @@
         © 2026 Jhumur Hut. All rights reserved.
     </footer>
 
-    <!-- JAVASCRIPT SYSTEM ENGINE WITH SMART SEARCH -->
+    <!-- JAVASCRIPT SYSTEM ENGINE -->
     <script>
         const BEAUTY_PRODUCTS = [
             { id: 1, name: "Beauty of Joseon Relief Sun Rice + Probiotics SPF50+", category: "Skincare", price: 1450, stock: 25, image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80", desc: "Lightweight organic sunscreen with rice extract and grain-derived probiotics for deep hydration and broad-spectrum protection." },
