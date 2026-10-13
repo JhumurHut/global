@@ -7,7 +7,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -18,19 +18,19 @@
                     colors: {
                         pinkshade: { 50: '#FFF0F5', 100: '#FFE4E1', 200: '#FBCFE8', 300: '#F472B6', 400: '#E879F9', 500: '#EC4899', 600: '#DB2777', 700: '#BE185D', 800: '#9D174D', 900: '#831843', 950: '#500724' }
                     },
-                    fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                    fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Plus Jakarta Sans', 'sans-serif'], cursive: ['Great Vibes', 'cursive'] }
                 }
             }
         }
     </script>
 </head>
-<body class="bg-[#FFF0F5] text-slate-800 min-h-screen flex flex-col justify-between">
+<body class="bg-gradient-to-br from-[#FFF0F5] via-[#F8E7F6] to-[#FAF0F8] text-slate-800 min-h-screen flex flex-col justify-between">
     
     <!-- HEADER -->
-    <header class="bg-pinkshade-950 text-white border-b border-pinkshade-900 h-24 flex items-center shadow-md">
+    <header class="bg-[#3B0A24] text-white border-b border-pinkshade-900 h-24 flex items-center shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-3 group">
-                <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-tr from-pinkshade-300 via-pinkshade-500 to-white p-0.5 shadow-md group-hover:scale-105 transition-transform overflow-hidden">
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-tr from-pinkshade-300 via-pinkshade-500 to-white p-0.5 shadow-md group-hover:scale-105 transition-transform overflow-hidden flex-shrink-0">
                     <div class="w-full h-full bg-white rounded-full flex items-center justify-center overflow-hidden">
                         <img src="https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/Logo.png" 
                              alt="Jhumur Hut Official Logo" 
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div>
-                    <span class="font-serif text-xl md:text-2xl font-bold tracking-tight text-white block leading-none">Jhumur Hut</span>
+                    <span class="font-cursive text-3xl md:text-4xl font-normal text-pinkshade-300 block leading-none">Jhumur Hut</span>
                     <span class="text-[10px] tracking-widest uppercase font-semibold text-pinkshade-200 block mt-1">Ladies Beauty & Skincare Paradise</span>
                 </div>
             </a>
@@ -50,7 +50,7 @@
     </header>
 
     <!-- MAIN PRODUCT DETAILS -->
-    <main class="max-w-4xl mx-auto p-6 my-10 bg-white rounded-3xl shadow-xl border border-pinkshade-200 grid grid-cols-1 md:grid-cols-2 gap-8">
+    <main class="max-w-4xl mx-auto p-6 my-10 bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border border-pinkshade-200 grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="aspect-square bg-pinkshade-50 rounded-2xl overflow-hidden border border-pinkshade-100">
             <img id="pImg" src="" class="w-full h-full object-cover">
         </div>
@@ -78,7 +78,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-pinkshade-950 text-white py-6 text-center text-xs border-t border-pinkshade-900">
+    <footer class="bg-[#3B0A24] text-white py-6 text-center text-xs border-t border-pinkshade-900">
         © 2026 Jhumur Hut. All rights reserved.
     </footer>
 
