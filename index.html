@@ -63,7 +63,7 @@
 
         <!-- MAIN NAVIGATION (HEADER WITH CURSIVE BRAND TEXT) -->
         <header class="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
-            <!-- BRAND LOGO & CURSIVE NAME (SAME DESIGN AS PURE SKINCARE MAGIC) -->
+            <!-- BRAND LOGO & CURSIVE NAME -->
             <a href="index.html" class="flex items-center gap-4 group">
                 <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-tr from-pinkshade-300 via-pinkshade-500 to-white p-0.5 shadow-lg group-hover:scale-105 transition-transform overflow-hidden flex-shrink-0">
                     <div class="w-full h-full bg-white rounded-full flex items-center justify-center overflow-hidden">
@@ -73,7 +73,6 @@
                     </div>
                 </div>
                 <div>
-                    <!-- SAME DESIGN AND CURSIVE FONT AS PURE SKINCARE MAGIC -->
                     <span class="font-cursive text-4xl md:text-5xl font-normal text-pinkshade-300 block leading-none drop-shadow-md tracking-wide">Jhumur Hut</span>
                     <span class="text-[10px] tracking-widest uppercase font-semibold text-pinkshade-100 block mt-1 drop-shadow-sm">Ladies Beauty & Skincare Paradise</span>
                 </div>
@@ -95,7 +94,6 @@
                     ✨ 100% Original Korean & Global Skincare for Ladies
                 </span>
                 
-                <!-- UPDATED HEADING STYLES -->
                 <h1 class="space-y-2">
                     <span class="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white block uppercase leading-snug drop-shadow-lg">
                         Glow Like a Fairy with
@@ -115,7 +113,7 @@
         </section>
     </div>
 
-    <!-- CATEGORY & SEARCH SECTION (LIGHT BABY PINK & PURPLE BACKGROUND) -->
+    <!-- CATEGORY & SEARCH SECTION -->
     <section id="products" class="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div class="text-center mb-8">
             <span class="text-xs font-bold uppercase tracking-widest text-pinkshade-700 bg-pinkshade-100 px-3 py-1 rounded-full border border-pinkshade-200">Curated For You</span>
@@ -123,7 +121,7 @@
             <p class="text-slate-600 text-sm mt-1">Select a category or search for products with auto spelling fix below</p>
         </div>
 
-        <!-- SEARCH BOX WITH "Search Your Fairy Stick..." PLACEHOLDER -->
+        <!-- SEARCH BOX -->
         <div class="max-w-xl mx-auto mb-8 relative">
             <input type="text" id="smartSearchInput" oninput="handleSmartSearch()" placeholder="Search Your Fairy Stick..." class="w-full pl-11 pr-4 py-3.5 rounded-full text-xs md:text-sm bg-white/90 backdrop-blur-sm border-2 border-pinkshade-300 focus:outline-none focus:ring-2 focus:ring-pinkshade-500 focus:border-pinkshade-500 transition shadow-md">
             <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-sm text-pinkshade-500"></i>
@@ -163,7 +161,7 @@
         </div>
     </div>
 
-    <!-- CHECKOUT MODAL WITH "Input your Beautiful Name" PLACEHOLDER -->
+    <!-- CHECKOUT MODAL -->
     <div id="checkoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md hidden">
         <div class="bg-white rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-pinkshade-200 space-y-6">
             <div class="flex items-center justify-between border-b pb-4">
@@ -297,7 +295,7 @@
                         <span class="absolute top-3 right-3 ${p.stock > 0 ? 'bg-pinkshade-600' : 'bg-slate-500'} text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Stock: ${p.stock}</span>
                     </a>
                     <div class="p-5 space-y-3">
-                        <a href="product.html?id=${p.id}" class="font-serif font-semibold text-pinkshade-950 text-lg hover:text-pinkshade-600 underline decoration-pinkshade-300 block line-clamp-2">${p.name}</a>
+                        <a href="product.html?id=${p.id}" class="font-serif font-semibold text-pinkshade-950 text-lg hover:text-pinkshade-600 no-underline block line-clamp-2">${p.name}</a>
                         <div class="flex items-center justify-between">
                             <span class="text-pinkshade-800 font-bold text-lg">৳ ${p.price.toLocaleString()}</span>
                             ${p.stock > 0 ? `<button onclick="addToCart(${p.id})" class="bg-pinkshade-100 hover:bg-pinkshade-700 text-pinkshade-800 hover:text-white p-2.5 rounded-full transition"><i class="fa-solid fa-cart-plus text-sm"></i></button>` : `<span class="text-xs font-bold text-slate-400">Out of Stock</span>`}
