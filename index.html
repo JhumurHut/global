@@ -43,23 +43,29 @@
 </head>
 <body class="text-slate-800 antialiased selection:bg-pinkshade-300 selection:text-pinkshade-900">
 
-    <!-- TOP PROMO BANNER -->
-    <div id="topBanner" class="bg-gradient-to-r from-pinkshade-950 via-pinkshade-900 to-pinkshade-950 text-pinkshade-100 text-xs py-2.5 px-4 text-center font-medium tracking-wide flex justify-between items-center shadow-md">
-        <div class="flex-1 text-center flex items-center justify-center gap-2">
-            <span>🦋</span>
-            <span>100% Authentic Ladies Beauty & Skincare! Free Delivery on Orders Over ৳২,৫০০! Code: <span class="text-pinkshade-300 font-bold">PINKGLOW</span></span>
-            <span>✨</span>
+    <!-- HERO & INTEGRATED HEADER CONTAINER WITH BACKGROUND GIF -->
+    <div class="relative bg-pinkshade-950 text-white overflow-hidden border-b border-pinkshade-900">
+        <!-- BACKGROUND MAGIC GIF -->
+        <div class="absolute inset-0 z-0 opacity-40">
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyNGN2bTV3eTh3ank0bDlkdjU5bjcydmFrMm9sNjh6Yng0YWk3dHJydUZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L9EUxgj4PCwU6pZXsS/giphy.gif" alt="Background Magic GIF" class="w-full h-full object-cover">
         </div>
-        <button onclick="document.getElementById('topBanner').remove()" class="text-pinkshade-200 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-    </div>
+        <div class="absolute inset-0 bg-gradient-to-b from-pinkshade-950/90 via-pinkshade-900/75 to-pinkshade-950/95 z-10"></div>
 
-    <!-- MAIN HEADER -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-pinkshade-200 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
-            
-            <!-- BRAND LOGO WITH GITHUB RAW LINK -->
+        <!-- TOP PROMO BANNER -->
+        <div id="topBanner" class="relative z-30 bg-black/30 backdrop-blur-md text-pinkshade-100 text-xs py-2.5 px-4 text-center font-medium tracking-wide flex justify-between items-center border-b border-white/10">
+            <div class="flex-1 text-center flex items-center justify-center gap-2">
+                <span>🦋</span>
+                <span>100% Authentic Ladies Beauty & Skincare! Free Delivery on Orders Over ৳২,৫০০! Code: <span class="text-pinkshade-300 font-bold">PINKGLOW</span></span>
+                <span>✨</span>
+            </div>
+            <button onclick="document.getElementById('topBanner').remove()" class="text-pinkshade-200 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!-- MAIN NAVIGATION (OVERLAY ON TOP OF HERO VIDEO) -->
+        <header class="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
+            <!-- BRAND LOGO & NAME -->
             <a href="index.html" class="flex items-center gap-3 group">
-                <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-pinkshade-400 via-pinkshade-500 to-pinkshade-700 p-0.5 shadow-md group-hover:scale-105 transition-transform overflow-hidden">
+                <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-pinkshade-300 via-pinkshade-500 to-white p-0.5 shadow-lg group-hover:scale-105 transition-transform overflow-hidden">
                     <div class="w-full h-full bg-white rounded-full flex items-center justify-center overflow-hidden">
                         <img src="https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/Logo.png" 
                              alt="Jhumur Hut Official Logo" 
@@ -67,43 +73,38 @@
                     </div>
                 </div>
                 <div>
-                    <span class="font-serif text-2xl font-bold tracking-tight text-pinkshade-950 block leading-none">Jhumur Hut</span>
-                    <span class="text-[10px] tracking-widest uppercase font-semibold text-pinkshade-600 block mt-1">Ladies Beauty & Skincare Paradise</span>
+                    <span class="font-serif text-2xl md:text-3xl font-bold tracking-tight text-white block leading-none drop-shadow-md">Jhumur Hut</span>
+                    <span class="text-[10px] tracking-widest uppercase font-semibold text-pinkshade-200 block mt-1 drop-shadow-sm">Ladies Beauty & Skincare Paradise</span>
                 </div>
             </a>
 
             <!-- CART ACTION -->
             <div class="flex items-center gap-3">
-                <button onclick="toggleCart()" class="relative p-3 bg-gradient-to-r from-pinkshade-600 to-pinkshade-800 text-white rounded-full shadow-md hover:scale-105 transition">
+                <button onclick="toggleCart()" class="relative p-3 bg-white/15 hover:bg-white/25 backdrop-blur-md text-white border border-white/20 rounded-full shadow-lg hover:scale-105 transition">
                     <i class="fa-solid fa-bag-shopping text-base"></i>
-                    <span id="cartCount" class="absolute -top-1 -right-1 bg-pinkshade-200 text-pinkshade-950 text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">0</span>
+                    <span id="cartCount" class="absolute -top-1 -right-1 bg-pinkshade-500 text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-pinkshade-950">0</span>
                 </button>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- HERO SECTION -->
-    <section id="home" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 border-b border-pinkshade-200 overflow-hidden bg-pinkshade-950 text-white min-h-[480px] flex items-center">
-        <div class="absolute inset-0 z-0 opacity-40">
-            <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyNGN2bTV3eTh3ank0bDlkdjU5bjcydmFrMm9sNjh6Yng0YWk3dHJydUZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L9EUxgj4PCwU6pZXsS/giphy.gif" alt="Background Magic GIF" class="w-full h-full object-cover">
-        </div>
-        <div class="absolute inset-0 bg-gradient-to-r from-pinkshade-950/90 via-pinkshade-900/75 to-transparent z-10"></div>
-
-        <div class="max-w-7xl mx-auto relative z-20 space-y-6 text-center lg:text-left">
-            <span class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full text-xs font-bold text-pinkshade-100 uppercase tracking-widest shadow-sm">
-                ✨ 100% Original Korean & Global Skincare for Ladies
-            </span>
-            <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-                Glow Like a Fairy with <br><span class="font-cursive text-pinkshade-300 font-normal text-6xl lg:text-7xl">Pure Skincare Magic</span>
-            </h1>
-            <p class="text-pinkshade-100 text-base sm:text-lg max-w-xl mx-auto lg:mx-0">
-                Pamper your skin with authentic serums, glass-skin sunscreens, nourishing lip masks, and luxury makeup essentials.
-            </p>
-            <a href="#products" class="inline-block bg-gradient-to-r from-pinkshade-500 to-pinkshade-700 text-white font-semibold px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl transition transform active:scale-95">
-                Explore Beauty Catalog ✨
-            </a>
-        </div>
-    </section>
+        <!-- HERO CONTENT -->
+        <section id="home" class="relative z-20 py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center lg:text-left min-h-[420px] flex flex-col justify-center">
+            <div class="space-y-6">
+                <span class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full text-xs font-bold text-pinkshade-100 uppercase tracking-widest shadow-sm">
+                    ✨ 100% Original Korean & Global Skincare for Ladies
+                </span>
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-white drop-shadow-md">
+                    Glow Like a Fairy with <br><span class="font-cursive text-pinkshade-300 font-normal text-6xl lg:text-7xl">Pure Skincare Magic</span>
+                </h1>
+                <p class="text-pinkshade-100 text-base sm:text-lg max-w-xl mx-auto lg:mx-0">
+                    Pamper your skin with authentic serums, glass-skin sunscreens, nourishing lip masks, and luxury makeup essentials.
+                </p>
+                <a href="#products" class="inline-block bg-gradient-to-r from-pinkshade-500 to-pinkshade-700 text-white font-semibold px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl transition transform active:scale-95">
+                    Explore Beauty Catalog ✨
+                </a>
+            </div>
+        </section>
+    </div>
 
     <!-- CATEGORY & SEARCH SECTION -->
     <section id="products" class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
