@@ -86,7 +86,7 @@
                     </span>
                 </button>
 
-                <!-- ACCOUNT ICON & HOVER DROPDOWN / TOOLTIP -->
+                <!-- ACCOUNT ICON WITH FAIRY LOGO & HOVER DROPDOWN / TOOLTIP -->
                 <div class="relative group/acc z-50" id="accountMenuWrapper">
                     <!-- Dynamic Render via JS -->
                 </div>
@@ -287,10 +287,13 @@
             const wrapper = document.getElementById('accountMenuWrapper');
             const loggedUser = JSON.parse(localStorage.getItem('jhumur_logged_user'));
 
+            // DEFAULT FAIRY AVATAR ICON
+            const fairyAvatar = `<div class="w-full h-full bg-gradient-to-tr from-pinkshade-400 to-pinkshade-600 rounded-full flex items-center justify-center text-white shadow"><i class="fa-solid fa-wand-magic-sparkles text-xs"></i></div>`;
+
             if (!loggedUser) {
                 wrapper.innerHTML = `
                     <a href="login.html" class="p-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 rounded-full shadow-lg hover:scale-105 transition flex items-center justify-center relative">
-                        <i class="fa-solid fa-circle-user text-base"></i>
+                        <i class="fa-solid fa-wand-magic-sparkles text-base text-pinkshade-200"></i>
                         <span class="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-[#2B2B2B] text-white text-[11px] px-3 py-1 rounded-md opacity-0 group-hover/acc:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap shadow-xl border border-white/10 z-50">
                             Account
                         </span>
@@ -299,13 +302,13 @@
             } else {
                 wrapper.innerHTML = `
                     <button class="p-1 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 rounded-full shadow-lg hover:scale-105 transition flex items-center justify-center overflow-hidden w-11 h-11">
-                        <img src="${loggedUser.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'}" class="w-full h-full object-cover rounded-full">
+                        ${loggedUser.photo ? `<img src="${loggedUser.photo}" class="w-full h-full object-cover rounded-full">` : fairyAvatar}
                     </button>
                     <div class="absolute right-0 top-full pt-2 w-64 opacity-0 pointer-events-none group-hover/acc:opacity-100 group-hover/acc:pointer-events-auto transition duration-200 z-50">
                         <div class="bg-white text-slate-900 rounded-2xl shadow-2xl border border-pinkshade-200 p-5 space-y-4 font-sans text-xs">
                             <div class="border-b border-pinkshade-100 pb-3 flex items-center gap-3">
                                 <div class="w-9 h-9 rounded-full overflow-hidden bg-pinkshade-100 flex-shrink-0">
-                                    <img src="${loggedUser.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'}" class="w-full h-full object-cover">
+                                    ${loggedUser.photo ? `<img src="${loggedUser.photo}" class="w-full h-full object-cover">` : fairyAvatar}
                                 </div>
                                 <div class="overflow-hidden">
                                     <h3 class="font-bold text-sm text-pinkshade-950 truncate">${loggedUser.name}!</h3>
@@ -330,7 +333,6 @@
 
         function logoutUser() {
             localStorage.removeItem('jhumur_logged_user');
-            alert('Signed out successfully!');
             window.location.reload();
         }
 
@@ -556,8 +558,7 @@
                 }
             } else {
                 const newUser = {
-                    name, email, phone, address, password,
-                    photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'
+                    name, email, phone, address, password
                 };
                 usersDb.push(newUser);
                 localStorage.setItem('jhumur_users_db', JSON.stringify(usersDb));
