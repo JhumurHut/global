@@ -44,37 +44,101 @@
             <div class="flex-grow border-t border-slate-200"></div>
         </div>
 
+        <!-- LOGIN FORM -->
         <form onsubmit="handleEmailLogin(event)" class="space-y-4 text-xs">
             <div>
                 <label class="block font-bold text-slate-700 mb-1">Email Address *</label>
-                <input type="email" id="loginEmail" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="fairyglow@gmail.com">
+                <input type="email" id="loginEmail" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50 focus:ring-2 focus:ring-pinkshade-500 outline-none" placeholder="fairyglow@gmail.com">
             </div>
             <div>
-                <label class="block font-bold text-slate-700 mb-1">Password *</label>
-                <input type="password" id="loginPassword" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="••••••••">
+                <div class="flex justify-between items-center mb-1">
+                    <label class="font-bold text-slate-700">Password *</label>
+                    <button type="button" onclick="openForgotModal()" class="text-[11px] text-pinkshade-700 font-bold hover:underline">Forgot Password?</button>
+                </div>
+                <input type="password" id="loginPassword" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50 focus:ring-2 focus:ring-pinkshade-500 outline-none" placeholder="••••••••">
             </div>
+
+            <!-- SIGN IN BUTTON -->
             <button type="submit" class="w-full bg-gradient-to-r from-pinkshade-700 to-pinkshade-900 text-white font-bold py-3.5 rounded-xl shadow-lg hover:from-pinkshade-800 transition">
-                Sign In / Sign Up
+                Sign In
             </button>
         </form>
 
-        <div class="text-center">
-            <a href="index.html" class="text-xs text-pinkshade-800 font-bold hover:underline"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+        <!-- FOOTER LINKS: BACK TO HOME & SIGN UP -->
+        <div class="flex items-center justify-between text-xs pt-2 border-t border-slate-100">
+            <a href="index.html" class="text-pinkshade-800 font-bold hover:underline flex items-center gap-1">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </a>
+            <button onclick="openSignUpModal()" class="bg-pinkshade-100 text-pinkshade-900 px-4 py-2 rounded-xl font-bold hover:bg-pinkshade-200 transition">
+                Sign Up
+            </button>
         </div>
     </div>
 
-    <!-- GOOGLE / FACEBOOK ACCOUNT CHOOSER MODAL -->
+    <!-- MANUAL SIGN UP MODAL -->
+    <div id="signUpModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-pinkshade-200 space-y-4 relative text-xs">
+            <button onclick="closeSignUpModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-pinkshade-100 text-pinkshade-900 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+            <div class="text-center">
+                <h3 class="font-serif text-2xl font-bold text-pinkshade-950">Create New Account</h3>
+                <p class="text-slate-500 mt-1">Fill in your information to join Jhumur Hut</p>
+            </div>
+            <form onsubmit="handleManualSignUp(event)" class="space-y-3">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Full Name *</label>
+                    <input type="text" id="regName" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="Your Name">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Email Address *</label>
+                    <input type="email" id="regEmail" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="yourmail@gmail.com">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Phone Number *</label>
+                    <input type="tel" id="regPhone" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="017XXXXXXXX">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Delivery Address *</label>
+                    <textarea id="regAddress" required class="w-full p-2.5 border rounded-xl bg-pinkshade-50/50 h-16" placeholder="House, Road, City..."></textarea>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Create Password *</label>
+                    <input type="password" id="regPassword" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-pinkshade-700 to-pinkshade-900 text-white font-bold py-3.5 rounded-xl shadow-lg hover:from-pinkshade-800 transition">
+                    Complete Registration
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FORGOT PASSWORD MODAL -->
+    <div id="forgotModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-pinkshade-200 space-y-4 relative text-xs">
+            <button onclick="closeForgotModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-pinkshade-100 text-pinkshade-900 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+            <div class="text-center">
+                <h3 class="font-serif text-2xl font-bold text-pinkshade-950">Password Recovery</h3>
+                <p class="text-slate-500 mt-1">Enter your registered email to receive a password reset link</p>
+            </div>
+            <form onsubmit="handlePasswordRecovery(event)" class="space-y-4">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Email Address *</label>
+                    <input type="email" id="recoveryEmail" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="yourmail@gmail.com">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-pinkshade-700 to-pinkshade-900 text-white font-bold py-3.5 rounded-xl shadow-lg hover:from-pinkshade-800 transition">
+                    Send Recovery Link
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SOCIAL ACCOUNT CHOOSER MODAL -->
     <div id="socialModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
         <div class="bg-[#1e1e1e] text-white rounded-3xl max-w-xl w-full p-8 shadow-2xl border border-zinc-800 space-y-6 relative font-sans">
             <button onclick="closeSocialModal()" class="absolute top-5 right-5 text-zinc-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-
-            <!-- MODAL HEADER -->
             <div class="flex items-center gap-3">
                 <i id="providerLogo" class="fa-brands fa-google text-red-500 text-xl"></i>
                 <span id="providerHeaderTitle" class="text-sm font-semibold text-zinc-300">Sign in with Google</span>
             </div>
-
-            <!-- MAIN TITLE -->
             <div class="flex items-start gap-6 border-b border-zinc-800 pb-6">
                 <div class="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden border border-zinc-700 flex-shrink-0">
                     <img src="https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/Logo.png" class="w-full h-full object-cover">
@@ -84,149 +148,123 @@
                     <p class="text-sm text-zinc-400 mt-1">to continue to <span class="font-bold text-white">Jhumur Hut</span></p>
                 </div>
             </div>
-
-            <!-- ACCOUNT LIST -->
-            <div id="accountListContainer" class="space-y-1">
-                <!-- Dynamically Populated Accounts -->
-            </div>
-
-            <!-- FOOTER LINKS -->
-            <div class="text-[11px] text-zinc-500 pt-4 border-t border-zinc-800 flex justify-between items-center">
-                <span>English (United States)</span>
-                <div class="space-x-3">
-                    <a href="#" class="hover:underline">Help</a>
-                    <a href="#" class="hover:underline">Privacy</a>
-                    <a href="#" class="hover:underline">Terms</a>
-                </div>
-            </div>
+            <div id="accountListContainer" class="space-y-1"></div>
         </div>
     </div>
 
     <script>
-        const mockGoogleAccounts = [
-            {
-                name: "Jhumur Hut Official",
-                email: "jhumurhut@gmail.com",
-                photo: "https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/Logo.png",
-                phone: "01700000000",
-                address: "Dhaka, Bangladesh"
-            },
-            {
-                name: "Sakib Rakesh",
-                email: "sakib.rakesh@gmail.com",
-                photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
-                phone: "01758964710",
-                address: "Mirpur, Dhaka, Bangladesh"
-            }
-        ];
-
-        const mockFacebookAccounts = [
-            {
-                name: "Sakib Rakesh (Facebook User)",
-                email: "sakib.fb@gmail.com",
-                photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
-                phone: "01822334455",
-                address: "Uttara, Dhaka"
-            }
-        ];
-
-        let activeProvider = 'Google';
-
-        function openSocialModal(provider) {
-            activeProvider = provider;
-            const modal = document.getElementById('socialModal');
-            const logo = document.getElementById('providerLogo');
-            const title = document.getElementById('providerHeaderTitle');
-            const container = document.getElementById('accountListContainer');
-
-            if(provider === 'Google') {
-                logo.className = "fa-brands fa-google text-red-500 text-xl";
-                title.innerText = "Sign in with Google";
-                
-                const accounts = mockGoogleAccounts;
-                container.innerHTML = accounts.map((acc, index) => `
-                    <div onclick="selectAccount(${index})" class="flex items-center gap-4 p-3 rounded-xl hover:bg-zinc-800/70 cursor-pointer transition">
-                        <img src="${acc.photo}" class="w-10 h-10 rounded-full object-cover">
-                        <div class="flex-1">
-                            <h4 class="text-sm font-semibold text-white">${acc.name}</h4>
-                            <p class="text-xs text-zinc-400">${acc.email}</p>
-                        </div>
-                    </div>
-                `).join('') + `
-                    <div onclick="useAnotherAccount()" class="flex items-center gap-4 p-3 rounded-xl hover:bg-zinc-800/70 cursor-pointer transition border-t border-zinc-800 mt-2">
-                        <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-300">
-                            <i class="fa-regular fa-user"></i>
-                        </div>
-                        <span class="text-sm font-medium text-white">Use another account</span>
-                    </div>
-                `;
-            } else {
-                logo.className = "fa-brands fa-facebook text-blue-500 text-xl";
-                title.innerText = "Log in with Facebook";
-                
-                const accounts = mockFacebookAccounts;
-                container.innerHTML = accounts.map((acc, index) => `
-                    <div onclick="selectAccount(${index})" class="flex items-center gap-4 p-3 rounded-xl hover:bg-zinc-800/70 cursor-pointer transition">
-                        <img src="${acc.photo}" class="w-10 h-10 rounded-full object-cover">
-                        <div class="flex-1">
-                            <h4 class="text-sm font-semibold text-white">${acc.name}</h4>
-                            <p class="text-xs text-zinc-400">${acc.email}</p>
-                        </div>
-                    </div>
-                `).join('') + `
-                    <div onclick="useAnotherAccount()" class="flex items-center gap-4 p-3 rounded-xl hover:bg-zinc-800/70 cursor-pointer transition border-t border-zinc-800 mt-2">
-                        <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-300">
-                            <i class="fa-regular fa-user"></i>
-                        </div>
-                        <span class="text-sm font-medium text-white">Log into another account</span>
-                    </div>
-                `;
-            }
-
-            modal.classList.remove('hidden');
+        function getUsersDB() {
+            return JSON.parse(localStorage.getItem('jhumur_users_db') || '[]');
         }
 
-        function closeSocialModal() {
-            document.getElementById('socialModal').classList.add('hidden');
-        }
-
-        function selectAccount(index) {
-            const list = activeProvider === 'Google' ? mockGoogleAccounts : mockFacebookAccounts;
-            const selectedUser = list[index];
-
-            localStorage.setItem('jhumur_logged_user', JSON.stringify(selectedUser));
-            alert(`🎉 Signed in successfully as ${selectedUser.name}!`);
-            window.location.href = "account.html";
-        }
-
-        function useAnotherAccount() {
-            const customEmail = prompt(`Enter your ${activeProvider} Email:`);
-            if(customEmail) {
-                const newUser = {
-                    name: customEmail.split('@')[0],
-                    email: customEmail,
-                    photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
-                    phone: "01700000000",
-                    address: "Dhaka, Bangladesh"
-                };
-                localStorage.setItem('jhumur_logged_user', JSON.stringify(newUser));
-                alert(`🎉 Signed in as ${newUser.email}!`);
-                window.location.href = "account.html";
-            }
+        function saveUsersDB(db) {
+            localStorage.setItem('jhumur_users_db', JSON.stringify(db));
         }
 
         function handleEmailLogin(e) {
             e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const mockUser = {
-                name: email.split('@')[0],
+            const email = document.getElementById('loginEmail').value.toLowerCase().trim();
+            const pass = document.getElementById('loginPassword').value;
+
+            const db = getUsersDB();
+            const foundUser = db.find(u => u.email === email);
+
+            if (foundUser) {
+                if (foundUser.password === pass) {
+                    localStorage.setItem('jhumur_logged_user', JSON.stringify(foundUser));
+                    alert('🎉 Login Successful!');
+                    window.location.href = "account.html";
+                } else {
+                    alert('❌ Incorrect Password! Please try again or use "Forgot Password".');
+                }
+            } else {
+                // If not registered yet, create default account dynamically
+                const newUser = {
+                    name: email.split('@')[0],
+                    email: email,
+                    password: pass,
+                    phone: '01700000000',
+                    address: 'Dhaka, Bangladesh',
+                    photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'
+                };
+                db.push(newUser);
+                saveUsersDB(db);
+                localStorage.setItem('jhumur_logged_user', JSON.stringify(newUser));
+                alert('🎉 New account created and logged in successfully!');
+                window.location.href = "account.html";
+            }
+        }
+
+        function openSignUpModal() { document.getElementById('signUpModal').classList.remove('hidden'); }
+        function closeSignUpModal() { document.getElementById('signUpModal').classList.add('hidden'); }
+
+        function handleManualSignUp(e) {
+            e.preventDefault();
+            const email = document.getElementById('regEmail').value.toLowerCase().trim();
+            const db = getUsersDB();
+
+            if (db.some(u => u.email === email)) {
+                return alert('⚠️ An account with this email already exists! Please Log In.');
+            }
+
+            const newUser = {
+                name: document.getElementById('regName').value,
                 email: email,
-                phone: '01700000000',
-                photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
-                address: 'Dhaka, Bangladesh'
+                phone: document.getElementById('regPhone').value,
+                address: document.getElementById('regAddress').value,
+                password: document.getElementById('regPassword').value,
+                photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'
             };
-            localStorage.setItem('jhumur_logged_user', JSON.stringify(mockUser));
-            alert('🎉 Logged in Successfully!');
+
+            db.push(newUser);
+            saveUsersDB(db);
+            localStorage.setItem('jhumur_logged_user', JSON.stringify(newUser));
+            alert('🎉 Account created successfully! Redirecting...');
+            window.location.href = "account.html";
+        }
+
+        function openForgotModal() { document.getElementById('forgotModal').classList.remove('hidden'); }
+        function closeForgotModal() { document.getElementById('forgotModal').classList.add('hidden'); }
+
+        function handlePasswordRecovery(e) {
+            e.preventDefault();
+            const email = document.getElementById('recoveryEmail').value.toLowerCase().trim();
+            const db = getUsersDB();
+            const user = db.find(u => u.email === email);
+
+            if(user) {
+                alert(`📧 Password Recovery Email sent to ${email}!\n\nYour saved password hint is: "${user.password}"`);
+            } else {
+                alert(`📧 Password reset instructions sent to ${email}! Check your inbox.`);
+            }
+            closeForgotModal();
+        }
+
+        // Social Logins
+        function openSocialModal(provider) {
+            document.getElementById('socialModal').classList.remove('hidden');
+            document.getElementById('accountListContainer').innerHTML = `
+                <div onclick="loginSocialAcc('${provider}')" class="flex items-center gap-4 p-3 rounded-xl hover:bg-zinc-800 cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" class="w-10 h-10 rounded-full">
+                    <div>
+                        <h4 class="text-sm font-semibold text-white">Sakib Rakesh (${provider})</h4>
+                        <p class="text-xs text-zinc-400">sakib.${provider.toLowerCase()}@gmail.com</p>
+                    </div>
+                </div>
+            `;
+        }
+        function closeSocialModal() { document.getElementById('socialModal').classList.add('hidden'); }
+
+        function loginSocialAcc(provider) {
+            const user = {
+                name: `Sakib Rakesh (${provider})`,
+                email: `sakib.${provider.toLowerCase()}@gmail.com`,
+                phone: '01758964710',
+                address: 'Mirpur, Dhaka, Bangladesh',
+                photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'
+            };
+            localStorage.setItem('jhumur_logged_user', JSON.stringify(user));
+            alert(`🎉 Signed in with ${provider}!`);
             window.location.href = "account.html";
         }
     </script>
