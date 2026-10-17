@@ -60,7 +60,7 @@
             <button onclick="document.getElementById('topBanner').remove()" class="text-pinkshade-200 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
-        <!-- MAIN NAVIGATION (HEADER WITH CURSIVE BRAND TEXT) -->
+        <!-- MAIN NAVIGATION -->
         <header class="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
             <a href="index.html" class="flex items-center gap-4 group">
                 <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-tr from-pinkshade-300 via-pinkshade-500 to-white p-0.5 shadow-lg group-hover:scale-105 transition-transform overflow-hidden flex-shrink-0">
@@ -202,7 +202,7 @@
                     <div class="flex justify-between"><span>Delivery Charge:</span><span id="summaryDelivery" class="font-bold">৳ 60</span></div>
                     <div class="flex justify-between text-sm font-bold text-pinkshade-950 pt-2 border-t"><span>Grand Total:</span><span id="summaryGrandTotal">৳ 0</span></div>
                 </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-pinkshade-700 to-pinkshade-900 text-white font-bold py-3.5 rounded-xl shadow-md">Confirm Order</button>
+                <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-pinkshade-700 to-pinkshade-900 text-white font-bold py-3.5 rounded-xl shadow-md">Confirm Order</button>
             </form>
         </div>
     </div>
@@ -216,6 +216,9 @@
 
     <!-- JAVASCRIPT SYSTEM ENGINE -->
     <script>
+        // GOOGLE APPS SCRIPT WEBHOOK URL CONNECTED
+        const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwhoHTEXgrnP6FikR6RZez_oy8ydJZYCB0lXO8PFbqswkIvefg0uvJ1OQ2vznOCNX7RNg/exec";
+
         const BEAUTY_PRODUCTS = [
             { id: 1, name: "Beauty of Joseon Relief Sun Rice + Probiotics SPF50+", category: "Skincare", price: 1450, stock: 25, image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80", desc: "Lightweight organic sunscreen with rice extract and grain-derived probiotics for deep hydration and broad-spectrum protection." },
             { id: 2, name: "COSRX Advanced Snail 96 Mucin Power Essence", category: "Skincare", price: 1650, stock: 18, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80", desc: "96.3% Snail Secretion Filtrate essence protects skin from moisture loss while improving elasticity and repair." },
@@ -297,7 +300,6 @@
 
                     htmlContent += `
                         <div class="bg-white/60 backdrop-blur-md p-6 rounded-3xl border border-pinkshade-200/60 shadow-sm space-y-4 relative">
-                            <!-- CATEGORY TITLE -->
                             <div class="flex items-center justify-between border-b border-pinkshade-200/60 pb-3">
                                 <div class="flex items-center gap-2">
                                     <span class="w-3 h-3 rounded-full bg-pinkshade-600"></span>
@@ -310,7 +312,6 @@
                                 </button>
                             </div>
 
-                            <!-- CAROUSEL WRAPPER WITH TRANSPARENT OVERLAY ARROWS -->
                             <div class="relative group/carousel">
                                 <button onclick="scrollContainer('${carouselId}', 'left')" class="absolute left-1 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/70 hover:bg-pinkshade-800 backdrop-blur-md text-pinkshade-900 hover:text-white border border-white/80 shadow-lg flex items-center justify-center transition-all transform hover:scale-110">
                                     <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -333,7 +334,6 @@
                                         </div>
                                     `).join('')}
 
-                                    <!-- SEE MORE ITEM CARD REDIRECTING TO CATEGORY PAGE -->
                                     <div class="min-w-[220px] max-w-[220px] bg-gradient-to-br from-pinkshade-100 via-pinkshade-50 to-white rounded-2xl border-2 border-dashed border-pinkshade-300 p-6 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition flex-shrink-0 group/card">
                                         <div class="w-12 h-12 rounded-full bg-pinkshade-200 group-hover/card:bg-pinkshade-700 text-pinkshade-800 group-hover/card:text-white flex items-center justify-center mb-3 transition">
                                             <i class="fa-solid fa-sparkles text-lg"></i>
@@ -375,7 +375,6 @@
         }
 
         function seeMoreCategory(cat) {
-            // REDIRECT TO SPECIFIC CATEGORY PAGE
             window.location.href = `category.html?cat=${encodeURIComponent(cat)}`;
         }
 
@@ -427,20 +426,42 @@
             document.getElementById('summaryGrandTotal').innerText = `৳ ${(subtotal + currentDeliveryFee).toLocaleString()}`;
         }
 
-        function confirmOrder(e) {
+        async function confirmOrder(e) {
             e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.innerText = "Processing Order...";
+            submitBtn.disabled = true;
+
+            const itemsSummary = cart.map(i => `${i.name} (৳${i.price})`).join(' | ');
+            const subtotal = cart.reduce((sum, item) => sum + parseFloat(item.price), 0);
+            const grandTotal = subtotal + currentDeliveryFee;
+            const orderIdGenerated = 'ORD-' + Date.now().toString().slice(-6);
+
             const orderData = {
-                id: 'ORD-' + Date.now().toString().slice(-6),
-                name: document.getElementById('custName').value,
+                orderId: orderIdGenerated,
+                dateTime: new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }),
+                customerName: document.getElementById('custName').value,
                 phone: document.getElementById('custPhone').value,
-                address: document.getElementById('custAddress').value,
                 city: document.getElementById('custCity').value,
+                address: document.getElementById('custAddress').value,
                 payMethod: document.querySelector('input[name="payMethod"]:checked').value,
-                items: cart,
-                total: cart.reduce((sum, item) => sum + parseFloat(item.price), 0) + currentDeliveryFee,
-                date: new Date().toLocaleDateString()
+                itemsSummary: itemsSummary,
+                grandTotal: grandTotal
             };
 
+            // Send to Google Sheet
+            try {
+                await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+            } catch (err) {
+                console.error("Google Sheet Sync Error:", err);
+            }
+
+            // LocalStorage Backup
             let orders = JSON.parse(localStorage.getItem('jhumur_orders') || '[]');
             orders.unshift(orderData);
             localStorage.setItem('jhumur_orders', JSON.stringify(orders));
@@ -452,10 +473,12 @@
             });
             localStorage.setItem('jhumur_products', JSON.stringify(products));
 
-            alert(`🎉 Order Confirmed Successfully!\nOrder ID: ${orderData.id}\nThank you for choosing Jhumur Hut!`);
+            alert(`🎉 Order Confirmed Successfully!\nOrder ID: ${orderData.orderId}\nThank you for choosing Jhumur Hut!`);
             cart = [];
             updateCartUI();
             closeCheckoutModal();
+            submitBtn.innerText = "Confirm Order";
+            submitBtn.disabled = false;
             renderCategorySections();
         }
 
