@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Account Dashboard - Jhumur Hut</title>
+    <title>My Account - Jhumur Hut</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -18,89 +18,103 @@
         }
     </script>
 </head>
-<body class="bg-gradient-to-br from-[#FFF0F5] via-[#F8E7F6] to-[#FAF0F8] min-h-screen text-slate-800">
+<body class="bg-[#F9F9F9] text-slate-800 min-h-screen font-sans">
 
     <!-- HEADER -->
-    <header class="bg-[#3B0A24] text-white py-4 px-6 flex justify-between items-center shadow-md">
-        <a href="index.html" class="font-cursive text-3xl text-pinkshade-300">Jhumur Hut</a>
-        <div class="flex items-center gap-4">
-            <a href="index.html" class="text-xs bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full transition">Home</a>
-            <button onclick="logout()" class="text-xs bg-pinkshade-700 hover:bg-pinkshade-800 px-4 py-2 rounded-full transition">Log Out</button>
+    <header class="bg-white border-b py-4 px-8 flex justify-between items-center sticky top-0 z-40">
+        <a href="index.html" class="font-cursive text-3xl text-pinkshade-900 font-bold">Jhumur Hut</a>
+        <div class="flex items-center gap-6 text-xs font-semibold text-slate-700">
+            <a href="index.html" class="hover:text-pinkshade-800">Home</a>
+            <button onclick="logout()" class="hover:text-rose-600">Sign Out</button>
         </div>
     </header>
 
-    <!-- DASHBOARD CONTAINER -->
-    <main class="max-w-5xl mx-auto px-4 py-10 space-y-8">
-        <!-- USER PROFILE CARD -->
-        <div class="bg-white p-6 rounded-3xl shadow-md border border-pinkshade-200 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div class="flex flex-col sm:flex-row items-center gap-6">
-                <!-- Blank Profile Picture Placeholder -->
-                <div id="userPhotoContainer" class="w-24 h-24 rounded-full bg-pinkshade-100 border-4 border-pinkshade-200 shadow-inner flex items-center justify-center overflow-hidden text-pinkshade-400 text-3xl">
-                    <i class="fa-solid fa-user"></i>
-                </div>
-                <div class="text-center sm:text-left space-y-1">
-                    <h1 id="userName" class="font-serif text-2xl font-bold text-pinkshade-950">User Name</h1>
-                    <p id="userEmail" class="text-xs text-slate-500">email@gmail.com</p>
-                    <p id="userPhone" class="text-xs font-semibold text-pinkshade-700">017XXXXXXXX</p>
-                </div>
-            </div>
-            <!-- Edit Profile Button -->
-            <button onclick="openEditProfileModal()" class="bg-pinkshade-800 text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow hover:bg-pinkshade-900 transition flex items-center gap-2">
-                <i class="fa-solid fa-pen-to-square"></i> Edit Profile
-            </button>
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-5xl mx-auto px-4 py-12 space-y-8">
+        
+        <!-- WELCOME HEADER -->
+        <div class="text-center space-y-2">
+            <h1 class="text-3xl font-light text-slate-900">Welcome Back, <span id="welcomeName" class="font-semibold">User</span></h1>
+            <button onclick="logout()" class="text-xs text-slate-500 underline hover:text-slate-800">Sign Out</button>
         </div>
 
-        <!-- ADDRESS SECTION -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white p-6 rounded-3xl shadow-md border border-pinkshade-200 space-y-3">
-                <h3 class="font-serif font-bold text-lg text-pinkshade-950 flex items-center gap-2"><i class="fa-solid fa-house-chimney text-pinkshade-600"></i> Delivery Address</h3>
-                <p id="userDeliveryAddress" class="text-xs text-slate-600 bg-pinkshade-50 p-3 rounded-xl border border-pinkshade-100">Mirpur, Dhaka, Bangladesh</p>
-            </div>
-            <div class="bg-white p-6 rounded-3xl shadow-md border border-pinkshade-200 space-y-3">
-                <h3 class="font-serif font-bold text-lg text-pinkshade-950 flex items-center gap-2"><i class="fa-solid fa-truck text-pinkshade-600"></i> Shipping Address</h3>
-                <p id="userShippingAddress" class="text-xs text-slate-600 bg-pinkshade-50 p-3 rounded-xl border border-pinkshade-100">Same as delivery address</p>
+        <!-- TAB NAVIGATION (TEMPLATE 1 & 3 MATCHED) -->
+        <div class="flex justify-center border-b border-slate-200">
+            <button onclick="switchTab('profile')" id="tabProfileBtn" class="px-6 py-3 text-xs font-bold border-b-2 border-black text-black">Profile</button>
+            <button onclick="switchTab('orders')" id="tabOrdersBtn" class="px-6 py-3 text-xs font-semibold border-b-2 border-transparent text-slate-500 hover:text-black">Order History</button>
+        </div>
+
+        <!-- TAB 1: PROFILE CONTENT -->
+        <div id="tabProfile" class="space-y-6">
+            <div class="bg-white p-8 rounded-2xl border border-slate-200 space-y-6 max-w-2xl mx-auto shadow-sm">
+                <div class="flex justify-between items-center border-b pb-4">
+                    <h3 class="font-bold text-sm text-slate-900">Personal Details</h3>
+                    <button onclick="openEditProfileModal()" class="text-xs text-pinkshade-800 font-bold hover:underline">Edit Profile</button>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div>
+                        <span class="text-slate-400 block mb-1">Full Name:</span>
+                        <span id="uName" class="font-semibold text-slate-800">-</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block mb-1">Phone Number:</span>
+                        <span id="uPhone" class="font-semibold text-slate-800">-</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block mb-1">Email Address:</span>
+                        <span id="uEmail" class="font-semibold text-slate-800">-</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block mb-1">Delivery Address:</span>
+                        <span id="uAddress" class="font-semibold text-slate-800">-</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- ONGOING ORDERS & HISTORY -->
-        <div class="bg-white p-6 rounded-3xl shadow-md border border-pinkshade-200 space-y-4">
-            <h3 class="font-serif font-bold text-xl text-pinkshade-950 flex items-center gap-2"><i class="fa-solid fa-box-open text-pinkshade-600"></i> Ongoing & Past Orders</h3>
-            <div id="orderHistoryList" class="space-y-3">
-                <!-- Orders injected dynamically -->
+        <!-- TAB 2: ORDER HISTORY CONTENT (TEMPLATE 3 TABLE DESIGN) -->
+        <div id="tabOrders" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 border-b text-slate-500 uppercase tracking-wider">
+                                <th class="p-4 font-semibold">Order ID</th>
+                                <th class="p-4 font-semibold">Order Date</th>
+                                <th class="p-4 font-semibold">Amount</th>
+                                <th class="p-4 font-semibold">Status</th>
+                                <th class="p-4 font-semibold text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderTableBody" class="divide-y divide-slate-100">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+
     </main>
 
     <!-- EDIT PROFILE MODAL -->
-    <div id="editProfileModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md hidden">
-        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl border border-pinkshade-200 space-y-6 relative font-sans text-xs">
-            <button onclick="closeEditProfileModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-pinkshade-100 text-pinkshade-900 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
-            <div class="text-center">
-                <h3 class="font-serif text-2xl font-bold text-pinkshade-950">Edit Profile ✨</h3>
-                <p class="text-slate-500 mt-1">Update your account information</p>
-            </div>
-            <form onsubmit="saveEditedProfile(event)" class="space-y-4">
+    <div id="editProfileModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 text-xs relative">
+            <button onclick="closeEditProfileModal()" class="absolute top-4 right-4 text-slate-400 hover:text-black"><i class="fa-solid fa-xmark text-base"></i></button>
+            <h3 class="font-bold text-base text-slate-900 border-b pb-2">Edit Personal Details</h3>
+            <form onsubmit="saveEditedProfile(event)" class="space-y-3">
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Full Name</label>
-                    <input type="text" id="editName" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50">
+                    <label class="block font-semibold mb-1">Full Name</label>
+                    <input type="text" id="editName" required class="w-full p-2.5 border rounded-lg">
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Email Address</label>
-                    <input type="email" id="editEmail" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50">
+                    <label class="block font-semibold mb-1">Phone Number</label>
+                    <input type="tel" id="editPhone" required class="w-full p-2.5 border rounded-lg">
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Phone Number</label>
-                    <input type="tel" id="editPhone" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50">
+                    <label class="block font-semibold mb-1">Delivery Address</label>
+                    <textarea id="editAddress" required class="w-full p-2.5 border rounded-lg h-16"></textarea>
                 </div>
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Delivery Address</label>
-                    <textarea id="editAddress" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50 h-16"></textarea>
-                </div>
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Upload Profile Picture</label>
-                    <input type="file" id="editPhotoFile" accept="image/*" class="w-full p-2.5 border rounded-xl bg-pinkshade-50/50 file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-pinkshade-700 file:text-white hover:file:bg-pinkshade-800">
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-pinkshade-700 to-pinkshade-900 text-white font-bold py-3.5 rounded-xl shadow-lg hover:from-pinkshade-800 transition">Save Profile Changes</button>
+                <button type="submit" class="w-full bg-black text-white font-bold py-3 rounded-lg hover:bg-slate-800 transition">Save Changes</button>
             </form>
         </div>
     </div>
@@ -115,24 +129,30 @@
         }
 
         function loadUserData() {
-            document.getElementById('userName').innerText = loggedUser.name;
-            document.getElementById('userEmail').innerText = loggedUser.email;
-            document.getElementById('userPhone').innerText = loggedUser.phone;
-            document.getElementById('userDeliveryAddress').innerText = loggedUser.address;
-            document.getElementById('userShippingAddress').innerText = loggedUser.address;
+            document.getElementById('welcomeName').innerText = loggedUser.name;
+            document.getElementById('uName').innerText = loggedUser.name;
+            document.getElementById('uEmail').innerText = loggedUser.email;
+            document.getElementById('uPhone').innerText = loggedUser.phone;
+            document.getElementById('uAddress').innerText = loggedUser.address;
+            renderOrdersTable();
+        }
 
-            const photoContainer = document.getElementById('userPhotoContainer');
-            if(loggedUser.photo && loggedUser.photo.trim() !== '') {
-                photoContainer.innerHTML = `<img src="${loggedUser.photo}" class="w-full h-full object-cover">`;
+        function switchTab(tab) {
+            if(tab === 'profile') {
+                document.getElementById('tabProfile').classList.remove('hidden');
+                document.getElementById('tabOrders').classList.add('hidden');
+                document.getElementById('tabProfileBtn').className = "px-6 py-3 text-xs font-bold border-b-2 border-black text-black";
+                document.getElementById('tabOrdersBtn').className = "px-6 py-3 text-xs font-semibold border-b-2 border-transparent text-slate-500 hover:text-black";
             } else {
-                photoContainer.innerHTML = `<i class="fa-solid fa-user"></i>`;
+                document.getElementById('tabProfile').classList.add('hidden');
+                document.getElementById('tabOrders').classList.remove('hidden');
+                document.getElementById('tabOrdersBtn').className = "px-6 py-3 text-xs font-bold border-b-2 border-black text-black";
+                document.getElementById('tabProfileBtn').className = "px-6 py-3 text-xs font-semibold border-b-2 border-transparent text-slate-500 hover:text-black";
             }
-            renderOrders();
         }
 
         function openEditProfileModal() {
             document.getElementById('editName').value = loggedUser.name || '';
-            document.getElementById('editEmail').value = loggedUser.email || '';
             document.getElementById('editPhone').value = loggedUser.phone || '';
             document.getElementById('editAddress').value = loggedUser.address || '';
             document.getElementById('editProfileModal').classList.remove('hidden');
@@ -145,73 +165,54 @@
         function saveEditedProfile(e) {
             e.preventDefault();
             loggedUser.name = document.getElementById('editName').value;
-            loggedUser.email = document.getElementById('editEmail').value;
             loggedUser.phone = document.getElementById('editPhone').value;
             loggedUser.address = document.getElementById('editAddress').value;
 
-            const fileInput = document.getElementById('editPhotoFile');
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(uploadEvent) {
-                    loggedUser.photo = uploadEvent.target.result;
-                    finalizeProfileSave();
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            } else {
-                finalizeProfileSave();
-            }
-        }
-
-        function finalizeProfileSave() {
             localStorage.setItem('jhumur_logged_user', JSON.stringify(loggedUser));
-            
-            // Also update in users db if present
-            let usersDb = JSON.parse(localStorage.getItem('jhumur_users_db') || '[]');
-            let uIndex = usersDb.findIndex(u => u.email === loggedUser.email);
-            if(uIndex !== -1) {
-                usersDb[uIndex] = loggedUser;
-                localStorage.setItem('jhumur_users_db', JSON.stringify(usersDb));
-            }
-
-            alert('🎉 Profile updated successfully!');
+            alert('Profile updated!');
             closeEditProfileModal();
             loadUserData();
         }
 
-        function renderOrders() {
+        function renderOrdersTable() {
             const orders = JSON.parse(localStorage.getItem('jhumur_orders') || '[]');
-            const historyContainer = document.getElementById('orderHistoryList');
+            const tbody = document.getElementById('orderTableBody');
 
             if(orders.length === 0) {
-                historyContainer.innerHTML = `<p class="text-xs text-slate-500">No orders placed yet. Start shopping!</p>`;
-            } else {
-                historyContainer.innerHTML = orders.map(ord => `
-                    <div class="p-4 bg-pinkshade-50/50 rounded-2xl border border-pinkshade-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs">
-                        <div>
-                            <p class="font-bold text-pinkshade-950 text-sm">Order ID: ${ord.orderId || ord.id}</p>
-                            <p class="text-slate-600">Date: ${ord.dateTime || ord.date}</p>
-                            <p class="text-slate-700 mt-1"><b>Items:</b> ${ord.itemsSummary || ord.itemsTextSummary || 'Beauty Items'}</p>
-                        </div>
-                        <div class="text-right space-y-2">
-                            <span class="bg-pinkshade-200 text-pinkshade-900 font-bold px-3 py-1 rounded-full text-[10px]">Processing</span>
-                            <p class="font-bold text-pinkshade-800 text-sm">৳ ${ord.grandTotal || ord.total}</p>
-                            <br>
-                            <button onclick="cancelOrder('${ord.orderId || ord.id}')" class="bg-rose-600 hover:bg-rose-700 text-white font-bold px-3 py-1.5 rounded-lg text-[10px] transition shadow">
-                                <i class="fa-solid fa-ban"></i> Cancel Order
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
+                tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-400">No purchase records found.</td></tr>`;
+                return;
             }
+
+            tbody.innerHTML = orders.map(ord => {
+                const status = ord.status || 'PROCESSING';
+                let statusBadge = '<span class="text-amber-600 font-bold">PROCESSING</span>';
+                if(status === 'DELIVERED') statusBadge = '<span class="text-emerald-600 font-bold">DELIVERED</span>';
+                if(status === 'CANCELLED') statusBadge = '<span class="text-rose-600 font-bold">CANCELLED</span>';
+
+                return `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="p-4 font-bold text-slate-900">${ord.orderId || ord.id}</td>
+                        <td class="p-4 text-slate-500">${ord.dateTime || ord.date}</td>
+                        <td class="p-4 font-bold text-slate-800">BDT ${(ord.grandTotal || ord.total).toLocaleString()}</td>
+                        <td class="p-4">${statusBadge}</td>
+                        <td class="p-4 text-right space-x-2">
+                            ${status === 'PROCESSING' ? `<button onclick="cancelOrder('${ord.orderId || ord.id}')" class="text-rose-600 font-bold hover:underline">Cancel Order</button>` : ''}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         function cancelOrder(id) {
             if(confirm('Are you sure you want to cancel this order?')) {
                 let orders = JSON.parse(localStorage.getItem('jhumur_orders') || '[]');
-                orders = orders.filter(o => (o.orderId || o.id) !== id);
-                localStorage.setItem('jhumur_orders', JSON.stringify(orders));
-                alert('Order cancelled successfully!');
-                renderOrders();
+                let orderIndex = orders.findIndex(o => (o.orderId || o.id) === id);
+                if(orderIndex !== -1) {
+                    orders[orderIndex].status = 'CANCELLED';
+                    localStorage.setItem('jhumur_orders', JSON.stringify(orders));
+                    alert('Order cancelled successfully! The cancelled record remains in your history.');
+                    renderOrdersTable();
+                }
             }
         }
 
