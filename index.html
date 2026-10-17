@@ -76,10 +76,21 @@
             </a>
 
             <!-- USER & CART ACTIONS -->
-            <div class="flex items-center gap-3">
-                <a href="login.html" id="userAccountBtn" class="p-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 rounded-full shadow-lg hover:scale-105 transition flex items-center justify-center" title="Account">
-                    <i class="fa-regular fa-user text-base"></i>
-                </a>
+            <div class="flex items-center gap-3 relative">
+                <!-- ACCOUNT DROPDOWN BUTTON -->
+                <div class="relative">
+                    <button onclick="toggleAccountMenu()" id="accountMenuBtn" class="p-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 rounded-full shadow-lg hover:scale-105 transition flex items-center justify-center" title="Account">
+                        <i class="fa-regular fa-user text-base"></i>
+                    </button>
+
+                    <!-- ACCOUNT DROPDOWN MENU -->
+                    <div id="accountDropdown" class="absolute right-0 mt-2 w-56 bg-white text-slate-800 rounded-2xl shadow-2xl border border-pinkshade-200 py-2 hidden z-50">
+                        <div id="dropdownAuthLinks" class="space-y-1">
+                            <!-- Injected dynamically based on login status -->
+                        </div>
+                    </div>
+                </div>
+
                 <button onclick="toggleCart()" class="relative p-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 rounded-full shadow-lg hover:scale-105 transition">
                     <i class="fa-solid fa-bag-shopping text-base"></i>
                     <span id="cartCount" class="absolute -top-1 -right-1 bg-pinkshade-500 text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#3B0A24]">0</span>
@@ -139,6 +150,42 @@
         <!-- CATEGORY CAROUSEL SECTIONS CONTAINER -->
         <div id="categorySectionsContainer" class="space-y-12"></div>
     </section>
+
+    <!-- PROFILE SETTINGS MODAL -->
+    <div id="settingsModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl border border-pinkshade-200 space-y-6 relative font-sans text-xs">
+            <button onclick="closeSettingsModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-pinkshade-100 text-pinkshade-900 flex items-center justify-center hover:bg-pinkshade-200 transition"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="text-center">
+                <h3 class="font-serif text-2xl font-bold text-pinkshade-950">Profile Settings ✨</h3>
+                <p class="text-slate-500 mt-1">Update your personal fairy account details</p>
+            </div>
+
+            <form onsubmit="saveProfileSettings(event)" class="space-y-4">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Full Name</label>
+                    <input type="text" id="settingsName" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Email Address</label>
+                    <input type="email" id="settingsEmail" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Phone Number</label>
+                    <input type="tel" id="settingsPhone" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Delivery Address</label>
+                    <textarea id="settingsAddress" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50 h-16"></textarea>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Profile Photo URL</label>
+                    <input type="text" id="settingsPhoto" class="w-full p-3 border rounded-xl bg-pinkshade-50/50">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-pinkshade-700 to-pinkshade-900 text-white font-bold py-3.5 rounded-xl shadow-lg hover:from-pinkshade-800 transition">Save Changes</button>
+            </form>
+        </div>
+    </div>
 
     <!-- CART DRAWER -->
     <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
@@ -262,11 +309,80 @@
         let currentDeliveryFee = 60;
         let activeCategory = 'All';
 
-        const loggedUser = JSON.parse(localStorage.getItem('jhumur_logged_user'));
-        if(loggedUser) {
-            const btn = document.getElementById('userAccountBtn');
-            btn.href = "account.html";
-            btn.innerHTML = `<img src="${loggedUser.photo}" class="w-6 h-6 rounded-full object-cover">`;
+        // Initialize Account Dropdown UI State
+        function renderAccountMenu() {
+            const loggedUser = JSON.parse(localStorage.getItem('jhumur_logged_user'));
+            const container = document.getElementById('dropdownAuthLinks');
+            const btn = document.getElementById('accountMenuBtn');
+
+            if(loggedUser) {
+                btn.innerHTML = `<img src="${loggedUser.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'}" class="w-6 h-6 rounded-full object-cover">`;
+                container.innerHTML = `
+                    <div class="px-4 py-2 border-b border-pinkshade-100">
+                        <p class="font-bold text-xs text-pinkshade-950 truncate">${loggedUser.name}</p>
+                        <p class="text-[10px] text-slate-500 truncate">${loggedUser.email}</p>
+                    </div>
+                    <a href="account.html" class="flex items-center gap-3 px-4 py-2 text-xs font-semibold hover:bg-pinkshade-50 text-slate-700"><i class="fa-solid fa-id-card text-pinkshade-600 w-4"></i> My Account</a>
+                    <button onclick="openSettingsModal()" class="w-full flex items-center gap-3 px-4 py-2 text-xs font-semibold hover:bg-pinkshade-50 text-slate-700 text-left"><i class="fa-solid fa-gear text-pinkshade-600 w-4"></i> Settings</button>
+                    <button onclick="logoutUser()" class="w-full flex items-center gap-3 px-4 py-2 text-xs font-semibold hover:bg-rose-50 text-rose-600 border-t border-pinkshade-100 text-left"><i class="fa-solid fa-right-from-bracket w-4"></i> Log Out</button>
+                `;
+            } else {
+                btn.innerHTML = `<i class="fa-regular fa-user text-base"></i>`;
+                container.innerHTML = `
+                    <a href="login.html" class="flex items-center gap-3 px-4 py-2.5 text-xs font-bold text-pinkshade-800 hover:bg-pinkshade-50"><i class="fa-solid fa-right-to-bracket text-pinkshade-600 w-4"></i> Log In / Sign Up</a>
+                    <button onclick="openSettingsModal()" class="w-full flex items-center gap-3 px-4 py-2 text-xs font-semibold hover:bg-pinkshade-50 text-slate-700 text-left border-t border-pinkshade-100"><i class="fa-solid fa-gear text-pinkshade-600 w-4"></i> Settings</button>
+                `;
+            }
+        }
+
+        function toggleAccountMenu() {
+            const dropdown = document.getElementById('accountDropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('jhumur_logged_user');
+            alert('Logged out successfully!');
+            window.location.reload();
+        }
+
+        function openSettingsModal() {
+            toggleAccountMenu();
+            const loggedUser = JSON.parse(localStorage.getItem('jhumur_logged_user')) || {
+                name: 'Guest User',
+                email: 'guest@gmail.com',
+                phone: '01700000000',
+                address: 'Dhaka, Bangladesh',
+                photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'
+            };
+
+            document.getElementById('settingsName').value = loggedUser.name;
+            document.getElementById('settingsEmail').value = loggedUser.email;
+            document.getElementById('settingsPhone').value = loggedUser.phone;
+            document.getElementById('settingsAddress').value = loggedUser.address;
+            document.getElementById('settingsPhoto').value = loggedUser.photo;
+
+            document.getElementById('settingsModal').classList.remove('hidden');
+        }
+
+        function closeSettingsModal() {
+            document.getElementById('settingsModal').classList.add('hidden');
+        }
+
+        function saveProfileSettings(e) {
+            e.preventDefault();
+            const updatedUser = {
+                name: document.getElementById('settingsName').value,
+                email: document.getElementById('settingsEmail').value,
+                phone: document.getElementById('settingsPhone').value,
+                address: document.getElementById('settingsAddress').value,
+                photo: document.getElementById('settingsPhoto').value || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'
+            };
+
+            localStorage.setItem('jhumur_logged_user', JSON.stringify(updatedUser));
+            alert('🎉 Profile settings updated successfully!');
+            closeSettingsModal();
+            renderAccountMenu();
         }
 
         function getProducts() {
@@ -444,6 +560,7 @@
 
         function openCheckoutModal() {
             if(cart.length === 0) return alert('Your bag is empty!');
+            const loggedUser = JSON.parse(localStorage.getItem('jhumur_logged_user'));
             if(loggedUser) {
                 document.getElementById('custName').value = loggedUser.name || '';
                 document.getElementById('custEmail').value = loggedUser.email || '';
@@ -545,6 +662,7 @@
             window.location.href = "index.html#home";
         }
 
+        renderAccountMenu();
         renderCategorySections();
     </script>
 </body>
