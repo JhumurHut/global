@@ -36,9 +36,8 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(135deg, #FFF0F5 0%, #F8E7F6 50%, #FAF0F8 100%); overflow-x: hidden; }
         .font-serif { font-family: 'Playfair Display', serif; }
         .font-cursive { font-family: 'Great Vibes', cursive; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #FFF0F5; }
-        ::-webkit-scrollbar-thumb { background: #DB2777; border-radius: 10px; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="text-slate-800 antialiased selection:bg-pinkshade-300 selection:text-pinkshade-900">
@@ -47,7 +46,7 @@
     <div class="relative bg-gradient-to-br from-[#4A0E2E] via-[#5C133B] to-[#3B0A24] text-white overflow-hidden border-b border-pinkshade-200">
         <!-- BACKGROUND MAGIC GIF WITH ADJUSTED TRANSPARENCY -->
         <div class="absolute inset-0 z-0 opacity-70">
-            <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyNGN2bTV3eTh3ank0bDlkdjU5bjcydmFrMm9sNjh6Yng0YWk3dHJydUZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L9EUxgj4PCwU6pZXsS/giphy.gif" alt="Background Magic GIF" class="w-full h-full object-cover">
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyNGN2bTV3eTh3ank0bDlkdjU5bjcydmFrMm9sNjh6Yng0YWk3dHJydUZlcD12MV9pbnRlcm5hbF_naWZfYnlfaWQmY3Q9Zw/L9EUxgj4PCwU6pZXsS/giphy.gif" alt="Background Magic GIF" class="w-full h-full object-cover">
         </div>
         <div class="absolute inset-0 bg-gradient-to-b from-[#4A0E2E]/80 via-[#5C133B]/65 to-[#3B0A24]/85 z-10"></div>
 
@@ -63,7 +62,6 @@
 
         <!-- MAIN NAVIGATION (HEADER WITH CURSIVE BRAND TEXT) -->
         <header class="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
-            <!-- BRAND LOGO & CURSIVE NAME -->
             <a href="index.html" class="flex items-center gap-4 group">
                 <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-tr from-pinkshade-300 via-pinkshade-500 to-white p-0.5 shadow-lg group-hover:scale-105 transition-transform overflow-hidden flex-shrink-0">
                     <div class="w-full h-full bg-white rounded-full flex items-center justify-center overflow-hidden">
@@ -114,21 +112,21 @@
     </div>
 
     <!-- CATEGORY & SEARCH SECTION -->
-    <section id="products" class="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="text-center mb-8">
+    <section id="products" class="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+        <div class="text-center">
             <span class="text-xs font-bold uppercase tracking-widest text-pinkshade-700 bg-pinkshade-100 px-3 py-1 rounded-full border border-pinkshade-200">Curated For You</span>
             <h2 class="font-serif text-3xl md:text-4xl font-bold text-pinkshade-950 mt-3">Shop By Beauty Category</h2>
-            <p class="text-slate-600 text-sm mt-1">Select a category or search for products with auto spelling fix below</p>
+            <p class="text-slate-600 text-sm mt-1">Explore our exclusive collections with horizontal swipe or category buttons</p>
         </div>
 
         <!-- SEARCH BOX -->
-        <div class="max-w-xl mx-auto mb-8 relative">
+        <div class="max-w-xl mx-auto relative">
             <input type="text" id="smartSearchInput" oninput="handleSmartSearch()" placeholder="Search Your Fairy Stick..." class="w-full pl-11 pr-4 py-3.5 rounded-full text-xs md:text-sm bg-white/90 backdrop-blur-sm border-2 border-pinkshade-300 focus:outline-none focus:ring-2 focus:ring-pinkshade-500 focus:border-pinkshade-500 transition shadow-md">
             <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-sm text-pinkshade-500"></i>
         </div>
 
         <!-- CATEGORY FILTER BUTTONS -->
-        <div class="flex flex-wrap justify-center gap-3 mb-10">
+        <div class="flex flex-wrap justify-center gap-3">
             <button onclick="filterCategory('All')" class="cat-btn active px-6 py-2.5 rounded-full text-xs font-bold bg-pinkshade-800 text-white shadow-md transition">All Items</button>
             <button onclick="filterCategory('Skincare')" class="cat-btn px-6 py-2.5 rounded-full text-xs font-bold bg-white text-pinkshade-900 border border-pinkshade-200 hover:bg-pinkshade-100 transition shadow-sm">Skincare</button>
             <button onclick="filterCategory('Makeup')" class="cat-btn px-6 py-2.5 rounded-full text-xs font-bold bg-white text-pinkshade-900 border border-pinkshade-200 hover:bg-pinkshade-100 transition shadow-sm">Makeup</button>
@@ -136,8 +134,8 @@
             <button onclick="filterCategory('Bodycare')" class="cat-btn px-6 py-2.5 rounded-full text-xs font-bold bg-white text-pinkshade-900 border border-pinkshade-200 hover:bg-pinkshade-100 transition shadow-sm">Bodycare</button>
         </div>
 
-        <!-- PRODUCT GRID -->
-        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <!-- CATEGORY CAROUSEL SECTIONS CONTAINER -->
+        <div id="categorySectionsContainer" class="space-y-12"></div>
     </section>
 
     <!-- CART DRAWER -->
@@ -216,7 +214,7 @@
         © 2026 Jhumur Hut. All rights reserved.
     </footer>
 
-    <!-- JAVASCRIPT SYSTEM ENGINE -->
+    <!-- JAVASCRIPT SYSTEM ENGINE WITH CATEGORY CAROUSEL & SEE MORE FUNCTIONALITY -->
     <script>
         const BEAUTY_PRODUCTS = [
             { id: 1, name: "Beauty of Joseon Relief Sun Rice + Probiotics SPF50+", category: "Skincare", price: 1450, stock: 25, image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80", desc: "Lightweight organic sunscreen with rice extract and grain-derived probiotics for deep hydration and broad-spectrum protection." },
@@ -256,53 +254,103 @@
 
         function handleSmartSearch() {
             const query = document.getElementById('smartSearchInput').value.toLowerCase().trim();
-            renderProducts(query);
+            renderCategorySections(query);
         }
 
-        function renderProducts(searchQuery = '') {
+        function scrollContainer(id, direction) {
+            const container = document.getElementById(id);
+            const scrollAmount = direction === 'left' ? -300 : 300;
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+
+        function renderCategorySections(searchQuery = '') {
             const products = getProducts();
-            let filtered = activeCategory === 'All' ? products : products.filter(p => p.category === activeCategory);
+            const container = document.getElementById('categorySectionsContainer');
+            
+            let categories = activeCategory === 'All' ? ['Skincare', 'Makeup', 'Haircare', 'Bodycare'] : [activeCategory];
 
-            if (searchQuery) {
-                filtered = filtered.filter(p => {
-                    const titleWords = (p.name + ' ' + p.category + ' ' + (p.desc || '')).toLowerCase().split(/\s+/);
-                    const queryWords = searchQuery.split(/\s+/);
+            let htmlContent = '';
 
-                    return queryWords.every(qWord => {
-                        return titleWords.some(tWord => {
-                            if (tWord.includes(qWord) || qWord.includes(tWord)) return true;
-                            if (qWord.length > 3) {
-                                return levenshteinDistance(qWord, tWord) <= 2;
-                            }
-                            return false;
+            categories.forEach((cat, idx) => {
+                let catProducts = products.filter(p => p.category === cat);
+
+                if (searchQuery) {
+                    catProducts = catProducts.filter(p => {
+                        const titleWords = (p.name + ' ' + p.category + ' ' + (p.desc || '')).toLowerCase().split(/\s+/);
+                        const queryWords = searchQuery.split(/\s+/);
+
+                        return queryWords.every(qWord => {
+                            return titleWords.some(tWord => {
+                                if (tWord.includes(qWord) || qWord.includes(tWord)) return true;
+                                if (qWord.length > 3) {
+                                    return levenshteinDistance(qWord, tWord) <= 2;
+                                }
+                                return false;
+                            });
                         });
                     });
-                });
-            }
+                }
 
-            const grid = document.getElementById('productGrid');
+                if (catProducts.length > 0) {
+                    // Limit to 10 items for horizontal scroll
+                    const displayProducts = catProducts.slice(0, 10);
+                    const carouselId = `carousel-${idx}`;
 
-            if (filtered.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-12 text-pinkshade-800 font-bold">No products matching "${searchQuery}" found. Try another search!</div>`;
-                return;
-            }
+                    htmlContent += `
+                        <div class="bg-white/60 backdrop-blur-md p-6 rounded-3xl border border-pinkshade-200/60 shadow-sm space-y-4">
+                            <!-- CATEGORY TITLE & CONTROLS -->
+                            <div class="flex items-center justify-between border-b border-pinkshade-200/60 pb-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-pinkshade-600"></span>
+                                    <h3 class="font-serif text-2xl font-bold text-pinkshade-950">${cat} Items</h3>
+                                    <span class="text-xs font-semibold text-pinkshade-600 bg-pinkshade-100 px-2.5 py-0.5 rounded-full">(${catProducts.length})</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="scrollContainer('${carouselId}', 'left')" class="w-9 h-9 rounded-full bg-white border border-pinkshade-200 hover:bg-pinkshade-100 flex items-center justify-center text-pinkshade-800 transition shadow-sm">
+                                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                                    </button>
+                                    <button onclick="scrollContainer('${carouselId}', 'right')" class="w-9 h-9 rounded-full bg-white border border-pinkshade-200 hover:bg-pinkshade-100 flex items-center justify-center text-pinkshade-800 transition shadow-sm">
+                                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                                    </button>
+                                </div>
+                            </div>
 
-            grid.innerHTML = filtered.map(p => `
-                <div class="bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-pinkshade-200 transition flex flex-col justify-between shadow-sm hover:shadow-md group">
-                    <a href="product.html?id=${p.id}" class="aspect-square relative overflow-hidden bg-pinkshade-50 block">
-                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                        <span class="absolute top-3 left-3 bg-white/90 text-pinkshade-900 text-[10px] font-bold uppercase px-2.5 py-1 rounded-full border border-pinkshade-200">${p.category}</span>
-                        <span class="absolute top-3 right-3 ${p.stock > 0 ? 'bg-pinkshade-600' : 'bg-slate-500'} text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Stock: ${p.stock}</span>
-                    </a>
-                    <div class="p-5 space-y-3">
-                        <a href="product.html?id=${p.id}" class="font-serif font-semibold text-pinkshade-950 text-lg hover:text-pinkshade-600 no-underline block line-clamp-2">${p.name}</a>
-                        <div class="flex items-center justify-between">
-                            <span class="text-pinkshade-800 font-bold text-lg">৳ ${p.price.toLocaleString()}</span>
-                            ${p.stock > 0 ? `<button onclick="addToCart(${p.id})" class="bg-pinkshade-100 hover:bg-pinkshade-700 text-pinkshade-800 hover:text-white p-2.5 rounded-full transition"><i class="fa-solid fa-cart-plus text-sm"></i></button>` : `<span class="text-xs font-bold text-slate-400">Out of Stock</span>`}
+                            <!-- HORIZONTAL SCROLL PRODUCT CONTAINER -->
+                            <div id="${carouselId}" class="flex gap-5 overflow-x-auto scroll-smooth no-scrollbar py-2">
+                                ${displayProducts.map(p => `
+                                    <div class="min-w-[240px] max-w-[240px] bg-white rounded-2xl overflow-hidden border border-pinkshade-200 flex flex-col justify-between shadow-sm hover:shadow-md group flex-shrink-0 transition">
+                                        <a href="product.html?id=${p.id}" class="aspect-square relative overflow-hidden bg-pinkshade-50 block">
+                                            <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                            <span class="absolute top-2 left-2 bg-white/90 text-pinkshade-900 text-[9px] font-bold uppercase px-2 py-0.5 rounded-full border border-pinkshade-200">${p.category}</span>
+                                            <span class="absolute top-2 right-2 ${p.stock > 0 ? 'bg-pinkshade-600' : 'bg-slate-500'} text-white text-[9px] font-bold px-2 py-0.5 rounded-full">Stock: ${p.stock}</span>
+                                        </a>
+                                        <div class="p-4 space-y-2.5">
+                                            <a href="product.html?id=${p.id}" class="font-serif font-semibold text-pinkshade-950 text-sm hover:text-pinkshade-600 no-underline block line-clamp-2 h-10">${p.name}</a>
+                                            <div class="flex items-center justify-between pt-1">
+                                                <span class="text-pinkshade-800 font-bold text-base">৳ ${p.price.toLocaleString()}</span>${p.stock > 0 ? `<button onclick="addToCart(${p.id})" class="bg-pinkshade-100 hover:bg-pinkshade-700 text-pinkshade-800 hover:text-white p-2 rounded-full transition"><i class="fa-solid fa-cart-plus text-xs"></i></button>` : `<span class="text-[10px] font-bold text-slate-400">Out of Stock</span>`}
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                            <!-- SEE MORE CATEGORY ITEMS BUTTON -->
+                            <div class="text-center pt-2">
+                                <button onclick="seeMoreCategory('${cat}')" class="inline-flex items-center gap-2 bg-gradient-to-r from-pinkshade-100 via-pinkshade-200 to-pinkshade-100 text-pinkshade-900 border border-pinkshade-300 font-bold text-xs px-6 py-2.5 rounded-full hover:bg-pinkshade-700 hover:text-white transition shadow-sm">
+                                    <span>See More ${cat} Items</span>
+                                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            `).join('');
+                    `;
+                }
+            });
+
+            if (htmlContent === '') {
+                container.innerHTML = `<div class="text-center py-12 text-pinkshade-800 font-bold bg-white/50 rounded-2xl border border-pinkshade-200">No products matching "${searchQuery}" found. Try another search!</div>`;
+            } else {
+                container.innerHTML = htmlContent;
+            }
         }
 
         function filterCategory(cat) {
@@ -314,7 +362,12 @@
                     btn.className = "cat-btn px-6 py-2.5 rounded-full text-xs font-bold bg-white text-pinkshade-900 border border-pinkshade-200 hover:bg-pinkshade-100 transition shadow-sm";
                 }
             });
-            renderProducts();
+            renderCategorySections();
+        }
+
+        function seeMoreCategory(cat) {
+            filterCategory(cat);
+            window.scrollTo({ top: document.getElementById('products').offsetTop - 50, behavior: 'smooth' });
         }
 
         function addToCart(id) {
@@ -394,10 +447,10 @@
             cart = [];
             updateCartUI();
             closeCheckoutModal();
-            renderProducts();
+            renderCategorySections();
         }
 
-        renderProducts();
+        renderCategorySections();
     </script>
 </body>
 </html>
