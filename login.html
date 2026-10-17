@@ -1,208 +1,77 @@
 <!DOCTYPE html>
-<html lang="bn" class="scroll-smooth">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Jhumur Hut</title>
-    
-    <!-- Website Tab Favicon Logo -->
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/Logo.png">
-    
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        pinkshade: {
-                            50: '#FFF0F5', 100: '#FFE4E1', 200: '#FBCFE8', 300: '#F472B6',
-                            400: '#E879F9', 500: '#EC4899', 600: '#DB2777', 700: '#BE185D',
-                            800: '#9D174D', 900: '#831843', 950: '#500724'
-                        }
-                    },
-                    fontFamily: {
-                        serif: ['Playfair Display', 'serif'],
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        cursive: ['Great Vibes', 'cursive']
-                    }
-                }
-            }
+            theme: { extend: { colors: { pinkshade: { 50: '#FFF5F8', 100: '#FFE8EF', 300: '#FAA0B5', 700: '#B81155', 800: '#8E0D41', 950: '#42031B' } } } }
         }
     </script>
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(135deg, #FFF0F5 0%, #F8E7F6 50%, #FAF0F8 100%); min-height: 100vh; }
-        .font-serif { font-family: 'Playfair Display', serif; }
-        .font-cursive { font-family: 'Great Vibes', cursive; }
-    </style>
+    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(135deg, #FFFFFF 0%, #FFF0F5 50%, #FFE4E1 100%); min-height: 100vh; }</style>
 </head>
-<body class="text-slate-800 antialiased flex flex-col justify-between min-h-screen">
-
-    <!-- TOP NAVIGATION BAR -->
-    <header class="py-6 px-6 sm:px-12 max-w-7xl mx-auto w-full flex items-center justify-between">
-        <a href="index.html" class="flex items-center gap-3 group">
-            <!-- REMOVED ROUND BADGE, FULL CLEAN LOGO DISPLAY -->
-            <div class="h-12 md:h-14 w-auto flex items-center justify-center group-hover:scale-105 transition-transform flex-shrink-0">
-                <img src="https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/Logo.png" 
-                     alt="Jhumur Hut Official Logo" 
-                     class="h-full w-auto object-contain drop-shadow-sm">
-            </div>
-            <div>
-                <span class="font-cursive text-3xl md:text-4xl font-normal text-pinkshade-800 block leading-none">Jhumur Hut</span>
-            </div>
+<body class="flex flex-col justify-between min-h-screen">
+    <header class="py-6 px-6 max-w-7xl mx-auto w-full flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3">
+            <div class="h-12 w-auto"><img src="https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/Logo.png" class="h-full w-auto object-contain"></div>
+            <span style="font-family:'Great Vibes',cursive;" class="text-3xl text-pinkshade-800">Jhumur Hut</span>
         </a>
-
-        <a href="index.html" class="w-9 h-9 rounded-full bg-white/80 hover:bg-white text-slate-600 hover:text-pinkshade-800 flex items-center justify-center shadow-sm border border-pinkshade-200/60 transition">
-            <i class="fa-solid fa-xmark text-sm"></i>
-        </a>
+        <a href="index.html" class="w-9 h-9 rounded-full bg-white flex items-center justify-center shadow border text-slate-600"><i class="fa-solid fa-xmark"></i></a>
     </header>
 
-    <!-- MAIN LOGIN CONTAINER -->
-    <main class="max-w-md w-full mx-auto px-4 py-6 my-auto">
-        <div class="bg-white/90 backdrop-blur-md rounded-3xl p-8 sm:p-10 border border-pinkshade-200/80 shadow-xl space-y-6">
-            
+    <main class="max-w-md w-full mx-auto px-4 py-6">
+        <div class="bg-white/90 backdrop-blur-md rounded-3xl p-8 border border-pinkshade-200 shadow-xl space-y-6">
             <div class="text-center space-y-1">
-                <h1 class="font-serif text-2xl sm:text-3xl font-bold text-pinkshade-950">Sign in to your account</h1>
-                <p class="text-xs text-slate-500 font-medium">New user? <a href="#" onclick="toggleMode('signup'); return false;" class="text-pinkshade-700 font-bold hover:underline">Create an account</a></p>
+                <h1 class="font-serif text-2xl font-bold text-pinkshade-950">Sign in to your account</h1>
+                <p class="text-xs text-slate-500">New user? <a href="#" onclick="toggleMode('signup');return false;" class="text-pinkshade-700 font-bold underline">Create account</a></p>
             </div>
-
-            <form onsubmit="handleAuthSubmit(event)" id="authForm" class="space-y-4 text-xs">
-                
-                <div id="nameFieldContainer" class="hidden">
-                    <label class="block font-bold text-slate-700 mb-1">Full Name *</label>
-                    <input type="text" id="inputName" class="w-full p-3.5 border border-pinkshade-200 rounded-2xl bg-pinkshade-50/30 focus:outline-none focus:ring-2 focus:ring-pinkshade-500 transition" placeholder="Your Full Name">
+            <form onsubmit="handleAuth(event)" class="space-y-4 text-xs">
+                <div id="nameBox" class="hidden">
+                    <label class="block font-bold mb-1">Full Name *</label>
+                    <input type="text" id="inName" class="w-full p-3.5 border rounded-2xl bg-pinkshade-50">
                 </div>
-
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Phone number or email</label>
-                    <input type="text" id="inputIdentifier" required class="w-full p-3.5 border border-pinkshade-200 rounded-2xl bg-pinkshade-50/30 focus:outline-none focus:ring-2 focus:ring-pinkshade-500 transition" placeholder="Phone or email">
+                    <label class="block font-bold mb-1">Email or Phone</label>
+                    <input type="text" id="inId" required class="w-full p-3.5 border rounded-2xl bg-pinkshade-50">
                 </div>
-
                 <div>
-                    <div class="flex justify-between items-center mb-1">
-                        <label class="font-bold text-slate-700">Password</label>
-                        <a href="#" onclick="alert('Please contact our support page to reset password.'); return false;" class="text-[11px] font-bold text-pinkshade-600 hover:underline">Forgot password?</a>
-                    </div>
-                    <input type="password" id="inputPassword" required class="w-full p-3.5 border border-pinkshade-200 rounded-2xl bg-pinkshade-50/30 focus:outline-none focus:ring-2 focus:ring-pinkshade-500 transition" placeholder="••••••••••••">
+                    <label class="block font-bold mb-1">Password</label>
+                    <input type="password" id="inPass" required class="w-full p-3.5 border rounded-2xl bg-pinkshade-50">
                 </div>
-
-                <button type="submit" id="authSubmitBtn" class="w-full bg-pinkshade-800 hover:bg-pinkshade-900 text-white font-bold py-3.5 rounded-2xl shadow-md transition text-xs mt-2">
-                    Sign In
-                </button>
+                <button type="submit" id="subBtn" class="w-full bg-pinkshade-800 text-white font-bold py-3.5 rounded-2xl shadow">Sign In</button>
             </form>
-
-            <div class="relative flex py-1 items-center">
-                <div class="flex-grow border-t border-pinkshade-100"></div>
-                <span class="flex-shrink mx-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">OR</span>
-                <div class="flex-grow border-t border-pinkshade-100"></div>
-            </div>
-
-            <!-- SOCIAL LOGIN BUTTONS -->
-            <div class="space-y-2.5 text-xs font-semibold">
-                <button onclick="handleSocialAuth('Google')" class="w-full bg-white hover:bg-pinkshade-50 text-slate-700 py-3 rounded-2xl border border-pinkshade-200 shadow-sm flex items-center justify-center gap-2.5 transition">
-                    <i class="fa-brands fa-google text-red-500 text-sm"></i>
-                    <span>Sign with Google</span>
-                </button>
-                <button onclick="handleSocialAuth('Apple')" class="w-full bg-white hover:bg-pinkshade-50 text-slate-700 py-3 rounded-2xl border border-pinkshade-200 shadow-sm flex items-center justify-center gap-2.5 transition">
-                    <i class="fa-brands fa-apple text-black text-sm"></i>
-                    <span>Sign with Apple</span>
-                </button>
-            </div>
-
         </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="py-6 text-center text-xs text-slate-500">
-        <p>© 2026 Jhumur Hut. All rights reserved.</p>
-    </footer>
+    <footer class="py-6 text-center text-xs text-slate-500">© 2026 Jhumur Hut</footer>
 
-    <!-- JAVASCRIPT AUTH ENGINE -->
     <script>
-        let isSignUpMode = false;
-
-        function toggleMode(mode) {
-            isSignUpMode = (mode === 'signup');
-            const nameContainer = document.getElementById('nameFieldContainer');
-            const submitBtn = document.getElementById('authSubmitBtn');
-            const nameInput = document.getElementById('inputName');
-
-            if (isSignUpMode) {
-                nameContainer.classList.remove('hidden');
-                nameInput.required = true;
-                submitBtn.innerText = "Create Account";
-            } else {
-                nameContainer.classList.add('hidden');
-                nameInput.required = false;
-                submitBtn.innerText = "Sign In";
-            }
+        let isUp = false;
+        function toggleMode(m) {
+            isUp = m === 'signup';
+            document.getElementById('nameBox').classList.toggle('hidden', !isUp);
+            document.getElementById('subBtn').innerText = isUp ? 'Create Account' : 'Sign In';
         }
-
-        function handleAuthSubmit(e) {
+        function handleAuth(e) {
             e.preventDefault();
-            const identifier = document.getElementById('inputIdentifier').value.trim().toLowerCase();
-            const password = document.getElementById('inputPassword').value;
-            const name = document.getElementById('inputName').value.trim();
-
-            let usersDb = JSON.parse(localStorage.getItem('jhumur_users_db') || '[]');
-
-            if (isSignUpMode) {
-                const existing = usersDb.find(u => u.email === identifier || u.phone === identifier);
-                if (existing) {
-                    return alert('❌ An account with this Email/Phone already exists! Please Sign In.');
-                }
-
-                const newUser = {
-                    name: name || 'Fairy Member',
-                    email: identifier.includes('@') ? identifier : `${identifier}@jhumurhut.com`,
-                    phone: identifier.includes('@') ? '' : identifier,
-                    address: '',
-                    password: password
-                };
-
-                usersDb.push(newUser);
-                localStorage.setItem('jhumur_users_db', JSON.stringify(usersDb));
-                localStorage.setItem('jhumur_logged_user', JSON.stringify(newUser));
-                
-                alert('✨ Account created successfully! Welcome to Jhumur Hut.');
-                window.location.href = "account.html";
-
+            const id = document.getElementById('inId').value.trim().toLowerCase(), pass = document.getElementById('inPass').value, name = document.getElementById('inName').value;
+            let db = JSON.parse(localStorage.getItem('jhumur_users_db') || '[]');
+            if (isUp) {
+                if(db.some(u => u.email === id)) return alert('User already exists!');
+                const u = { name: name || 'User', email: id, phone: '', address: '', password: pass };
+                db.push(u); localStorage.setItem('jhumur_users_db', JSON.stringify(db));
+                localStorage.setItem('jhumur_logged_user', JSON.stringify(u));
+                window.location.href = 'account.html';
             } else {
-                const user = usersDb.find(u => (u.email === identifier || u.phone === identifier) && u.password === password);
-
-                if (user) {
-                    localStorage.setItem('jhumur_logged_user', JSON.stringify(user));
-                    alert(`✨ Welcome back, ${user.name}!`);
-                    window.location.href = "account.html";
-                } else {
-                    alert('❌ Invalid Credentials! Please check your email/phone and password.');
-                }
+                const u = db.find(x => x.email === id && x.password === pass);
+                if (u) { localStorage.setItem('jhumur_logged_user', JSON.stringify(u)); window.location.href = 'account.html'; }
+                else alert('Invalid Credentials!');
             }
-        }
-
-        function handleSocialAuth(provider) {
-            const mockUser = {
-                name: `${provider} User`,
-                email: `user.${provider.toLowerCase()}@jhumurhut.com`,
-                phone: '',
-                address: '',
-                password: 'social_auth_user'
-            };
-
-            let usersDb = JSON.parse(localStorage.getItem('jhumur_users_db') || '[]');
-            if (!usersDb.some(u => u.email === mockUser.email)) {
-                usersDb.push(mockUser);
-                localStorage.setItem('jhumur_users_db', JSON.stringify(usersDb));
-            }
-
-            localStorage.setItem('jhumur_logged_user', JSON.stringify(mockUser));
-            alert(`✨ Signed in successfully with ${provider}!`);
-            window.location.href = "account.html";
         }
     </script>
 </body>
