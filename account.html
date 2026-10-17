@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account Dashboard - Jhumur Hut</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { pinkshade: { 50: '#FFF0F5', 100: '#FFE4E1', 200: '#FBCFE8', 500: '#EC4899', 700: '#BE185D', 800: '#9D174D', 900: '#831843' } },
+                    fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Plus Jakarta Sans', 'sans-serif'], cursive: ['Great Vibes', 'cursive'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-[#FFF0F5] via-[#F8E7F6] to-[#FAF0F8] min-h-screen text-slate-800">
+
+    <!-- HEADER -->
+    <header class="bg-[#3B0A24] text-white py-4 px-6 flex justify-between items-center shadow-md">
+        <a href="index.html" class="font-cursive text-3xl text-pinkshade-300">Jhumur Hut</a>
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="text-xs bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full transition">Home</a>
+            <button onclick="logout()" class="text-xs bg-pinkshade-700 hover:bg-pinkshade-800 px-4 py-2 rounded-full transition">Log Out</button>
+        </div>
+    </header>
+
+    <!-- DASHBOARD CONTAINER -->
+    <main class="max-w-5xl mx-auto px-4 py-10 space-y-8">
+        <!-- USER PROFILE CARD -->
+        <div class="bg-white p-6 rounded-3xl shadow-md border border-pinkshade-200 flex flex-col sm:flex-row items-center gap-6">
+            <img id="userPhoto" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-full object-cover border-4 border-pinkshade-200 shadow-inner">
+            <div class="text-center sm:text-left space-y-1">
+                <h1 id="userName" class="font-serif text-2xl font-bold text-pinkshade-950">User Name</h1>
+                <p id="userEmail" class="text-xs text-slate-500">email@gmail.com</p>
+                <p id="userPhone" class="text-xs font-semibold text-pinkshade-700">017XXXXXXXX</p>
+            </div>
+        </div>
+
+        <!-- ADDRESS SECTION -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-3xl shadow-md border border-pinkshade-200 space-y-3">
+                <h3 class="font-serif font-bold text-lg text-pinkshade-950 flex items-center gap-2"><i class="fa-solid fa-house-chimney text-pinkshade-600"></i> Delivery Address</h3>
+                <p id="userDeliveryAddress" class="text-xs text-slate-600 bg-pinkshade-50 p-3 rounded-xl border border-pinkshade-100">Mirpur, Dhaka, Bangladesh</p>
+            </div>
+            <div class="bg-white p-6 rounded-3xl shadow-md border border-pinkshade-200 space-y-3">
+                <h3 class="font-serif font-bold text-lg text-pinkshade-950 flex items-center gap-2"><i class="fa-solid fa-truck text-pinkshade-600"></i> Shipping Address</h3>
+                <p id="userShippingAddress" class="text-xs text-slate-600 bg-pinkshade-50 p-3 rounded-xl border border-pinkshade-100">Same as delivery address</p>
+            </div>
+        </div>
+
+        <!-- ONGOING ORDERS & HISTORY -->
+        <div class="bg-white p-6 rounded-3xl shadow-md border border-pinkshade-200 space-y-4">
+            <h3 class="font-serif font-bold text-xl text-pinkshade-950 flex items-center gap-2"><i class="fa-solid fa-box-open text-pinkshade-600"></i> Ongoing & Past Orders</h3>
+            <div id="orderHistoryList" class="space-y-3">
+                <!-- Orders injected dynamically -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const loggedUser = JSON.parse(localStorage.getItem('jhumur_logged_user'));
+        if (!loggedUser) {
+            alert('Please login first!');
+            window.location.href = "login.html";
+        } else {
+            document.getElementById('userName').innerText = loggedUser.name;
+            document.getElementById('userEmail').innerText = loggedUser.email;
+            document.getElementById('userPhone').innerText = loggedUser.phone;
+            document.getElementById('userDeliveryAddress').innerText = loggedUser.address;
+            document.getElementById('userShippingAddress').innerText = loggedUser.address;
+            if(loggedUser.photo) document.getElementById('userPhoto').src = loggedUser.photo;
+        }
+
+        const orders = JSON.parse(localStorage.getItem('jhumur_orders') || '[]');
+        const historyContainer = document.getElementById('orderHistoryList');
+
+        if(orders.length === 0) {
+            historyContainer.innerHTML = `<p class="text-xs text-slate-500">No orders placed yet. Start shopping!</p>`;
+        } else {
+            historyContainer.innerHTML = orders.map(ord => `
+                <div class="p-4 bg-pinkshade-50/50 rounded-2xl border border-pinkshade-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs">
+                    <div>
+                        <p class="font-bold text-pinkshade-950 text-sm">Order ID: ${ord.orderId || ord.id}</p>
+                        <p class="text-slate-600">Date: ${ord.dateTime || ord.date}</p>
+                        <p class="text-slate-700 mt-1"><b>Items:</b> ${ord.itemsSummary || 'Beauty Items'}</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="bg-pinkshade-200 text-pinkshade-900 font-bold px-3 py-1 rounded-full text-[10px]">On Going / Processing</span>
+                        <p class="font-bold text-pinkshade-800 text-sm mt-2">৳ ${ord.grandTotal || ord.total}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function logout() {
+            localStorage.removeItem('jhumur_logged_user');
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
