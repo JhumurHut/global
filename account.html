@@ -32,13 +32,22 @@
     <!-- DASHBOARD CONTAINER -->
     <main class="max-w-5xl mx-auto px-4 py-10 space-y-8">
         <!-- USER PROFILE CARD -->
-        <div class="bg-white p-6 rounded-3xl shadow-md border border-pinkshade-200 flex flex-col sm:flex-row items-center gap-6">
-            <img id="userPhoto" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-full object-cover border-4 border-pinkshade-200 shadow-inner">
-            <div class="text-center sm:text-left space-y-1">
-                <h1 id="userName" class="font-serif text-2xl font-bold text-pinkshade-950">User Name</h1>
-                <p id="userEmail" class="text-xs text-slate-500">email@gmail.com</p>
-                <p id="userPhone" class="text-xs font-semibold text-pinkshade-700">017XXXXXXXX</p>
+        <div class="bg-white p-6 rounded-3xl shadow-md border border-pinkshade-200 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex flex-col sm:flex-row items-center gap-6">
+                <!-- Blank Profile Picture Placeholder -->
+                <div id="userPhotoContainer" class="w-24 h-24 rounded-full bg-pinkshade-100 border-4 border-pinkshade-200 shadow-inner flex items-center justify-center overflow-hidden text-pinkshade-400 text-3xl">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="text-center sm:text-left space-y-1">
+                    <h1 id="userName" class="font-serif text-2xl font-bold text-pinkshade-950">User Name</h1>
+                    <p id="userEmail" class="text-xs text-slate-500">email@gmail.com</p>
+                    <p id="userPhone" class="text-xs font-semibold text-pinkshade-700">017XXXXXXXX</p>
+                </div>
             </div>
+            <!-- Edit Profile Button -->
+            <button onclick="openEditProfileModal()" class="bg-pinkshade-800 text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow hover:bg-pinkshade-900 transition flex items-center gap-2">
+                <i class="fa-solid fa-pen-to-square"></i> Edit Profile
+            </button>
         </div>
 
         <!-- ADDRESS SECTION -->
@@ -62,39 +71,127 @@
         </div>
     </main>
 
+    <!-- EDIT PROFILE MODAL -->
+    <div id="editProfileModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl border border-pinkshade-200 space-y-6 relative font-sans text-xs">
+            <button onclick="closeEditProfileModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-pinkshade-100 text-pinkshade-900 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+            <div class="text-center">
+                <h3 class="font-serif text-2xl font-bold text-pinkshade-950">Edit Profile ✨</h3>
+                <p class="text-slate-500 mt-1">Update your account information</p>
+            </div>
+            <form onsubmit="saveEditedProfile(event)" class="space-y-4">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Full Name</label>
+                    <input type="text" id="editName" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Email Address</label>
+                    <input type="email" id="editEmail" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Phone Number</label>
+                    <input type="tel" id="editPhone" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Delivery Address</label>
+                    <textarea id="editAddress" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50 h-16"></textarea>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Profile Photo URL (Optional)</label>
+                    <input type="text" id="editPhoto" class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="Leave blank for default blank avatar">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-pinkshade-700 to-pinkshade-900 text-white font-bold py-3.5 rounded-xl shadow-lg hover:from-pinkshade-800 transition">Save Profile Changes</button>
+            </form>
+        </div>
+    </div>
+
     <script>
-        const loggedUser = JSON.parse(localStorage.getItem('jhumur_logged_user'));
+        let loggedUser = JSON.parse(localStorage.getItem('jhumur_logged_user'));
         if (!loggedUser) {
             alert('Please login first!');
             window.location.href = "login.html";
         } else {
+            loadUserData();
+        }
+
+        function loadUserData() {
             document.getElementById('userName').innerText = loggedUser.name;
             document.getElementById('userEmail').innerText = loggedUser.email;
             document.getElementById('userPhone').innerText = loggedUser.phone;
             document.getElementById('userDeliveryAddress').innerText = loggedUser.address;
             document.getElementById('userShippingAddress').innerText = loggedUser.address;
-            if(loggedUser.photo) document.getElementById('userPhoto').src = loggedUser.photo;
+
+            const photoContainer = document.getElementById('userPhotoContainer');
+            if(loggedUser.photo && loggedUser.photo.trim() !== '') {
+                photoContainer.innerHTML = `<img src="${loggedUser.photo}" class="w-full h-full object-cover">`;
+            } else {
+                photoContainer.innerHTML = `<i class="fa-solid fa-user"></i>`;
+            }
+            renderOrders();
         }
 
-        const orders = JSON.parse(localStorage.getItem('jhumur_orders') || '[]');
-        const historyContainer = document.getElementById('orderHistoryList');
+        function openEditProfileModal() {
+            document.getElementById('editName').value = loggedUser.name || '';
+            document.getElementById('editEmail').value = loggedUser.email || '';
+            document.getElementById('editPhone').value = loggedUser.phone || '';
+            document.getElementById('editAddress').value = loggedUser.address || '';
+            document.getElementById('editPhoto').value = loggedUser.photo || '';
+            document.getElementById('editProfileModal').classList.remove('hidden');
+        }
 
-        if(orders.length === 0) {
-            historyContainer.innerHTML = `<p class="text-xs text-slate-500">No orders placed yet. Start shopping!</p>`;
-        } else {
-            historyContainer.innerHTML = orders.map(ord => `
-                <div class="p-4 bg-pinkshade-50/50 rounded-2xl border border-pinkshade-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs">
-                    <div>
-                        <p class="font-bold text-pinkshade-950 text-sm">Order ID: ${ord.orderId || ord.id}</p>
-                        <p class="text-slate-600">Date: ${ord.dateTime || ord.date}</p>
-                        <p class="text-slate-700 mt-1"><b>Items:</b> ${ord.itemsSummary || 'Beauty Items'}</p>
+        function closeEditProfileModal() {
+            document.getElementById('editProfileModal').classList.add('hidden');
+        }
+
+        function saveEditedProfile(e) {
+            e.preventDefault();
+            loggedUser.name = document.getElementById('editName').value;
+            loggedUser.email = document.getElementById('editEmail').value;
+            loggedUser.phone = document.getElementById('editPhone').value;
+            loggedUser.address = document.getElementById('editAddress').value;
+            loggedUser.photo = document.getElementById('editPhoto').value;
+
+            localStorage.setItem('jhumur_logged_user', JSON.stringify(loggedUser));
+            alert('🎉 Profile updated successfully!');
+            closeEditProfileModal();
+            loadUserData();
+        }
+
+        function renderOrders() {
+            const orders = JSON.parse(localStorage.getItem('jhumur_orders') || '[]');
+            const historyContainer = document.getElementById('orderHistoryList');
+
+            if(orders.length === 0) {
+                historyContainer.innerHTML = `<p class="text-xs text-slate-500">No orders placed yet. Start shopping!</p>`;
+            } else {
+                historyContainer.innerHTML = orders.map(ord => `
+                    <div class="p-4 bg-pinkshade-50/50 rounded-2xl border border-pinkshade-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs">
+                        <div>
+                            <p class="font-bold text-pinkshade-950 text-sm">Order ID: ${ord.orderId || ord.id}</p>
+                            <p class="text-slate-600">Date: ${ord.dateTime || ord.date}</p>
+                            <p class="text-slate-700 mt-1"><b>Items:</b> ${ord.itemsSummary || ord.itemsTextSummary || 'Beauty Items'}</p>
+                        </div>
+                        <div class="text-right space-y-2">
+                            <span class="bg-pinkshade-200 text-pinkshade-900 font-bold px-3 py-1 rounded-full text-[10px]">Processing</span>
+                            <p class="font-bold text-pinkshade-800 text-sm">৳ ${ord.grandTotal || ord.total}</p>
+                            <br>
+                            <button onclick="cancelOrder('${ord.orderId || ord.id}')" class="bg-rose-600 hover:bg-rose-700 text-white font-bold px-3 py-1.5 rounded-lg text-[10px] transition shadow">
+                                <i class="fa-solid fa-ban"></i> Cancel Order
+                            </button>
+                        </div>
                     </div>
-                    <div class="text-right">
-                        <span class="bg-pinkshade-200 text-pinkshade-900 font-bold px-3 py-1 rounded-full text-[10px]">On Going / Processing</span>
-                        <p class="font-bold text-pinkshade-800 text-sm mt-2">৳ ${ord.grandTotal || ord.total}</p>
-                    </div>
-                </div>
-            `).join('');
+                `).join('');
+            }
+        }
+
+        function cancelOrder(id) {
+            if(confirm('Are you sure you want to cancel this order?')) {
+                let orders = JSON.parse(localStorage.getItem('jhumur_orders') || '[]');
+                orders = orders.filter(o => (o.orderId || o.id) !== id);
+                localStorage.setItem('jhumur_orders', JSON.stringify(orders));
+                alert('Order cancelled successfully!');
+                renderOrders();
+            }
         }
 
         function logout() {
