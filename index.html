@@ -75,19 +75,32 @@
                 </div>
             </a>
 
-            <!-- USER & CART ACTIONS -->
+            <!-- SEARCH, ACCOUNT & CART ACTIONS WITH SAME SIZES & TOOLTIPS -->
             <div class="flex items-center gap-3 relative">
                 
-                <!-- DYNAMIC ACCOUNT ICON & HOVER DROPDOWN/TOOLTIP CONTAINER -->
+                <!-- SEARCH BUTTON -->
+                <button onclick="document.getElementById('smartSearchInput').focus()" class="relative p-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 rounded-full shadow-lg hover:scale-105 transition flex items-center justify-center group/search">
+                    <i class="fa-solid fa-magnifying-glass text-base"></i>
+                    <span class="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-[#2B2B2B] text-white text-[11px] px-3 py-1 rounded-md opacity-0 group-hover/search:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap shadow-xl border border-white/10 z-50">
+                        Search
+                    </span>
+                </button>
+
+                <!-- ACCOUNT ICON & HOVER DROPDOWN / TOOLTIP -->
                 <div class="relative group/acc z-50" id="accountMenuWrapper">
-                    <!-- Dynamically Rendered Header Button via JS -->
+                    <!-- Dynamic Render via JS -->
                 </div>
 
                 <!-- CART BUTTON -->
-                <button onclick="toggleCart()" class="relative p-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 rounded-full shadow-lg hover:scale-105 transition">
-                    <i class="fa-solid fa-bag-shopping text-base"></i>
-                    <span id="cartCount" class="absolute -top-1 -right-1 bg-pinkshade-500 text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#3B0A24]">0</span>
-                </button>
+                <div class="relative group/cart z-50">
+                    <button onclick="toggleCart()" class="relative p-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 rounded-full shadow-lg hover:scale-105 transition flex items-center justify-center">
+                        <i class="fa-solid fa-bag-shopping text-base"></i>
+                        <span id="cartCount" class="absolute -top-1 -right-1 bg-pinkshade-500 text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#3B0A24]">0</span>
+                    </button>
+                    <span class="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-[#2B2B2B] text-white text-[11px] px-3 py-1 rounded-md opacity-0 group-hover/cart:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap shadow-xl border border-white/10 z-50">
+                        Cart
+                    </span>
+                </div>
             </div>
         </header>
 
@@ -270,55 +283,36 @@
         let currentDeliveryFee = 60;
         let activeCategory = 'All';
 
-        // RENDER HEADER ACCOUNT MENU ACCORDING TO SCREENSHOT 1 & 2
         function renderHeaderAccountSystem() {
             const wrapper = document.getElementById('accountMenuWrapper');
             const loggedUser = JSON.parse(localStorage.getItem('jhumur_logged_user'));
 
             if (!loggedUser) {
-                // LOGGED OUT STATE (SCREENSHOT 1): SHOW TOOLTIP 'Account' ON HOVER & REDIRECT TO LOGIN ON CLICK
                 wrapper.innerHTML = `
                     <a href="login.html" class="p-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 rounded-full shadow-lg hover:scale-105 transition flex items-center justify-center relative">
                         <i class="fa-regular fa-user text-base"></i>
-                        <!-- TOOLTIP -->
                         <span class="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-[#2B2B2B] text-white text-[11px] px-3 py-1 rounded-md opacity-0 group-hover/acc:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap shadow-xl border border-white/10 z-50">
                             Account
                         </span>
                     </a>
                 `;
             } else {
-                // LOGGED IN STATE (SCREENSHOT 2): HOVER DISPLAYS ELEGANT DROPDOWN MENU
                 wrapper.innerHTML = `
                     <button class="p-2.5 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 rounded-full shadow-lg hover:scale-105 transition flex items-center justify-center">
                         <img src="${loggedUser.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'}" class="w-6 h-6 rounded-full object-cover">
                     </button>
-
-                    <!-- HOVER DROPDOWN MENU (MATCHING TEMPLATE 2) -->
                     <div class="absolute right-0 top-full pt-2 w-64 opacity-0 pointer-events-none group-hover/acc:opacity-100 group-hover/acc:pointer-events-auto transition duration-200 z-50">
-                        <div class="bg-[#EFEFEF] text-slate-900 rounded-xl shadow-2xl border border-slate-200/80 p-5 space-y-4 font-sans text-xs">
-                            <!-- USER TITLE HEADER -->
-                            <div class="border-b border-slate-300 pb-3">
-                                <h3 class="font-bold text-sm text-slate-900">${loggedUser.name}!</h3>
+                        <div class="bg-white text-slate-900 rounded-2xl shadow-2xl border border-pinkshade-200 p-5 space-y-4 font-sans text-xs">
+                            <div class="border-b border-pinkshade-100 pb-3">
+                                <h3 class="font-bold text-sm text-pinkshade-950">${loggedUser.name}!</h3>
                             </div>
-
-                            <!-- MENU LINKS -->
                             <div class="space-y-2.5 font-medium text-slate-700">
-                                <a href="account.html?tab=profile" class="flex items-center gap-3 hover:text-pinkshade-800 transition">
-                                    <i class="fa-regular fa-user text-sm w-4"></i> My Account
-                                </a>
-                                <a href="account.html?tab=orders" class="flex items-center gap-3 hover:text-pinkshade-800 transition">
-                                    <i class="fa-solid fa-rotate-left text-sm w-4"></i> Order History
-                                </a>
-                                <a href="account.html?tab=profile" class="flex items-center gap-3 hover:text-pinkshade-800 transition">
-                                    <i class="fa-solid fa-location-dot text-sm w-4"></i> Shipping Address
-                                </a>
-                                <a href="account.html?tab=profile" class="flex items-center gap-3 hover:text-pinkshade-800 transition">
-                                    <i class="fa-regular fa-star text-sm w-4"></i> Loyalty
-                                </a>
-                                <a href="account.html?tab=profile" class="flex items-center gap-3 hover:text-pinkshade-800 transition">
-                                    <i class="fa-solid fa-gift text-sm w-4"></i> Gift Card
-                                </a>
-                                <button onclick="logoutUser()" class="w-full flex items-center gap-3 text-rose-600 font-bold hover:underline pt-2 border-t border-slate-300 text-left">
+                                <a href="account.html?tab=profile" class="flex items-center gap-3 hover:text-pinkshade-800 transition"><i class="fa-regular fa-user text-sm w-4 text-pinkshade-700"></i> My Account</a>
+                                <a href="account.html?tab=orders" class="flex items-center gap-3 hover:text-pinkshade-800 transition"><i class="fa-solid fa-rotate-left text-sm w-4 text-pinkshade-700"></i> Order History</a>
+                                <a href="account.html?tab=profile" class="flex items-center gap-3 hover:text-pinkshade-800 transition"><i class="fa-solid fa-location-dot text-sm w-4 text-pinkshade-700"></i> Shipping Address</a>
+                                <a href="account.html?tab=profile" class="flex items-center gap-3 hover:text-pinkshade-800 transition"><i class="fa-regular fa-star text-sm w-4 text-pinkshade-700"></i> Loyalty</a>
+                                <a href="account.html?tab=profile" class="flex items-center gap-3 hover:text-pinkshade-800 transition"><i class="fa-solid fa-gift text-sm w-4 text-pinkshade-700"></i> Gift Card</a>
+                                <button onclick="logoutUser()" class="w-full flex items-center gap-3 text-rose-600 font-bold hover:underline pt-2 border-t border-pinkshade-100 text-left">
                                     <i class="fa-solid fa-right-from-bracket text-sm w-4"></i> Sign Out
                                 </button>
                             </div>
@@ -545,7 +539,6 @@
             const city = document.getElementById('custCity').value;
             const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
 
-            // Auto Account Creation / Verification
             let usersDb = JSON.parse(localStorage.getItem('jhumur_users_db') || '[]');
             let existingUserIndex = usersDb.findIndex(u => u.email === email);
 
