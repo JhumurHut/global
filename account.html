@@ -112,6 +112,23 @@
 
     </main>
 
+    <!-- CUSTOM WEBSITE POPUP FOR ORDER CANCEL CONFIRMATION -->
+    <div id="cancelConfirmModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl border border-pinkshade-200 space-y-4 relative">
+            <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="space-y-1">
+                <h3 class="font-serif text-lg font-bold text-slate-900">Cancel Order?</h3>
+                <p class="text-xs text-slate-500">Are you sure you want to cancel order <span id="targetOrderId" class="font-bold text-slate-800"></span>?</p>
+            </div>
+            <div class="flex gap-3 pt-2">
+                <button onclick="closeCancelModal()" class="flex-1 bg-slate-100 text-slate-700 font-bold py-2.5 rounded-xl hover:bg-slate-200 transition text-xs">No, Keep It</button>
+                <button onclick="confirmOrderCancellation()" class="flex-1 bg-rose-600 text-white font-bold py-2.5 rounded-xl hover:bg-rose-700 transition text-xs shadow-md">Yes, Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- EDIT PROFILE MODAL -->
     <div id="editProfileModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md hidden">
         <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl border border-pinkshade-200 space-y-4 text-xs relative">
@@ -139,6 +156,8 @@
 
     <script>
         let loggedUser = JSON.parse(localStorage.getItem('jhumur_logged_user'));
+        let selectedCancelOrderId = null;
+
         if (!loggedUser) {
             alert('Please login first!');
             window.location.href = "login.html";
@@ -218,24 +237,34 @@
                         <td class="p-4 font-bold text-pinkshade-800">৳ ${(ord.grandTotal || ord.total).toLocaleString()}</td>
                         <td class="p-4">${statusBadge}</td>
                         <td class="p-4 text-right space-x-2">
-                            ${status === 'PROCESSING' ? `<button onclick="cancelOrder('${ord.orderId || ord.id}')" class="text-rose-600 font-bold hover:underline">Cancel Order</button>` : ''}
+                            ${status === 'PROCESSING' ? `<button onclick="promptCancelModal('${ord.orderId || ord.id}')" class="text-rose-600 font-bold hover:underline">Cancel Order</button>` : ''}
                         </td>
                     </tr>
                 `;
             }).join('');
         }
 
-        function cancelOrder(id) {
-            if(confirm('Are you sure you want to cancel this order?')) {
-                let orders = JSON.parse(localStorage.getItem('jhumur_orders') || '[]');
-                let orderIndex = orders.findIndex(o => (o.orderId || o.id) === id);
-                if(orderIndex !== -1) {
-                    orders[orderIndex].status = 'CANCELLED';
-                    localStorage.setItem('jhumur_orders', JSON.stringify(orders));
-                    alert('Order cancelled successfully! The cancelled record remains in your history.');
-                    renderOrdersTable();
-                }
+        function promptCancelModal(id) {
+            selectedCancelOrderId = id;
+            document.getElementById('targetOrderId').innerText = id;
+            document.getElementById('cancelConfirmModal').classList.remove('hidden');
+        }
+
+        function closeCancelModal() {
+            selectedCancelOrderId = null;
+            document.getElementById('cancelConfirmModal').classList.add('hidden');
+        }
+
+        function confirmOrderCancellation() {
+            if(!selectedCancelOrderId) return;
+            let orders = JSON.parse(localStorage.getItem('jhumur_orders') || '[]');
+            let orderIndex = orders.findIndex(o => (o.orderId || o.id) === selectedCancelOrderId);
+            if(orderIndex !== -1) {
+                orders[orderIndex].status = 'CANCELLED';
+                localStorage.setItem('jhumur_orders', JSON.stringify(orders));
+                renderOrdersTable();
             }
+            closeCancelModal();
         }
 
         function logout() {
