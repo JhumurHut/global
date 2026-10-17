@@ -1,190 +1,53 @@
 <!DOCTYPE html>
-<html lang="bn" class="scroll-smooth">
-<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/Logo.png">
+<html lang="bn">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category Showcase - Jhumur Hut</title>
-    <!-- Tailwind CSS -->
+    <title>Category | Jhumur Hut</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/Logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        pinkshade: { 50: '#FFF0F5', 100: '#FFE4E1', 200: '#FBCFE8', 300: '#F472B6', 400: '#E879F9', 500: '#EC4899', 600: '#DB2777', 700: '#BE185D', 800: '#9D174D', 900: '#831843', 950: '#500724' }
-                    },
-                    fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Plus Jakarta Sans', 'sans-serif'], cursive: ['Great Vibes', 'cursive'] }
-                }
-            }
-        }
+        tailwind.config = { theme: { extend: { colors: { pinkshade: { 50: '#FFF5F8', 100: '#FFE8EF', 300: '#FAA0B5', 700: '#B81155', 800: '#8E0D41', 950: '#42031B' } } } } }
     </script>
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(135deg, #FFF0F5 0%, #F8E7F6 50%, #FAF0F8 100%); min-height: 100vh; }
-        .font-serif { font-family: 'Playfair Display', serif; }
-        .font-cursive { font-family: 'Great Vibes', cursive; }
-    </style>
+    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(135deg, #FFFFFF 0%, #FFF0F5 50%, #FFE4E1 100%); min-height: 100vh; }</style>
 </head>
-<body class="text-slate-800 antialiased flex flex-col justify-between">
-    
-    <!-- HEADER -->
-    <header class="bg-[#3B0A24] text-white border-b border-pinkshade-900 py-4 shadow-md sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-3 group">
-                <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-tr from-pinkshade-300 via-pinkshade-500 to-white p-0.5 shadow-md group-hover:scale-105 transition-transform overflow-hidden flex-shrink-0">
-                    <div class="w-full h-full bg-white rounded-full flex items-center justify-center overflow-hidden">
-                        <img src="https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/Logo.png" 
-                             alt="Jhumur Hut Official Logo" 
-                             class="w-full h-full object-cover">
-                    </div>
-                </div>
-                <div>
-                    <span class="font-cursive text-3xl md:text-4xl font-normal text-pinkshade-300 block leading-none">Jhumur Hut</span>
-                    <span class="text-[10px] tracking-widest uppercase font-semibold text-pinkshade-200 block mt-1">Ladies Beauty & Skincare Paradise</span>
-                </div>
+<body class="flex flex-col justify-between min-h-screen">
+    <header class="bg-gradient-to-r from-pinkshade-950 to-pinkshade-800 text-white py-4 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="h-12 w-auto"><img src="https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/Logo.png" class="h-full w-auto object-contain"></div>
+                <span style="font-family:'Great Vibes',cursive;" class="text-3xl text-pinkshade-300">Jhumur Hut</span>
             </a>
-
-            <div class="flex items-center gap-3">
-                <button onclick="toggleCart()" class="relative p-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 rounded-full transition">
-                    <i class="fa-solid fa-bag-shopping text-sm"></i>
-                    <span id="cartCount" class="absolute -top-1 -right-1 bg-pinkshade-500 text-white text-[10px] font-extrabold w-4 h-4 rounded-full flex items-center justify-center">0</span>
-                </button>
-                <a href="index.html" class="text-xs font-bold text-white bg-white/10 hover:bg-white/20 px-3.5 py-2 rounded-full transition flex items-center gap-2 border border-white/20">
-                    <i class="fa-solid fa-arrow-left"></i> Home
-                </a>
-            </div>
+            <a href="index.html" class="bg-white/20 px-4 py-2 rounded-full text-xs font-bold">Back to Home</a>
         </div>
     </header>
 
-    <!-- MAIN CATEGORY CONTENT -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-1">
-        <div class="text-center mb-8">
-            <span class="text-xs font-bold uppercase tracking-widest text-pinkshade-700 bg-pinkshade-100 px-3 py-1 rounded-full border border-pinkshade-200">Category Collection</span>
-            <h1 id="categoryTitle" class="font-serif text-3xl md:text-4xl font-bold text-pinkshade-950 mt-3">All Products</h1>
-            <p id="categorySubtitle" class="text-slate-600 text-sm mt-1">Explore all items under this category</p>
-        </div>
-
-        <!-- PRODUCT GRID -->
-        <div id="categoryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+    <main class="max-w-7xl mx-auto w-full px-4 py-10 flex-1 space-y-6">
+        <h1 id="catTitle" class="font-serif text-3xl font-bold text-pinkshade-950">Category Items</h1>
+        <div id="catProductsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"></div>
     </main>
 
-    <!-- CART DRAWER -->
-    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
-        <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onclick="toggleCart()"></div>
-        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
-            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
-                <div class="p-6 border-b border-pinkshade-100 flex items-center justify-between bg-pinkshade-50">
-                    <h2 class="font-serif text-xl font-bold text-pinkshade-950">Your Beauty Bag</h2>
-                    <button onclick="toggleCart()" class="p-2 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-                </div>
-                <div id="cartItems" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
-                <div class="p-6 border-t border-pinkshade-100 bg-pinkshade-50 space-y-4">
-                    <div class="flex justify-between font-bold text-pinkshade-950 text-lg">
-                        <span>Total Amount</span>
-                        <span id="cartTotal" class="text-pinkshade-700">৳ 0</span>
-                    </div>
-                    <a href="index.html" class="block text-center w-full bg-gradient-to-r from-pinkshade-700 to-pinkshade-900 text-white font-bold py-3.5 rounded-xl shadow-lg">Checkout on Home Page</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="bg-[#3B0A24] text-white py-6 text-center text-xs border-t border-pinkshade-900 mt-12">
-        © 2026 Jhumur Hut. All rights reserved.
-    </footer>
+    <footer class="bg-pinkshade-950 text-white py-6 text-center text-xs">© 2026 Jhumur Hut</footer>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const currentCategory = urlParams.get('cat') || 'Skincare';
+        const params = new URLSearchParams(window.location.search);
+        const cat = params.get('cat') || 'Skincare';
+        document.getElementById('catTitle').innerText = `${cat} Collection ✨`;
 
-        const BEAUTY_PRODUCTS = [
-            { id: 1, name: "Beauty of Joseon Relief Sun Rice + Probiotics SPF50+", category: "Skincare", price: 1450, stock: 25, image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80", desc: "Lightweight organic sunscreen with rice extract and grain-derived probiotics for deep hydration and broad-spectrum protection." },
-            { id: 2, name: "COSRX Advanced Snail 96 Mucin Power Essence", category: "Skincare", price: 1650, stock: 18, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80", desc: "96.3% Snail Secretion Filtrate essence protects skin from moisture loss while improving elasticity and repair." },
-            { id: 3, name: "Laneige Lip Sleeping Mask - Berry Pink", category: "Skincare", price: 1200, stock: 30, image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80", desc: "Overnight lip mask that melts away dead skin cells to reveal smooth, plump, moisturized lips by morning." },
-            { id: 4, name: "CeraVe Hydrating Facial Cleanser 237ml", category: "Skincare", price: 1850, stock: 12, image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80", desc: "Gentle non-foaming hydrating face wash enriched with 3 essential ceramides and hyaluronic acid." },
-            { id: 5, name: "The Ordinary Niacinamide 10% + Zinc 1%", category: "Skincare", price: 1100, stock: 20, image: "https://images.unsplash.com/photo-1608248597309-8d76d49495ef?auto=format&fit=crop&w=600&q=80", desc: "High-strength vitamin and mineral blemish serum to reduce appearance of skin spots and pore congestion." },
-            { id: 6, name: "Rom&nd Juicy Lasting Lip Tint - Figfig", category: "Makeup", price: 950, stock: 15, image: "https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?auto=format&fit=crop&w=600&q=80", desc: "Viral K-beauty glossy lip tint with syrup-like candy shine that lasts all day without stickiness." },
-            { id: 7, name: "Maybelline Lash Sensational Sky High Mascara", category: "Makeup", price: 1350, stock: 14, image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80", desc: "Volumizing and lengthening mascara enriched with bamboo extract for full impact lash extension effect." },
-            { id: 8, name: "MAC Matte Lipstick - Velvet Teddy", category: "Makeup", price: 2400, stock: 10, image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=600&q=80", desc: "Iconic deep beige nude lipstick with high color payoff and a smooth matte finish." },
-            { id: 9, name: "K18 Leave-In Molecular Repair Hair Mask", category: "Haircare", price: 3200, stock: 8, image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80", desc: "4-minute leave-in treatment clinically proven to reverse hair damage from bleach, color, and heat." },
-            { id: 10, name: "Sol de Janeiro Brazilian Bum Bum Body Cream", category: "Bodycare", price: 2800, stock: 11, image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80", desc: "Fast-absorbing body cream with a visible tightening formula enriched with Guaraná extract and Pistachio-Caramel scent." }
-        ];
+        const saved = JSON.parse(localStorage.getItem('jhumur_products') || '[]');
+        const list = saved.filter(p => p.category === cat);
 
-        let cart = [];
-
-        function getProducts() {
-            const saved = localStorage.getItem('jhumur_products');
-            return saved ? JSON.parse(saved) : BEAUTY_PRODUCTS;
-        }
-
-        function renderCategoryPage() {
-            document.getElementById('categoryTitle').innerText = `${currentCategory} Collection`;
-            document.getElementById('categorySubtitle').innerText = `Showing all authentic items under ${currentCategory}`;
-
-            const products = getProducts();
-            const filtered = products.filter(p => p.category.toLowerCase() === currentCategory.toLowerCase());
-            const grid = document.getElementById('categoryGrid');
-
-            if (filtered.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-12 text-pinkshade-800 font-bold bg-white/60 rounded-2xl border border-pinkshade-200">No items available in ${currentCategory} right now.</div>`;
-                return;
-            }
-
-            grid.innerHTML = filtered.map(p => `
-                <div class="bg-white rounded-2xl overflow-hidden border border-pinkshade-200 transition flex flex-col justify-between shadow-sm hover:shadow-md group">
-                    <a href="product.html?id=${p.id}" class="aspect-square relative overflow-hidden bg-pinkshade-50 block">
-                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                        <span class="absolute top-3 left-3 bg-white/90 text-pinkshade-900 text-[10px] font-bold uppercase px-2.5 py-1 rounded-full border border-pinkshade-200">${p.category}</span>
-                        <span class="absolute top-3 right-3 ${p.stock > 0 ? 'bg-pinkshade-600' : 'bg-slate-500'} text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Stock: ${p.stock}</span>
-                    </a>
-                    <div class="p-5 space-y-3">
-                        <a href="product.html?id=${p.id}" class="font-serif font-semibold text-pinkshade-950 text-lg hover:text-pinkshade-600 no-underline block line-clamp-2">${p.name}</a>
-                        <div class="flex items-center justify-between">
-                            <span class="text-pinkshade-800 font-bold text-lg">৳ ${p.price.toLocaleString()}</span>
-                            ${p.stock > 0 ? `<button onclick="addToCart(${p.id})" class="bg-pinkshade-100 hover:bg-pinkshade-700 text-pinkshade-800 hover:text-white p-2.5 rounded-full transition"><i class="fa-solid fa-cart-plus text-sm"></i></button>` : `<span class="text-xs font-bold text-slate-400">Out of Stock</span>`}
-                        </div>
-                    </div>
+        document.getElementById('catProductsGrid').innerHTML = list.length ? list.map(p => `
+            <div class="bg-white rounded-2xl overflow-hidden border border-pinkshade-200 shadow-sm flex flex-col justify-between">
+                <div class="aspect-square bg-pinkshade-50"><img src="${p.image}" class="w-full h-full object-cover"></div>
+                <div class="p-4 space-y-2">
+                    <h4 class="font-serif font-semibold text-sm">${p.name}</h4>
+                    <div class="flex justify-between items-center"><span class="text-pinkshade-800 font-bold">৳ ${p.price}</span><a href="product.html?id=${p.id}" class="bg-pinkshade-800 text-white text-xs px-3 py-1.5 rounded-full font-bold">View</a></div>
                 </div>
-            `).join('');
-        }
-
-        function addToCart(id) {
-            const products = getProducts();
-            const prod = products.find(p => p.id === id);
-            if(prod && prod.stock > 0) {
-                cart.push(prod);
-                updateCartUI();
-                toggleCart(true);
-            }
-        }
-
-        function updateCartUI() {
-            document.getElementById('cartCount').innerText = cart.length;
-            const total = cart.reduce((sum, item) => sum + parseFloat(item.price), 0);
-            document.getElementById('cartItems').innerHTML = cart.map((item) => `
-                <div class="flex items-center gap-4 p-3 bg-pinkshade-50/60 rounded-xl border border-pinkshade-100">
-                    <img src="${item.image}" class="w-14 h-14 object-cover rounded-lg">
-                    <div class="flex-1">
-                        <h4 class="font-serif text-sm font-semibold text-slate-800">${item.name}</h4>
-                        <p class="text-xs text-pinkshade-700 font-bold">৳ ${item.price.toLocaleString()}</p>
-                    </div>
-                </div>
-            `).join('');
-            document.getElementById('cartTotal').innerText = `৳ ${total.toLocaleString()}`;
-        }
-
-        function toggleCart(forceOpen = false) {
-            const drawer = document.getElementById('cartDrawer');
-            if(forceOpen) drawer.classList.remove('hidden');
-            else drawer.classList.toggle('hidden');
-        }
-
-        renderCategoryPage();
+            </div>
+        `).join('') : '<p>No items found in this category.</p>';
     </script>
 </body>
 </html>
