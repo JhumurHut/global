@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Sign Up - Jhumur Hut</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { pinkshade: { 50: '#FFF0F5', 100: '#FFE4E1', 200: '#FBCFE8', 500: '#EC4899', 700: '#BE185D', 800: '#9D174D', 900: '#831843' } },
+                    fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Plus Jakarta Sans', 'sans-serif'], cursive: ['Great Vibes', 'cursive'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-[#FFF0F5] via-[#F8E7F6] to-[#FAF0F8] min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl border border-pinkshade-200 space-y-6">
+        <div class="text-center">
+            <a href="index.html" class="font-cursive text-4xl text-pinkshade-800 block">Jhumur Hut</a>
+            <h2 class="font-serif text-2xl font-bold text-slate-900 mt-2">Welcome Back! ✨</h2>
+            <p class="text-xs text-slate-500 mt-1">Sign in or create your fairy account instantly</p>
+        </div>
+
+        <!-- SOCIAL LOGIN BUTTONS -->
+        <div class="space-y-3">
+            <button onclick="socialLogin('Google')" class="w-full flex items-center justify-center gap-3 py-3 px-4 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 transition shadow-sm">
+                <i class="fa-brands fa-google text-red-500 text-sm"></i> Continue with Google Account
+            </button>
+            <button onclick="socialLogin('Facebook')" class="w-full flex items-center justify-center gap-3 py-3 px-4 border border-slate-200 rounded-xl text-xs font-bold text-white bg-[#1877F2] hover:bg-[#166fe5] transition shadow-sm">
+                <i class="fa-brands fa-facebook text-white text-sm"></i> Continue with Facebook Account
+            </button>
+        </div>
+
+        <div class="flex items-center my-4">
+            <div class="flex-grow border-t border-slate-200"></div>
+            <span class="px-3 text-slate-400 text-xs uppercase">Or with email</span>
+            <div class="flex-grow border-t border-slate-200"></div>
+        </div>
+
+        <form onsubmit="handleEmailLogin(event)" class="space-y-4 text-xs">
+            <div>
+                <label class="block font-bold text-slate-700 mb-1">Email Address *</label>
+                <input type="email" id="loginEmail" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="fairyglow@gmail.com">
+            </div>
+            <div>
+                <label class="block font-bold text-slate-700 mb-1">Password *</label>
+                <input type="password" id="loginPassword" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="••••••••">
+            </div>
+            <button type="submit" class="w-full bg-gradient-to-r from-pinkshade-700 to-pinkshade-900 text-white font-bold py-3.5 rounded-xl shadow-lg hover:from-pinkshade-800 transition">
+                Sign In / Sign Up
+            </button>
+        </form>
+
+        <div class="text-center">
+            <a href="index.html" class="text-xs text-pinkshade-800 font-bold hover:underline"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        function socialLogin(provider) {
+            // Simulated OAuth Sync Data
+            const mockUser = {
+                name: provider === 'Google' ? 'Sakib Rakesh (Google User)' : 'Sakib Rakesh (Facebook User)',
+                email: 'sakib.rakesh@gmail.com',
+                phone: '01758964710',
+                photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
+                address: 'Mirpur, Dhaka, Bangladesh'
+            };
+            localStorage.setItem('jhumur_logged_user', JSON.stringify(mockUser));
+            alert(`🎉 Successfully logged in with ${provider}! Redirecting to your account dashboard.`);
+            window.location.href = "account.html";
+        }
+
+        function handleEmailLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const mockUser = {
+                name: email.split('@')[0],
+                email: email,
+                phone: '01700000000',
+                photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
+                address: 'Dhaka, Bangladesh'
+            };
+            localStorage.setItem('jhumur_logged_user', JSON.stringify(mockUser));
+            alert('🎉 Logged in Successfully!');
+            window.location.href = "account.html";
+        }
+    </script>
+</body>
+</html>
