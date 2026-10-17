@@ -20,6 +20,7 @@
 </head>
 <body class="bg-gradient-to-br from-[#FFF0F5] via-[#F8E7F6] to-[#FAF0F8] min-h-screen flex items-center justify-center p-4">
 
+    <!-- LOGIN CONTAINER -->
     <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl border border-pinkshade-200 space-y-6">
         <div class="text-center">
             <a href="index.html" class="font-cursive text-4xl text-pinkshade-800 block">Jhumur Hut</a>
@@ -29,10 +30,10 @@
 
         <!-- SOCIAL LOGIN BUTTONS -->
         <div class="space-y-3">
-            <button onclick="socialLogin('Google')" class="w-full flex items-center justify-center gap-3 py-3 px-4 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 transition shadow-sm">
+            <button onclick="openSocialModal('Google')" class="w-full flex items-center justify-center gap-3 py-3 px-4 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 transition shadow-sm">
                 <i class="fa-brands fa-google text-red-500 text-sm"></i> Continue with Google Account
             </button>
-            <button onclick="socialLogin('Facebook')" class="w-full flex items-center justify-center gap-3 py-3 px-4 border border-slate-200 rounded-xl text-xs font-bold text-white bg-[#1877F2] hover:bg-[#166fe5] transition shadow-sm">
+            <button onclick="openSocialModal('Facebook')" class="w-full flex items-center justify-center gap-3 py-3 px-4 border border-slate-200 rounded-xl text-xs font-bold text-white bg-[#1877F2] hover:bg-[#166fe5] transition shadow-sm">
                 <i class="fa-brands fa-facebook text-white text-sm"></i> Continue with Facebook Account
             </button>
         </div>
@@ -62,19 +63,156 @@
         </div>
     </div>
 
+    <!-- GOOGLE / FACEBOOK ACCOUNT CHOOSER MODAL -->
+    <div id="socialModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
+        <div class="bg-[#1e1e1e] text-white rounded-3xl max-w-xl w-full p-8 shadow-2xl border border-zinc-800 space-y-6 relative font-sans">
+            <button onclick="closeSocialModal()" class="absolute top-5 right-5 text-zinc-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+
+            <!-- MODAL HEADER -->
+            <div class="flex items-center gap-3">
+                <i id="providerLogo" class="fa-brands fa-google text-red-500 text-xl"></i>
+                <span id="providerHeaderTitle" class="text-sm font-semibold text-zinc-300">Sign in with Google</span>
+            </div>
+
+            <!-- MAIN TITLE -->
+            <div class="flex items-start gap-6 border-b border-zinc-800 pb-6">
+                <div class="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden border border-zinc-700 flex-shrink-0">
+                    <img src="https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/Logo.png" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h2 class="text-3xl font-normal text-white">Choose an account</h2>
+                    <p class="text-sm text-zinc-400 mt-1">to continue to <span class="font-bold text-white">Jhumur Hut</span></p>
+                </div>
+            </div>
+
+            <!-- ACCOUNT LIST -->
+            <div id="accountListContainer" class="space-y-1">
+                <!-- Dynamically Populated Accounts -->
+            </div>
+
+            <!-- FOOTER LINKS -->
+            <div class="text-[11px] text-zinc-500 pt-4 border-t border-zinc-800 flex justify-between items-center">
+                <span>English (United States)</span>
+                <div class="space-x-3">
+                    <a href="#" class="hover:underline">Help</a>
+                    <a href="#" class="hover:underline">Privacy</a>
+                    <a href="#" class="hover:underline">Terms</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        function socialLogin(provider) {
-            // Simulated OAuth Sync Data
-            const mockUser = {
-                name: provider === 'Google' ? 'Sakib Rakesh (Google User)' : 'Sakib Rakesh (Facebook User)',
-                email: 'sakib.rakesh@gmail.com',
-                phone: '01758964710',
-                photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
-                address: 'Mirpur, Dhaka, Bangladesh'
-            };
-            localStorage.setItem('jhumur_logged_user', JSON.stringify(mockUser));
-            alert(`🎉 Successfully logged in with ${provider}! Redirecting to your account dashboard.`);
+        const mockGoogleAccounts = [
+            {
+                name: "Jhumur Hut Official",
+                email: "jhumurhut@gmail.com",
+                photo: "https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/Logo.png",
+                phone: "01700000000",
+                address: "Dhaka, Bangladesh"
+            },
+            {
+                name: "Sakib Rakesh",
+                email: "sakib.rakesh@gmail.com",
+                photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+                phone: "01758964710",
+                address: "Mirpur, Dhaka, Bangladesh"
+            }
+        ];
+
+        const mockFacebookAccounts = [
+            {
+                name: "Sakib Rakesh (Facebook User)",
+                email: "sakib.fb@gmail.com",
+                photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+                phone: "01822334455",
+                address: "Uttara, Dhaka"
+            }
+        ];
+
+        let activeProvider = 'Google';
+
+        function openSocialModal(provider) {
+            activeProvider = provider;
+            const modal = document.getElementById('socialModal');
+            const logo = document.getElementById('providerLogo');
+            const title = document.getElementById('providerHeaderTitle');
+            const container = document.getElementById('accountListContainer');
+
+            if(provider === 'Google') {
+                logo.className = "fa-brands fa-google text-red-500 text-xl";
+                title.innerText = "Sign in with Google";
+                
+                const accounts = mockGoogleAccounts;
+                container.innerHTML = accounts.map((acc, index) => `
+                    <div onclick="selectAccount(${index})" class="flex items-center gap-4 p-3 rounded-xl hover:bg-zinc-800/70 cursor-pointer transition">
+                        <img src="${acc.photo}" class="w-10 h-10 rounded-full object-cover">
+                        <div class="flex-1">
+                            <h4 class="text-sm font-semibold text-white">${acc.name}</h4>
+                            <p class="text-xs text-zinc-400">${acc.email}</p>
+                        </div>
+                    </div>
+                `).join('') + `
+                    <div onclick="useAnotherAccount()" class="flex items-center gap-4 p-3 rounded-xl hover:bg-zinc-800/70 cursor-pointer transition border-t border-zinc-800 mt-2">
+                        <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-300">
+                            <i class="fa-regular fa-user"></i>
+                        </div>
+                        <span class="text-sm font-medium text-white">Use another account</span>
+                    </div>
+                `;
+            } else {
+                logo.className = "fa-brands fa-facebook text-blue-500 text-xl";
+                title.innerText = "Log in with Facebook";
+                
+                const accounts = mockFacebookAccounts;
+                container.innerHTML = accounts.map((acc, index) => `
+                    <div onclick="selectAccount(${index})" class="flex items-center gap-4 p-3 rounded-xl hover:bg-zinc-800/70 cursor-pointer transition">
+                        <img src="${acc.photo}" class="w-10 h-10 rounded-full object-cover">
+                        <div class="flex-1">
+                            <h4 class="text-sm font-semibold text-white">${acc.name}</h4>
+                            <p class="text-xs text-zinc-400">${acc.email}</p>
+                        </div>
+                    </div>
+                `).join('') + `
+                    <div onclick="useAnotherAccount()" class="flex items-center gap-4 p-3 rounded-xl hover:bg-zinc-800/70 cursor-pointer transition border-t border-zinc-800 mt-2">
+                        <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-300">
+                            <i class="fa-regular fa-user"></i>
+                        </div>
+                        <span class="text-sm font-medium text-white">Log into another account</span>
+                    </div>
+                `;
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeSocialModal() {
+            document.getElementById('socialModal').classList.add('hidden');
+        }
+
+        function selectAccount(index) {
+            const list = activeProvider === 'Google' ? mockGoogleAccounts : mockFacebookAccounts;
+            const selectedUser = list[index];
+
+            localStorage.setItem('jhumur_logged_user', JSON.stringify(selectedUser));
+            alert(`🎉 Signed in successfully as ${selectedUser.name}!`);
             window.location.href = "account.html";
+        }
+
+        function useAnotherAccount() {
+            const customEmail = prompt(`Enter your ${activeProvider} Email:`);
+            if(customEmail) {
+                const newUser = {
+                    name: customEmail.split('@')[0],
+                    email: customEmail,
+                    photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+                    phone: "01700000000",
+                    address: "Dhaka, Bangladesh"
+                };
+                localStorage.setItem('jhumur_logged_user', JSON.stringify(newUser));
+                alert(`🎉 Signed in as ${newUser.email}!`);
+                window.location.href = "account.html";
+            }
         }
 
         function handleEmailLogin(e) {
