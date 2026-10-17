@@ -75,8 +75,11 @@
                 </div>
             </a>
 
-            <!-- CART ACTION -->
+            <!-- USER & CART ACTIONS -->
             <div class="flex items-center gap-3">
+                <a href="login.html" id="userAccountBtn" class="p-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 rounded-full shadow-lg hover:scale-105 transition flex items-center justify-center" title="Account">
+                    <i class="fa-regular fa-user text-base"></i>
+                </a>
                 <button onclick="toggleCart()" class="relative p-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 rounded-full shadow-lg hover:scale-105 transition">
                     <i class="fa-solid fa-bag-shopping text-base"></i>
                     <span id="cartCount" class="absolute -top-1 -right-1 bg-pinkshade-500 text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#3B0A24]">0</span>
@@ -176,7 +179,7 @@
                         <input type="tel" id="custPhone" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="017XXXXXXXX">
                     </div>
                     <div>
-                        <label class="block font-bold text-slate-700 mb-1">Email Address (For Confirmation) *</label>
+                        <label class="block font-bold text-slate-700 mb-1">Email Address *</label>
                         <input type="email" id="custEmail" required class="w-full p-3 border rounded-xl bg-pinkshade-50/50" placeholder="example@gmail.com">
                     </div>
                 </div>
@@ -258,6 +261,13 @@
         let cart = [];
         let currentDeliveryFee = 60;
         let activeCategory = 'All';
+
+        const loggedUser = JSON.parse(localStorage.getItem('jhumur_logged_user'));
+        if(loggedUser) {
+            const btn = document.getElementById('userAccountBtn');
+            btn.href = "account.html";
+            btn.innerHTML = `<img src="${loggedUser.photo}" class="w-6 h-6 rounded-full object-cover">`;
+        }
 
         function getProducts() {
             const saved = localStorage.getItem('jhumur_products');
@@ -434,6 +444,12 @@
 
         function openCheckoutModal() {
             if(cart.length === 0) return alert('Your bag is empty!');
+            if(loggedUser) {
+                document.getElementById('custName').value = loggedUser.name || '';
+                document.getElementById('custEmail').value = loggedUser.email || '';
+                document.getElementById('custPhone').value = loggedUser.phone || '';
+                document.getElementById('custAddress').value = loggedUser.address || '';
+            }
             toggleCart(false);
             calculateDelivery();
             document.getElementById('checkoutModal').classList.remove('hidden');
