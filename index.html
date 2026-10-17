@@ -44,7 +44,7 @@
 
     <!-- HERO & INTEGRATED HEADER CONTAINER WITH BABY PINK & PURPLE LIGHT THEME -->
     <div class="relative bg-gradient-to-br from-[#4A0E2E] via-[#5C133B] to-[#3B0A24] text-white overflow-hidden border-b border-pinkshade-200">
-        <!-- BACKGROUND MAGIC GIF WITH ADJUSTED TRANSPARENCY -->
+        <!-- BACKGROUND MAGIC GIF -->
         <div class="absolute inset-0 z-0 opacity-70">
             <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyNGN2bTV3eTh3ank0bDlkdjU5bjcydmFrMm9sNjh6Yng0YWk3dHJydUZlcD12MV9pbnRlcm5hbF_naWZfYnlfaWQmY3Q9Zw/L9EUxgj4PCwU6pZXsS/giphy.gif" alt="Background Magic GIF" class="w-full h-full object-cover">
         </div>
@@ -292,7 +292,6 @@
                 }
 
                 if (catProducts.length > 0) {
-                    // Limit up to 10 items for horizontal scroll
                     const displayProducts = catProducts.slice(0, 10);
                     const carouselId = `carousel-${idx}`;
 
@@ -305,16 +304,18 @@
                                     <h3 class="font-serif text-2xl font-bold text-pinkshade-950">${cat} Items</h3>
                                     <span class="text-xs font-semibold text-pinkshade-600 bg-pinkshade-100 px-2.5 py-0.5 rounded-full">(${catProducts.length})</span>
                                 </div>
+                                <button onclick="seeMoreCategory('${cat}')" class="text-xs font-bold text-pinkshade-700 hover:text-pinkshade-900 underline flex items-center gap-1">
+                                    <span>View All</span>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </button>
                             </div>
 
                             <!-- CAROUSEL WRAPPER WITH TRANSPARENT OVERLAY ARROWS -->
                             <div class="relative group/carousel">
-                                <!-- LEFT TRANSPARENT FLOATING ARROW -->
                                 <button onclick="scrollContainer('${carouselId}', 'left')" class="absolute left-1 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/70 hover:bg-pinkshade-800 backdrop-blur-md text-pinkshade-900 hover:text-white border border-white/80 shadow-lg flex items-center justify-center transition-all transform hover:scale-110">
                                     <i class="fa-solid fa-chevron-left text-sm"></i>
                                 </button>
 
-                                <!-- HORIZONTAL SCROLL PRODUCT CONTAINER -->
                                 <div id="${carouselId}" class="flex gap-5 overflow-x-auto scroll-smooth no-scrollbar py-2 px-1">
                                     ${displayProducts.map(p => `
                                         <div class="min-w-[240px] max-w-[240px] bg-white rounded-2xl overflow-hidden border border-pinkshade-200 flex flex-col justify-between shadow-sm hover:shadow-md group flex-shrink-0 transition">
@@ -332,7 +333,7 @@
                                         </div>
                                     `).join('')}
 
-                                    <!-- SEE MORE ITEM CARD AT THE END OF CAROUSEL -->
+                                    <!-- SEE MORE ITEM CARD REDIRECTING TO CATEGORY PAGE -->
                                     <div class="min-w-[220px] max-w-[220px] bg-gradient-to-br from-pinkshade-100 via-pinkshade-50 to-white rounded-2xl border-2 border-dashed border-pinkshade-300 p-6 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition flex-shrink-0 group/card">
                                         <div class="w-12 h-12 rounded-full bg-pinkshade-200 group-hover/card:bg-pinkshade-700 text-pinkshade-800 group-hover/card:text-white flex items-center justify-center mb-3 transition">
                                             <i class="fa-solid fa-sparkles text-lg"></i>
@@ -345,7 +346,6 @@
                                     </div>
                                 </div>
 
-                                <!-- RIGHT TRANSPARENT FLOATING ARROW -->
                                 <button onclick="scrollContainer('${carouselId}', 'right')" class="absolute right-1 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/70 hover:bg-pinkshade-800 backdrop-blur-md text-pinkshade-900 hover:text-white border border-white/80 shadow-lg flex items-center justify-center transition-all transform hover:scale-110">
                                     <i class="fa-solid fa-chevron-right text-sm"></i>
                                 </button>
@@ -375,8 +375,8 @@
         }
 
         function seeMoreCategory(cat) {
-            filterCategory(cat);
-            window.scrollTo({ top: document.getElementById('products').offsetTop - 50, behavior: 'smooth' });
+            // REDIRECT TO SPECIFIC CATEGORY PAGE
+            window.location.href = `category.html?cat=${encodeURIComponent(cat)}`;
         }
 
         function addToCart(id) {
