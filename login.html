@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Jhumur Hut</title>
+    <title>Login & Register | Jhumur Hut</title>
     
     <!-- Website Tab Favicon Logo -->
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/Logo.png">
@@ -43,10 +43,10 @@
 </head>
 <body class="text-slate-800 antialiased flex flex-col justify-between min-h-screen">
 
-    <!-- HERO GRADIENT CONTAINER matching INDEX.HTML -->
+    <!-- HERO GRADIENT CONTAINER -->
     <div class="relative bg-gradient-to-br from-[#FFF5F8] via-[#FFEBF2] to-[#FFDDE8] text-slate-900 border-b border-pinkshade-200">
         
-        <!-- TOP PROMO BANNER (MATCHING INDEX.HTML) -->
+        <!-- TOP PROMO BANNER -->
         <div id="topBanner" class="relative z-30 bg-pinkshade-800 text-pinkshade-50 text-xs py-2.5 px-4 text-center font-medium tracking-wide flex justify-between items-center border-b border-pinkshade-700">
             <div class="flex-1 text-center flex items-center justify-center gap-2">
                 <span>🦋</span>
@@ -56,7 +56,7 @@
             <button onclick="document.getElementById('topBanner').remove()" class="text-pinkshade-200 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
-        <!-- MAIN HEADER (MATCHING INDEX.HTML EXACTLY) -->
+        <!-- MAIN HEADER -->
         <header class="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
             <a href="index.html" class="flex items-center gap-3 group">
                 <div class="h-14 md:h-16 w-auto flex items-center justify-center group-hover:scale-105 transition-transform flex-shrink-0">
@@ -77,35 +77,44 @@
         </header>
     </div>
 
-    <!-- MAIN LOGIN CONTAINER -->
+    <!-- MAIN AUTH CONTAINER -->
     <main class="max-w-md w-full mx-auto px-4 py-8 my-auto">
         <div class="bg-white/90 backdrop-blur-md rounded-3xl p-8 sm:p-10 border border-pinkshade-200 shadow-xl space-y-6">
             
             <div class="text-center space-y-2">
-                <!-- SYMBOL FAIRY LOGO WITH PROPER POPPING DARK BACKGROUND -->
+                <!-- FAIRY SYMBOL LOGO -->
                 <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-tr from-pinkshade-800 to-pinkshade-950 p-1 shadow-md mb-2 flex items-center justify-center">
                     <img src="https://raw.githubusercontent.com/JhumurHut/global/refs/heads/main/symbol.png" alt="Fairy Symbol" class="w-full h-full object-cover rounded-full border border-pinkshade-300/40">
                 </div>
-                <h1 class="font-serif text-2xl sm:text-3xl font-bold text-pinkshade-950">Sign in to your account</h1>
-                <p class="text-xs text-slate-500 font-medium">New user? <a href="#" onclick="toggleMode('signup'); return false;" class="text-pinkshade-700 font-bold hover:underline">Create an account</a></p>
+                <h1 id="pageHeading" class="font-serif text-2xl sm:text-3xl font-bold text-pinkshade-950">Sign in to your account</h1>
+                <p id="pageSubHeading" class="text-xs text-slate-500 font-medium">Welcome back! Please enter your details.</p>
             </div>
 
             <form onsubmit="handleAuthSubmit(event)" id="authForm" class="space-y-4 text-xs">
                 
+                <!-- FULL NAME (ONLY IN CREATE ACCOUNT MODE) -->
                 <div id="nameFieldContainer" class="hidden">
                     <label class="block font-bold text-slate-700 mb-1">Full Name *</label>
                     <input type="text" id="inputName" class="w-full p-3.5 border border-pinkshade-200 rounded-2xl bg-pinkshade-50/30 focus:outline-none focus:ring-2 focus:ring-pinkshade-500 transition" placeholder="Your Full Name">
                 </div>
 
+                <!-- EMAIL FIELD -->
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Phone number or email</label>
-                    <input type="text" id="inputIdentifier" required class="w-full p-3.5 border border-pinkshade-200 rounded-2xl bg-pinkshade-50/30 focus:outline-none focus:ring-2 focus:ring-pinkshade-500 transition" placeholder="Phone or email">
+                    <label id="labelEmail" class="block font-bold text-slate-700 mb-1">Email address or phone</label>
+                    <input type="text" id="inputEmail" required class="w-full p-3.5 border border-pinkshade-200 rounded-2xl bg-pinkshade-50/30 focus:outline-none focus:ring-2 focus:ring-pinkshade-500 transition" placeholder="example@gmail.com">
                 </div>
 
+                <!-- PHONE FIELD (ONLY IN CREATE ACCOUNT MODE) -->
+                <div id="phoneFieldContainer" class="hidden">
+                    <label class="block font-bold text-slate-700 mb-1">Phone Number *</label>
+                    <input type="tel" id="inputPhone" class="w-full p-3.5 border border-pinkshade-200 rounded-2xl bg-pinkshade-50/30 focus:outline-none focus:ring-2 focus:ring-pinkshade-500 transition" placeholder="017XXXXXXXX">
+                </div>
+
+                <!-- PASSWORD FIELD -->
                 <div>
                     <div class="flex justify-between items-center mb-1">
-                        <label class="font-bold text-slate-700">Password</label>
-                        <a href="#" onclick="alert('Please contact our support page to reset password.'); return false;" class="text-[11px] font-bold text-pinkshade-600 hover:underline">Forgot password?</a>
+                        <label class="font-bold text-slate-700">Password *</label>
+                        <a href="#" id="forgotPassLink" onclick="alert('Please contact our support page to reset password.'); return false;" class="text-[11px] font-bold text-pinkshade-600 hover:underline">Forgot password?</a>
                     </div>
                     <input type="password" id="inputPassword" required class="w-full p-3.5 border border-pinkshade-200 rounded-2xl bg-pinkshade-50/30 focus:outline-none focus:ring-2 focus:ring-pinkshade-500 transition" placeholder="••••••••••••">
                 </div>
@@ -121,15 +130,12 @@
                 <div class="flex-grow border-t border-pinkshade-100"></div>
             </div>
 
-            <div class="space-y-2.5 text-xs font-semibold">
-                <button onclick="handleSocialAuth('Google')" class="w-full bg-white hover:bg-pinkshade-50 text-slate-700 py-3 rounded-2xl border border-pinkshade-200 shadow-sm flex items-center justify-center gap-2.5 transition">
-                    <i class="fa-brands fa-google text-red-500 text-sm"></i>
-                    <span>Sign with Google</span>
-                </button>
-                <button onclick="handleSocialAuth('Apple')" class="w-full bg-white hover:bg-pinkshade-50 text-slate-700 py-3 rounded-2xl border border-pinkshade-200 shadow-sm flex items-center justify-center gap-2.5 transition">
-                    <i class="fa-brands fa-apple text-black text-sm"></i>
-                    <span>Sign with Apple</span>
-                </button>
+            <!-- SWITCH BETWEEN SIGN IN & CREATE ACCOUNT -->
+            <div class="text-center text-xs">
+                <p id="switchText" class="text-slate-600 font-medium">
+                    Don't have an account? 
+                    <a href="#" onclick="toggleMode('signup'); return false;" class="text-pinkshade-800 font-bold hover:underline ml-1">Create an account</a>
+                </p>
             </div>
 
         </div>
@@ -146,39 +152,76 @@
 
         function toggleMode(mode) {
             isSignUpMode = (mode === 'signup');
+            
+            const pageHeading = document.getElementById('pageHeading');
+            const pageSubHeading = document.getElementById('pageSubHeading');
             const nameContainer = document.getElementById('nameFieldContainer');
+            const phoneContainer = document.getElementById('phoneFieldContainer');
+            const labelEmail = document.getElementById('labelEmail');
+            const inputEmail = document.getElementById('inputEmail');
+            const inputName = document.getElementById('inputName');
+            const inputPhone = document.getElementById('inputPhone');
             const submitBtn = document.getElementById('authSubmitBtn');
-            const nameInput = document.getElementById('inputName');
+            const forgotLink = document.getElementById('forgotPassLink');
+            const switchText = document.getElementById('switchText');
 
             if (isSignUpMode) {
+                pageHeading.innerText = "Create an account";
+                pageSubHeading.innerText = "Fill in the information below to register.";
+                
                 nameContainer.classList.remove('hidden');
-                nameInput.required = true;
+                phoneContainer.classList.remove('hidden');
+                forgotLink.classList.add('hidden');
+                
+                labelEmail.innerText = "Email Address *";
+                inputEmail.placeholder = "example@gmail.com";
+                
+                inputName.required = true;
+                inputPhone.required = true;
+                
                 submitBtn.innerText = "Create Account";
+                
+                switchText.innerHTML = `Already have an account? <a href="#" onclick="toggleMode('signin'); return false;" class="text-pinkshade-800 font-bold hover:underline ml-1">Log in</a>`;
             } else {
+                pageHeading.innerText = "Sign in to your account";
+                pageSubHeading.innerText = "Welcome back! Please enter your details.";
+                
                 nameContainer.classList.add('hidden');
-                nameInput.required = false;
+                phoneContainer.classList.add('hidden');
+                forgotLink.classList.remove('hidden');
+                
+                labelEmail.innerText = "Email address or phone";
+                inputEmail.placeholder = "Phone or email";
+                
+                inputName.required = false;
+                inputPhone.required = false;
+                
                 submitBtn.innerText = "Sign In";
+                
+                switchText.innerHTML = `Don't have an account? <a href="#" onclick="toggleMode('signup'); return false;" class="text-pinkshade-800 font-bold hover:underline ml-1">Create an account</a>`;
             }
         }
 
         function handleAuthSubmit(e) {
             e.preventDefault();
-            const identifier = document.getElementById('inputIdentifier').value.trim().toLowerCase();
+            const email = document.getElementById('inputEmail').value.trim().toLowerCase();
             const password = document.getElementById('inputPassword').value;
-            const name = document.getElementById('inputName').value.trim();
 
             let usersDb = JSON.parse(localStorage.getItem('jhumur_users_db') || '[]');
 
             if (isSignUpMode) {
-                const existing = usersDb.find(u => u.email === identifier || u.phone === identifier);
-                if (existing) {
-                    return alert('❌ An account with this Email/Phone already exists! Please Sign In.');
+                const name = document.getElementById('inputName').value.trim();
+                const phone = document.getElementById('inputPhone').value.trim();
+
+                const existingUser = usersDb.find(u => u.email === email || (u.phone && u.phone === phone));
+                if (existingUser) {
+                    return alert('❌ An account with this Email or Phone number already exists! Please Log in.');
                 }
 
                 const newUser = {
                     name: name || 'Fairy Member',
-                    email: identifier.includes('@') ? identifier : `${identifier}@jhumurhut.com`,
-                    phone: identifier.includes('@') ? '' : identifier,
+                    email: email,
+                    phone: phone,
                     address: '',
                     password: password
                 };
@@ -191,7 +234,7 @@
                 window.location.href = "account.html";
 
             } else {
-                const user = usersDb.find(u => (u.email === identifier || u.phone === identifier) && u.password === password);
+                const user = usersDb.find(u => (u.email === email || u.phone === email) && u.password === password);
 
                 if (user) {
                     localStorage.setItem('jhumur_logged_user', JSON.stringify(user));
@@ -201,26 +244,6 @@
                     alert('❌ Invalid Credentials! Please check your email/phone and password.');
                 }
             }
-        }
-
-        function handleSocialAuth(provider) {
-            const mockUser = {
-                name: `${provider} User`,
-                email: `user.${provider.toLowerCase()}@jhumurhut.com`,
-                phone: '',
-                address: '',
-                password: 'social_auth_user'
-            };
-
-            let usersDb = JSON.parse(localStorage.getItem('jhumur_users_db') || '[]');
-            if (!usersDb.some(u => u.email === mockUser.email)) {
-                usersDb.push(mockUser);
-                localStorage.setItem('jhumur_users_db', JSON.stringify(usersDb));
-            }
-
-            localStorage.setItem('jhumur_logged_user', JSON.stringify(mockUser));
-            alert(`✨ Signed in successfully with ${provider}!`);
-            window.location.href = "account.html";
         }
     </script>
 </body>
